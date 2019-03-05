@@ -47,20 +47,10 @@ public class Login extends AppCompatActivity {
         });
         t2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                /*i3 = new Intent(android.content.Intent.ACTION_SEND);
-                i3.setData(Uri.parse("mailto:"));
-                String recipient = e1.getText().toString();
-                i3.putExtra(android.content.Intent.EXTRA_EMAIL, recipient);
-                i3.putExtra(android.content.Intent.EXTRA_SUBJECT, "Reset Password");
-                i3.putExtra(android.content.Intent.EXTRA_TEXT, "Your new password is 1234. Please reset upon logging in!");
-                i3.setType("text/plain");*/
                 User user = db.getUser(email);
                 user.setPassword("1234");
                 db.updateUser(user);
                 new SendMail().execute("");
-                /*if (i3.resolveActivity(getPackageManager()) != null) {
-                    startActivity(i3);
-                }*/
             }
         });
         b1.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +97,7 @@ public class Login extends AppCompatActivity {
         }
 
         protected Void doInBackground(String... params) {
-            Mail m = new Mail("leechongyan33", "64422795");
+            Mail m = new Mail("CashMyTrash", "abc123%%%");
 
             String[] toArr = {email};
             m.setTo(toArr);
