@@ -55,7 +55,7 @@ public class Registration extends AppCompatActivity {
                    if(s5.length()!=8){
                        e5.setError("Phone no is invalid");
                    }
-                   if(s2.length()<8||!isValidPassword(s2)){
+                   if(s2.length()<8&&!isValidPassword(s2)){
                        e2.setError("Password must contain minimum 8 characters at least 1 Alphabet, 1 Number and 1 Special Character");
                    }
                    if(!isEmailValid(s4)){
