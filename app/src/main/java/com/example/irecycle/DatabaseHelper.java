@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-//kang yu is here
 
 public class DatabaseHelper extends SQLiteOpenHelper{
     public DatabaseHelper(Context context) {

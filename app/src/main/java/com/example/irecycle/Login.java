@@ -107,11 +107,11 @@ public class Login extends AppCompatActivity {
         }
 
         protected Void doInBackground(String... params) {
-            Mail m = new Mail("youremail@gmail", "password");
+            Mail m = new Mail("leechongyan33", "64422795");
 
-            String[] toArr = {};
+            String[] toArr = {email};
             m.setTo(toArr);
-            m.setFrom("youremail@gmail");
+            m.setFrom("leechongyan@gmail.com");
             m.setSubject("Reset Password");
             m.setBody("Your new password is 1234. Please reset upon logging in!");
 

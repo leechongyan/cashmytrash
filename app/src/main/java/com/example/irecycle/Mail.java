@@ -41,8 +41,8 @@ public class Mail extends javax.mail.Authenticator {
 
     public Mail() {
         _host = "smtp.gmail.com"; // default smtp server
-        _port = "465"; // default smtp port
-        _sport = "465"; // default socketfactory port
+        _port = "587"; // default smtp port
+        _sport = "587"; // default socketfactory port
 
         _user = "leechongyan33"; // username
         _pass = "64422795"; // password
@@ -111,12 +111,11 @@ public class Mail extends javax.mail.Authenticator {
             props.put("mail." + protocol + ".auth", "true");
             Transport t = session.getTransport(protocol);
             try {
-                t.connect("smtp.gmail.com","youremail@gmail","password");
+                t.connect("smtp.gmail.com","leechongyan33@gmail.com","64422795");
                 t.sendMessage(msg, msg.getAllRecipients());
             } finally {
                 t.close();
             }
-
             return true;
         } else {
             return false;
