@@ -44,9 +44,9 @@ public class Mail extends javax.mail.Authenticator {
         _port = "587"; // default smtp port
         _sport = "587"; // default socketfactory port
 
-        _user = "leechongyan33"; // username
+        _user = "cashmytrashmanager"; // username
         _pass = "64422795"; // password
-        _from = "Irecycle"; // email sent from
+        _from = "CashMyTrash"; // email sent from
         _subject = "Resetting Password"; // email subject
         _body = "Your new password is 1234. Please reset upon logging in!"; // email body
 
@@ -81,7 +81,7 @@ public class Mail extends javax.mail.Authenticator {
 
             Session session = Session.getInstance(props, new javax.mail.Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication("youremail@gmail","password");
+                    return new PasswordAuthentication("cashmytrashmanager@gmail","abc123%%%");
                 }
             });
             SMTPAuthenticator authentication = new SMTPAuthenticator();
@@ -111,7 +111,7 @@ public class Mail extends javax.mail.Authenticator {
             props.put("mail." + protocol + ".auth", "true");
             Transport t = session.getTransport(protocol);
             try {
-                t.connect("smtp.gmail.com","leechongyan33@gmail.com","64422795");
+                t.connect("smtp.gmail.com","cashmytrashmanager@gmail.com","abc123%%%");
                 t.sendMessage(msg, msg.getAllRecipients());
             } finally {
                 t.close();
