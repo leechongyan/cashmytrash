@@ -51,7 +51,14 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.421" />
         </android.support.constraint.ConstraintLayout>
+        <android.support.design.widget.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
 
+            >
+
+
+        </android.support.design.widget.NavigationView>
 
     </ScrollView>
 
