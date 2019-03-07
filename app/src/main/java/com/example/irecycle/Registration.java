@@ -1,11 +1,15 @@
 package com.example.irecycle;
 
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,15 +19,23 @@ import java.util.regex.Pattern;
 //https://www.youtube.com/watch?v=1WPAXHhG6u0
 //C:\Users\leech\AppData\Local\Android\Sdk\extras\intel\Hardware_Accelerated_Execution_Manager
 public class Registration extends AppCompatActivity {
+    private static final int RESULT_LOAD_IMAGE = 1;
+
     DatabaseHelper db;
-    TextView t1;
+    TextView t1, profilepic;
     EditText e1, e2, e3, e4, e5;
     Button b1;
     Intent i;
+
+    ImageView imageUploaded;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         db= new DatabaseHelper(this);
         t1=(TextView)findViewById(R.id.existingacc);
         e1=(EditText)findViewById(R.id.username);
@@ -32,6 +44,18 @@ public class Registration extends AppCompatActivity {
         e4=(EditText)findViewById(R.id.email);
         e5=(EditText)findViewById(R.id.phone);
         b1=(Button)findViewById(R.id.register);
+        profilepic = (TextView)findViewById(R.id.textView3);
+
+        imageUploaded = (ImageView) findViewById(R.id.profilepic);
+
+        imageUploaded.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galleryIntent,RESULT_LOAD_IMAGE);
+                }
+            });
+
+
         t1.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 i = new Intent(Registration.this, Login.class);
@@ -60,7 +84,12 @@ public class Registration extends AppCompatActivity {
                    }
                    if(!isEmailValid(s4)){
                        e4.setError("Email is invalid");
-                   }else {
+                   }
+                   if(profilepic.getText() != "Upload Success"){
+                       profilepic.setText("Upload a Image before registering");
+                   }
+
+                   else {
                        int i5 = Integer.parseInt(s5);
                        if (s2.equals(s3)) {
                            User user = new User(s4, s1, s2, i5);
@@ -81,6 +110,19 @@ public class Registration extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null)
+        {
+            Uri selectedImage = data.getData();
+            imageUploaded.setImageURI(selectedImage);
+            profilepic.setText("Upload Success");
+
+        }
+    }
+
     public static boolean isValidPassword(final String password) {
         Pattern pattern;
         Matcher matcher;
@@ -96,4 +138,6 @@ public class Registration extends AppCompatActivity {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
+
+
 }
