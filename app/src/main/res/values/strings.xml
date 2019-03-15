@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">cz2006-mappy</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+
+    <!--Item Detail Page -->
+    <string name="itemDetailName">Name of Item</string>
+    <string name="itemDetailUsername">Sold By: Username</string>
+    <string name="itemDetailPrice">Price : $SGD</string>
+    <string name="itemDetailDescription">Item Description</string>
+
+
+    <!--Create Item Page -->
+    <string name="createItemName">Item Name:</string>
+    <string name="createItemPrice">Item Price (SGD):</string>
+    <string name="createItemDescription">Item Description</string>
+    <string name="createItemButton">CREATE</string>
+</resources>
