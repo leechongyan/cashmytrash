@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -22,6 +23,22 @@ public class ItemDetailActivity extends AppCompatActivity {
 
             }
         });
+
+        TextView itemDetailName = (TextView) findViewById(R.id.itemDetailName);
+        String name = getIntent().getExtras().getString("item_detail_name");
+        itemDetailName.setText(name);
+
+        TextView itemDetailUsername = (TextView) findViewById(R.id.itemDetailUsername);
+        String username = getIntent().getExtras().getString("item_detail_username");
+        itemDetailUsername.setText("Sold By: " + username);
+
+        TextView itemDetailPrice = (TextView) findViewById(R.id.itemDetailPrice);
+        String price = getIntent().getExtras().getString("item_detail_price");
+        itemDetailPrice.setText(price);
+
+        TextView itemDetailDescription = (TextView) findViewById(R.id.itemDetailDescription);
+        String description = getIntent().getExtras().getString("item_detail_description");
+        itemDetailDescription.setText(description);
 
     }
 }
