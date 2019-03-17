@@ -20,4 +20,23 @@
     <string name="createItemPrice">Item Price (SGD):</string>
     <string name="createItemDescription">Item Description</string>
     <string name="createItemButton">CREATE</string>
+
+    <!--Feedback page -->
+    <string name="feedback_warning">Kindly note that the feedback is limited to 1500 characters</string>
+    <string name="send_feedback">SEND FEEDBACK</string>
+    <string name="feedback_placeholder"><p>Enter Feedback Here</p></string>
+
+    <!--See More page-->
+    <string name="aluminium_can"><p> Aluminium Can</p></string>
+    <string name="metal_tin"><p>Metal Tin</p></string>
+    <string name="box"><p> Old Corrugated Cardboard </p></string>
+    <string name="paper"><p> Papers </p></string>
+    <string name="price1"><p> SGD 0.50/kg</p></string>
+    <string name="price2"><p> SGD 0.10/kg</p></string>
+
+    <!--Convert to cash page -->
+    <string name="see_more"><p> See More</p></string>
+    <string name="cash_incentives"><p> Cash Incentives For Recyclables </p></string>
+    <string name="back"><p> Back </p></string>
+    <string name="title_activity_home">Home</string>
 </resources>
