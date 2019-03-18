@@ -39,4 +39,5 @@
     <string name="cash_incentives"><p> Cash Incentives For Recyclables </p></string>
     <string name="back"><p> Back </p></string>
     <string name="title_activity_home">Home</string>
+    <string name="title_activity_convert_to_cash_new">ConvertToCashNew</string>
 </resources>

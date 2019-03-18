@@ -14,7 +14,7 @@ public class SeeMoreCashIncentives extends AppCompatActivity {
     }
     public void back(View view) {
 
-        Intent back = new Intent(this, ConvertToCash.class);
+        Intent back = new Intent(this, ConvertToCashNew.class);
 
         startActivity(back);
     }

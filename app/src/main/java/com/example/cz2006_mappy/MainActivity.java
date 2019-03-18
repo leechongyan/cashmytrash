@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //TODO: MY PURCHASES ACTIVITY
         } else if (id == R.id.nav_convert_to_cash) {
             //TODO: CONVERT TO CASH ACTIVITY
-            Intent convert = new Intent(this, ConvertToCash.class);
+            Intent convert = new Intent(this, ConvertToCashNew.class);
             startActivity(convert);
         } else if (id == R.id.nav_change_password) {
             //TODO: CHANGE PASSWORD ACTIVITY
