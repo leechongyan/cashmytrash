@@ -6,16 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.List;
 
 public class ItemAdapter extends BaseAdapter {
     LayoutInflater mInflater;
     private Context context;
-    private final Integer[] mThumbIds;
 
-    public ItemAdapter(Context context, Integer[] mThumbIds) {
+    private List<Item> items;
+
+    public ItemAdapter(Context context, List<Item> items) {
         this.context = context;
-        this.mThumbIds = mThumbIds;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        this.items = items;
+
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -33,9 +39,22 @@ public class ItemAdapter extends BaseAdapter {
             ImageView imageView = (ImageView) gridView
                     .findViewById(R.id.grid_item_image);
 
+            imageView.setImageResource(R.drawable.ic_menu_camera);
 
-            imageView.setImageResource(mThumbIds[position]);
+            TextView itemName = (TextView) gridView.findViewById(R.id.grid_item_name);
+            TextView itemPrice = (TextView) gridView.findViewById(R.id.grid_item_price);
+            TextView itemUsername = (TextView) gridView.findViewById(R.id.grid_item_username);
+            TextView itemDescription = (TextView) gridView.findViewById(R.id.grid_item_description);
 
+            String name = items.get(position).getItem_name();
+            double price = items.get(position).getPrice();
+            String username = items.get(position).getSeller_username();
+            String description = items.get(position).getItem_description();
+
+            itemName.setText(name);
+            itemPrice.setText(Double.toString(price));
+            itemUsername.setText(username);
+            itemDescription.setText(description);
 
         } else {
             gridView = (View) convertView;
@@ -46,7 +65,7 @@ public class ItemAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mThumbIds.length;
+        return items.size();
     }
 
     @Override

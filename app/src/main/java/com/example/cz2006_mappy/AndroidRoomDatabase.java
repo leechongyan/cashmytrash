@@ -26,6 +26,7 @@ public abstract class AndroidRoomDatabase extends RoomDatabase {
                             // if no Migration object.
                             // Migration is not part of this practical.
                             .fallbackToDestructiveMigration()
+                            .allowMainThreadQueries()
 //                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
