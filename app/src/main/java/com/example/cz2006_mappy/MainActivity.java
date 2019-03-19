@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.lang.reflect.Method;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Show item in gridview
         final GridView gridView = (GridView) findViewById(R.id.listing_grid_view);
 
-        mItemViewModel.getAllItems().observe(this, new Observer<List<Item>>() {
+        mItemViewModel.getAllItems().observe(MainActivity.this, new Observer<List<Item>>() {
             @Override
             public void onChanged(@Nullable List<Item> items) {
                 gridView.setAdapter(new ItemAdapter(MainActivity.this, items));
@@ -56,14 +57,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
+
+        //onItemClick
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent showItemDetailActivity = new Intent(getApplicationContext(), ItemDetailActivity.class);
-                TextView itemName = (TextView) findViewById(R.id.grid_item_name);
-                TextView itemUsername = (TextView) findViewById(R.id.grid_item_username);
-                TextView itemPrice = (TextView) findViewById(R.id.grid_item_price);
-                TextView itemDescription = (TextView) findViewById(R.id.grid_item_description);
+
+                View v = gridView.getChildAt(position);
+                TextView itemName = (TextView) v.findViewById(R.id.grid_item_name);
+                TextView itemUsername = (TextView) v.findViewById(R.id.grid_item_username);
+                TextView itemPrice = (TextView) v.findViewById(R.id.grid_item_price);
+                TextView itemDescription = (TextView) v.findViewById(R.id.grid_item_description);
 
 
                 showItemDetailActivity.putExtra("item_detail_username",itemUsername.getText());
@@ -77,6 +82,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+        //Search panel
+        SearchView searchView = (SearchView) findViewById(R.id.listing_search_field);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                List<Item> items = mItemViewModel.getSearchedItems(query);
+                if(items != null) {
+                    gridView.setAdapter(new ItemAdapter(MainActivity.this, items));
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText.equals("")) {
+                    mItemViewModel.getAllItems().observe(MainActivity.this, new Observer<List<Item>>() {
+                        @Override
+                        public void onChanged(@Nullable List<Item> items) {
+                            gridView.setAdapter(new ItemAdapter(MainActivity.this, items));
+                        }
+
+                    });
+                }
+                return false;
+            }
+        });
 
         //Create Item Activity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.create_item_button);
@@ -84,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 Intent createItemActivity = new Intent(getApplicationContext(), createItemActivity.class);
-
+                //TODO: Pass User Object
                 startActivity(createItemActivity);
             }
         });

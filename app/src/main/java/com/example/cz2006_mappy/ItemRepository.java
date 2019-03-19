@@ -22,6 +22,9 @@ public class ItemRepository {
         return mAllItems;
     }
 
+
+    public List<Item> getSearchedItems(String s) { return mItemDao.getSeachedItems(s);}
+
     public void insert(Item item) {
         new insertAsyncTask(mItemDao).execute(item);
     }

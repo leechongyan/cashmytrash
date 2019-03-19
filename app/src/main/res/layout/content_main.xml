@@ -11,7 +11,7 @@
     <SearchView
         android:id="@+id/listing_search_field"
         android:layout_width="0dp"
-        android:layout_height="59dp"
+        android:layout_height="56dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -19,19 +19,20 @@
         android:layout_marginRight="8dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/listing_grid_view"
-        android:layout_width="fill_parent"
-        android:layout_height="552dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:columnWidth="75dp"
         android:gravity="center"
         android:horizontalSpacing="10dp"
@@ -40,8 +41,9 @@
         android:verticalSpacing="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listing_search_field" />
+        app:layout_constraintTop_toBottomOf="@+id/listing_search_field"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>
