@@ -19,4 +19,7 @@ public interface ItemDao {
 
     @Query("SELECT * FROM ITEM")
     LiveData<List<Item>> getAllItems();
+
+    @Query("SELECT * FROM ITEM WHERE item_name LIKE '%'  ||:s || '%'")
+    List<Item> getSeachedItems(String s);
 }

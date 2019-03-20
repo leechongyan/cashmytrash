@@ -26,16 +26,12 @@ public class Item {
     private double price;
 
     @NonNull
-    @ColumnInfo(name = "purchased")
-    private boolean purchased =false;
+    @ColumnInfo(name = "token")
+    private int token;
 
     @NonNull
-    @ColumnInfo(name = "received")
-    private boolean received =false;
-
-    @NonNull
-    @ColumnInfo(name = "delivered")
-    private boolean delivered =false;
+    @ColumnInfo(name = "seller_id")
+    private int seller_id;
 
     @NonNull
     @ColumnInfo(name = "seller_username")
@@ -43,14 +39,13 @@ public class Item {
 
 
     public Item(@NonNull int item_id,@NonNull String item_name, @NonNull String item_description, @NonNull double price
-    , boolean purchased, boolean received, boolean delivered, @NonNull String seller_username) {
+    ,@NonNull int token, @NonNull int seller_id, @NonNull String seller_username) {
         this.item_id = item_id; // put 0 while constructing
         this.item_name = item_name;
         this.item_description = item_description;
         this.price = price;
-        this.purchased = purchased;
-        this.received = received;
-        this.delivered = delivered;
+        this.token = token;
+        this.seller_id = seller_id;
         this.seller_username = seller_username;
     }
 
@@ -66,17 +61,10 @@ public class Item {
     public double getPrice() {
         return price;
     }
-    public boolean getPurchased() {
-        return purchased;
+    public int getToken() {return this.token;}
+    public int getSeller_id() {
+        return this.seller_id;
     }
-    public boolean getDelivered() {
-        return delivered;
-    }
-    public boolean getReceived() {
-        return received;
-    }
-    public String getSeller_username() {
-        return this.seller_username;
-    }
+    public String getSeller_username() {return this.seller_username;}
 
 }

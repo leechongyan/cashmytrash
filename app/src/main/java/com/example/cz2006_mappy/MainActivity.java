@@ -1,9 +1,11 @@
 package com.example.cz2006_mappy;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,26 +18,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    // Keep all Images in array
-    public Integer[] mThumbIds = {
-            R.drawable.ic_menu_camera, R.drawable.ic_menu_camera,
-            R.drawable.ic_menu_camera, R.drawable.ic_menu_camera,
-            R.drawable.ic_menu_camera, R.drawable.ic_menu_camera,
-            R.drawable.ic_menu_camera, R.drawable.ic_menu_camera,
-            R.drawable.ic_menu_camera, R.drawable.ic_menu_camera,
-            R.drawable.ic_menu_camera, R.drawable.ic_menu_camera,
-            R.drawable.ic_menu_camera, R.drawable.ic_menu_camera,
-            R.drawable.ic_menu_camera
-    };
     private ItemViewModel mItemViewModel;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,24 +39,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mItemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
 
+//        Item test = new Item(0, "some item name", "some item description",
+//                500.0, 12345,45,"elbert999");
+//        mItemViewModel.insert(test);
 
-        Item item = new Item(0, "some item name","some item description",50.0, false,false,false,"some seller username");
-        mItemViewModel.insert(item);
 
 
         //Show item in gridview
-        GridView gridView = (GridView) findViewById(R.id.listing_grid_view);
-        // Instance of ImageAdapter Class
-        gridView.setAdapter(new ItemAdapter(this,mThumbIds));
+        final GridView gridView = (GridView) findViewById(R.id.listing_grid_view);
 
+        mItemViewModel.getAllItems().observe(MainActivity.this, new Observer<List<Item>>() {
+            @Override
+            public void onChanged(@Nullable List<Item> items) {
+                gridView.setAdapter(new ItemAdapter(MainActivity.this, items));
+            }
+
+        });
+
+
+
+        //onItemClick
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent showItemDetailActivity = new Intent(getApplicationContext(), ItemDetailActivity.class);
-                showItemDetailActivity.putExtra("item_detail_username","Elbert999");
-                showItemDetailActivity.putExtra("item_detail_name", "TRASH ITEM");
-                showItemDetailActivity.putExtra("item_detail_price", "500");
-                showItemDetailActivity.putExtra("item_detail_description", "SOME DESCRIPTION");
+
+                View v = gridView.getChildAt(position);
+                TextView itemName = (TextView) v.findViewById(R.id.grid_item_name);
+                TextView itemUsername = (TextView) v.findViewById(R.id.grid_item_username);
+                TextView itemPrice = (TextView) v.findViewById(R.id.grid_item_price);
+                TextView itemDescription = (TextView) v.findViewById(R.id.grid_item_description);
+
+
+                showItemDetailActivity.putExtra("item_detail_username",itemUsername.getText());
+                showItemDetailActivity.putExtra("item_detail_name",itemName.getText());
+                showItemDetailActivity.putExtra("item_detail_price",itemPrice.getText() );
+                showItemDetailActivity.putExtra("item_detail_description", itemDescription.getText());
                 startActivity(showItemDetailActivity);
             }
         });
@@ -72,6 +82,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+        //Search panel
+        SearchView searchView = (SearchView) findViewById(R.id.listing_search_field);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                List<Item> items = mItemViewModel.getSearchedItems(query);
+                if(items != null) {
+                    gridView.setAdapter(new ItemAdapter(MainActivity.this, items));
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText.equals("")) {
+                    mItemViewModel.getAllItems().observe(MainActivity.this, new Observer<List<Item>>() {
+                        @Override
+                        public void onChanged(@Nullable List<Item> items) {
+                            gridView.setAdapter(new ItemAdapter(MainActivity.this, items));
+                        }
+
+                    });
+                }
+                return false;
+            }
+        });
 
         //Create Item Activity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.create_item_button);
@@ -79,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 Intent createItemActivity = new Intent(getApplicationContext(), createItemActivity.class);
-
+                //TODO: Pass User Object
                 startActivity(createItemActivity);
             }
         });
@@ -166,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static void setInMemoryRoomDatabases(SupportSQLiteDatabase... database) {
         if (BuildConfig.DEBUG) {
             try {
-                Class<?> debugDB = Class.forName("com.example.cz2006_mappy.AndroidRoomDatabase");
+                Class<?> debugDB = Class.forName("com.amitshekhar.DebugDB");
                 Class[] argTypes = new Class[]{HashMap.class};
                 HashMap<String, SupportSQLiteDatabase> inMemoryDatabases = new HashMap<>();
                 // set your inMemory databases
