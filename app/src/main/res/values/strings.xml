@@ -20,4 +20,6 @@
     <string name="createItemPrice">Item Price (SGD):</string>
     <string name="createItemDescription">Item Description</string>
     <string name="createItemButton">CREATE</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_set_target">SetTargetActivity</string>
 </resources>

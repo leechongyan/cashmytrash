@@ -176,6 +176,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_home) {
             //TODO: HOME ACTIVITY
+            Intent Home = new Intent(this, HomeActivity.class);
+            startActivity(Home);
         } else if (id == R.id.nav_listing) {
             //TODO: LISTING ACTIVITY
             //THIS ONE
