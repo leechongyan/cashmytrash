@@ -1,6 +1,5 @@
 package com.example.irecycle;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,7 +21,6 @@ public class Login extends AppCompatActivity {
     TextView t1, t2;
     Button b1;
     String email, password;
-    DatabaseHelper db;
     SharedPreferences pref;
     Intent i1, i2, i3;
 
@@ -30,7 +28,8 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        db = new DatabaseHelper(this);
+        final UserDatabase db = UserDatabase.getAppDatabase(this);
+        final UserDAO userDAO = db.userDao();
         pref = getSharedPreferences("user_details", MODE_PRIVATE);
         t1 = (TextView) findViewById(R.id.createaccount);
         t2 = (TextView) findViewById(R.id.passwordforget);
@@ -47,9 +46,9 @@ public class Login extends AppCompatActivity {
         });
         t2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                User user = db.getUser(email);
+                User user = userDAO.getUser(email);
                 user.setPassword("1234");
-                db.updateUser(user);
+                userDAO.update(user);
                 new SendMail().execute("");
             }
         });
@@ -58,7 +57,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 email = e1.getText().toString();
                 password = e2.getText().toString();
-                User user = db.getUser(email);
+                User user = userDAO.getUser(email);
                 if (user == null) {
                     Toast.makeText(getApplicationContext(), "Invalid Email", Toast.LENGTH_SHORT).show();
                 } else {

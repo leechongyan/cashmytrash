@@ -21,7 +21,6 @@ import java.util.regex.Pattern;
 public class Registration extends AppCompatActivity {
     private static final int RESULT_LOAD_IMAGE = 1;
 
-    DatabaseHelper db;
     TextView t1, profilepic;
     EditText e1, e2, e3, e4, e5;
     Button b1;
@@ -36,7 +35,8 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db= new DatabaseHelper(this);
+        final UserDatabase db = UserDatabase.getAppDatabase(this);
+        final UserDAO userDAO = db.userDao();
         t1=(TextView)findViewById(R.id.existingacc);
         e1=(EditText)findViewById(R.id.username);
         e2=(EditText)findViewById(R.id.firstpassword);
@@ -92,9 +92,9 @@ public class Registration extends AppCompatActivity {
                    else {
                        int i5 = Integer.parseInt(s5);
                        if (s2.equals(s3)) {
-                           User user = new User(s4, s1, s2, i5);
-                           if (db.getUser(s4) == null) {
-                               db.insert(user);
+                           User user = new User(s4, s1, s2, i5,"123");
+                           if (userDAO.getUser(s4) == null) {
+                               userDAO.insert(user);
                                Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
                                i = new Intent(Registration.this, Login.class);
                                startActivity(i);

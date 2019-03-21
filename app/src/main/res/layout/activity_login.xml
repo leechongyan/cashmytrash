@@ -135,6 +135,7 @@
                     android:layout_marginBottom="8dp"
                     android:text="Forget Password?"
                     android:textSize="15dp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toTopOf="@+id/login"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
