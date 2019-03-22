@@ -185,12 +185,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //TODO: MY PURCHASES ACTIVITY
         } else if (id == R.id.nav_convert_to_cash) {
             //TODO: CONVERT TO CASH ACTIVITY
+            Intent convert = new Intent(this, ConvertToCashNew.class);
+            startActivity(convert);
         } else if (id == R.id.nav_change_password) {
             //TODO: CHANGE PASSWORD ACTIVITY
         } else if (id == R.id.nav_save_the_environment) {
             //TODO: SAVE THE ENVIRONMENT ACTIVITY
         } else if (id == R.id.nav_give_us_feedback) {
             //TODO: GIVE US FEEDBACK ACTIVITY
+            Intent feedback = new Intent(this, FeedbackForm.class);
+            startActivity(feedback);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

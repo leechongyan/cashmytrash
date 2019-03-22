@@ -12,7 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".createItemActivity"></activity>
+        <activity
+            android:name=".ConvertToCashNew"
+            android:label="@string/title_activity_convert_to_cash_new"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".SeeMoreCashIncentives" />
+        <activity android:name=".FeedbackForm" />
+        <activity android:name=".createItemActivity" />
         <activity android:name=".ItemDetailActivity" />
         <activity
             android:name=".MainActivity"
