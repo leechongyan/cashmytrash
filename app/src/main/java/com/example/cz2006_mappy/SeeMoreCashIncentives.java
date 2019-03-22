@@ -17,7 +17,7 @@ public class SeeMoreCashIncentives extends AppCompatActivity {
         seeMoreBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backIntent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent backIntent = new Intent(getApplicationContext(), ConvertToCashNew.class);
                 startActivity(backIntent);
             }
         });
