@@ -21,11 +21,12 @@ public class ItemRepository {
     LiveData<List<Item>> getAllItems() {
         return mAllItems;
     }
-
     public List<Item> getSearchedItems(String s) { return mItemDao.getSearchedItems(s);}
 
-    public void update(Item item){
-        mItemDao.update(item);
+
+
+    public void update(String itemId, String buyerId, String buyerUsername){
+        mItemDao.update(itemId,buyerId,buyerUsername);
     }
     public void insert(Item item) {
         new insertAsyncTask(mItemDao).execute(item);

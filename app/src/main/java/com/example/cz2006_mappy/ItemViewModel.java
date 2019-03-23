@@ -20,7 +20,10 @@ public class ItemViewModel extends AndroidViewModel {
 
     LiveData<List<Item>> getAllItems() {return mAllItems;}
     List<Item> getSearchedItems(String s) {return mRepository.getSearchedItems(s);}
-    public void update(Item item){ mRepository.update(item);}
+
+
+
+    public void update(String itemId, String buyerId, String buyerUsername ){ mRepository.update(itemId, buyerId,buyerUsername);}
 
     public void insert(Item item) {mRepository.insert(item);}
 

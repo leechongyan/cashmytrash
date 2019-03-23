@@ -45,16 +45,19 @@ public class ItemAdapter extends BaseAdapter {
             TextView itemPrice = (TextView) gridView.findViewById(R.id.grid_item_price);
             TextView itemUsername = (TextView) gridView.findViewById(R.id.grid_item_username);
             TextView itemDescription = (TextView) gridView.findViewById(R.id.grid_item_description);
+            TextView itemId = (TextView) gridView.findViewById(R.id.grid_item_id);
 
             String name = items.get(position).getItem_name();
             double price = items.get(position).getPrice();
             String username = items.get(position).getSeller_username();
             String description = items.get(position).getItem_description();
+            int id = items.get(position).getItem_id();
 
             itemName.setText(name);
             itemPrice.setText(Double.toString(price));
             itemUsername.setText(username);
             itemDescription.setText(description);
+            itemId.setText(Integer.toString(id));
 
         } else {
             gridView = (View) convertView;

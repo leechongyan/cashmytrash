@@ -5,11 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ItemDetailActivity extends AppCompatActivity {
     private ItemViewModel mItemViewModel;
@@ -17,6 +14,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
+        mItemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
+
 
         FloatingActionButton backButton = (FloatingActionButton) findViewById(R.id.itemDetailBackButton);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -27,6 +26,10 @@ public class ItemDetailActivity extends AppCompatActivity {
 
             }
         });
+        TextView itemDetailId = (TextView) findViewById(R.id.itemDetailId);
+        String id = getIntent().getExtras().getString("item_detail_id");
+        itemDetailId.setText(id);
+
 
         TextView itemDetailName = (TextView) findViewById(R.id.itemDetailName);
         String name = getIntent().getExtras().getString("item_detail_name");
@@ -50,8 +53,9 @@ public class ItemDetailActivity extends AppCompatActivity {
         String username = getIntent().getExtras().getString("item_detail_username");
         String price = getIntent().getExtras().getString("item_detail_price");
         String description = getIntent().getExtras().getString("item_detail_description");
+        String itemId = getIntent().getExtras().getString("item_detail_id");
         //change token and seller_id;
-        Item item = new Item(0,name,description,Double.parseDouble(price),0,15, username);
+        mItemViewModel.update(itemId, "999","IM THE BUYER BITCH");
 
         Intent checkout = new Intent(this.getApplicationContext(), MyPurchases.class);
         startActivity(checkout);

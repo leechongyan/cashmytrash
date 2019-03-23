@@ -45,7 +45,7 @@ public class Item {
 
 
     public Item(@NonNull int item_id,@NonNull String item_name, @NonNull String item_description, @NonNull double price
-    ,@NonNull int token, @NonNull int seller_id, @NonNull String seller_username) {
+    ,@NonNull int token, @NonNull int seller_id, @NonNull String seller_username,@NonNull int buyer_id,@NonNull String buyer_username) {
         this.item_id = item_id; // put 0 while constructing
         this.item_name = item_name;
         this.item_description = item_description;
@@ -53,8 +53,8 @@ public class Item {
         this.token = token;
         this.seller_id = seller_id;
         this.seller_username = seller_username;
-//        this.buyer_id = null;
-        this.buyer_username =null;
+        this.buyer_id = buyer_id;
+        this.buyer_username =buyer_username;
     }
 
     public int getItem_id() {

@@ -42,4 +42,11 @@
         android:layout_height="wrap_content"
         android:text="@string/itemDetailDescription"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/grid_item_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="invisible" />
 </LinearLayout>

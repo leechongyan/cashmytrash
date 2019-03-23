@@ -47,6 +47,13 @@
         app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
+        android:id="@+id/itemDetailId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="invisible" />
+
+    <TextView
         android:id="@+id/itemDetailName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
