@@ -4,6 +4,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
+import android.content.ContentValues;
 
 import java.util.List;
 
@@ -21,5 +23,8 @@ public interface ItemDao {
     LiveData<List<Item>> getAllItems();
 
     @Query("SELECT * FROM ITEM WHERE item_name LIKE '%'  ||:s || '%'")
-    List<Item> getSeachedItems(String s);
+    List<Item> getSearchedItems(String s);
+
+    @Query("UPDATE ITEM SET buyer_username=item.buyer_username, buyer_id=item.buyer_id WHERE item_name LIKE item.item_name")
+    void update(Item item);
 }

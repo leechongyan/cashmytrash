@@ -40,4 +40,5 @@
     <string name="back"><p> Back </p></string>
     <string name="title_activity_home">Home</string>
     <string name="title_activity_convert_to_cash_new">ConvertToCashNew</string>
+    <string name="title_activity_my_purchases">MyPurchases</string>
 </resources>

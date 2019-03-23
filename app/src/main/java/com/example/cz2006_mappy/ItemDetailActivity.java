@@ -1,14 +1,18 @@
 package com.example.cz2006_mappy;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ItemDetailActivity extends AppCompatActivity {
-
+    private ItemViewModel mItemViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,5 +44,16 @@ public class ItemDetailActivity extends AppCompatActivity {
         String description = getIntent().getExtras().getString("item_detail_description");
         itemDetailDescription.setText(description);
 
+    }
+    public void checkout(View view){
+        String name = getIntent().getExtras().getString("item_detail_name");
+        String username = getIntent().getExtras().getString("item_detail_username");
+        String price = getIntent().getExtras().getString("item_detail_price");
+        String description = getIntent().getExtras().getString("item_detail_description");
+        //change token and seller_id;
+        Item item = new Item(0,name,description,Double.parseDouble(price),0,15, username);
+
+        Intent checkout = new Intent(this.getApplicationContext(), MyPurchases.class);
+        startActivity(checkout);
     }
 }

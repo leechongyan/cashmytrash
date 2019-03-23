@@ -37,6 +37,12 @@ public class Item {
     @ColumnInfo(name = "seller_username")
     private String seller_username;
 
+    @ColumnInfo(name = "buyer_username")
+    private String buyer_username;
+
+    @ColumnInfo(name = "buyer_id")
+    private int buyer_id;
+
 
     public Item(@NonNull int item_id,@NonNull String item_name, @NonNull String item_description, @NonNull double price
     ,@NonNull int token, @NonNull int seller_id, @NonNull String seller_username) {
@@ -47,6 +53,8 @@ public class Item {
         this.token = token;
         this.seller_id = seller_id;
         this.seller_username = seller_username;
+//        this.buyer_id = null;
+        this.buyer_username =null;
     }
 
     public int getItem_id() {
@@ -66,5 +74,7 @@ public class Item {
         return this.seller_id;
     }
     public String getSeller_username() {return this.seller_username;}
+    public String getBuyer_username(){return this.buyer_username;}
+    public int getBuyer_id(){return this.buyer_id;}
 
 }
