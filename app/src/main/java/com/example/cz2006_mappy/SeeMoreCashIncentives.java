@@ -1,9 +1,8 @@
 package com.example.cz2006_mappy;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 
 public class SeeMoreCashIncentives extends AppCompatActivity {
@@ -17,8 +16,7 @@ public class SeeMoreCashIncentives extends AppCompatActivity {
         seeMoreBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backIntent = new Intent(getApplicationContext(), ConvertToCashNew.class);
-                startActivity(backIntent);
+                onBackPressed();
             }
         });
     }

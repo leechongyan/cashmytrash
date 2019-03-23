@@ -56,8 +56,7 @@ public class createItemActivity extends AppCompatActivity {
         createItemBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent createItemBackIntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(createItemBackIntent);
+                onBackPressed();
             }
         });
     }
