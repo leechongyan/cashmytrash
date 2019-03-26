@@ -28,6 +28,7 @@ public class Item {
     @NonNull
     @ColumnInfo(name = "token")
     private int token;
+    
 
     @NonNull
     @ColumnInfo(name = "seller_id")

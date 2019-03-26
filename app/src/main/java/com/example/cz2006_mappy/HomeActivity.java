@@ -155,6 +155,8 @@ public class HomeActivity extends AppCompatActivity
             //THIS ONE
         } else if (id == R.id.nav_my_listing) {
             //TODO: MY LISTING ACTIVITY
+            Intent myListing = new Intent(this, MyListingActivity.class);
+            startActivity(myListing);
         } else if (id == R.id.nav_my_purchases) {
             //TODO: MY PURCHASES ACTIVITY
         } else if (id == R.id.nav_convert_to_cash) {

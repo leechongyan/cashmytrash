@@ -22,4 +22,7 @@ public interface ItemDao {
 
     @Query("SELECT * FROM ITEM WHERE item_name LIKE '%'  ||:s || '%'")
     List<Item> getSeachedItems(String s);
+
+    @Query("SELECT * FROM ITEM WHERE seller_id = 15")
+    List<Item> getSoldItems();
 }
