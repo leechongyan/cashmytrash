@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                500.0, 12345,45,"elbert999");
 //        mItemViewModel.insert(test);
 
-
-
         //Show item in gridview
         final GridView gridView = (GridView) findViewById(R.id.listing_grid_view);
 
@@ -55,8 +53,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
         });
-
-
 
         //onItemClick
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

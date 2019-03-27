@@ -12,10 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MakeAppointmentActivity"></activity>
         <activity
             android:name=".MyListingActivity"
             android:label="@string/title_activity_my_listing"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SetTargetActivity"
             android:label="@string/title_activity_set_target"

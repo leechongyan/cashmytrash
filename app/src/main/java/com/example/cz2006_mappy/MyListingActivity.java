@@ -147,7 +147,6 @@ public class MyListingActivity extends AppCompatActivity
     }
 
     public void displayConfirmationBox(View view){
-
         AlertDialog.Builder builder = new AlertDialog.Builder(MyListingActivity.this);
         builder.setTitle("Deleting Items Being Sold");
         builder.setMessage("Are you sure you want to remove the item?");
@@ -171,6 +170,20 @@ public class MyListingActivity extends AppCompatActivity
         });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public void makeAppointment(View view){
+        Intent buyerUsername = new Intent(getApplicationContext(), MakeAppointmentActivity.class);
+        buyerUsername.putExtra("com.example.cz2006.mappy.buyerUsername", "Buyer Username");
+        startActivity(buyerUsername);
+
+        Intent contactNumber = new Intent(getApplicationContext(), MakeAppointmentActivity.class);
+        contactNumber.putExtra("com.example.cz2006.mappy.contactNumber", "Contact Number");
+        startActivity(contactNumber);
+
+        Intent emailAddress = new Intent(getApplicationContext(), MakeAppointmentActivity.class);
+        emailAddress.putExtra("com.example.cz2006.mappy.emailAddress", "Email Address");
+        startActivity(emailAddress);
     }
 
     @Override
