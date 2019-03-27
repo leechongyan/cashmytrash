@@ -39,7 +39,7 @@ public class createItemActivity extends AppCompatActivity {
                 String status = createInputValid(name,price,description);
                 if(status.equals("success")){
                     //TODO: Get seller id and username
-                    Item item = new Item(0,name,description,Double.parseDouble(price),Integer.parseInt(getRandomNumberString()),15, "elios",0,"");
+                    Item item = new Item(0,name,description,Double.parseDouble(price),Integer.parseInt(getRandomNumberString()),15, "elios");
                     mItemViewModel.insert(item);
                     Intent success = new Intent(getApplicationContext(),MainActivity.class);
                     Toast.makeText(getApplicationContext(),"Item has been created !",Toast.LENGTH_SHORT).show();

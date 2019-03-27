@@ -23,6 +23,4 @@ public interface ItemDao {
     @Query("SELECT * FROM ITEM WHERE item_name LIKE '%'  ||:s || '%'")
     List<Item> getSearchedItems(String s);
 
-    @Query("UPDATE ITEM SET buyer_username=:buyerUsername, buyer_id=:buyerId WHERE item_id = :itemId")
-    void update(String itemId, String buyerId, String buyerUsername);
 }

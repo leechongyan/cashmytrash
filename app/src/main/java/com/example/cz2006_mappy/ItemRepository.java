@@ -24,10 +24,6 @@ public class ItemRepository {
     public List<Item> getSearchedItems(String s) { return mItemDao.getSearchedItems(s);}
 
 
-
-    public void update(String itemId, String buyerId, String buyerUsername){
-        mItemDao.update(itemId,buyerId,buyerUsername);
-    }
     public void insert(Item item) {
         new insertAsyncTask(mItemDao).execute(item);
     }

@@ -1,5 +1,6 @@
 package com.example.cz2006_mappy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -46,7 +47,7 @@ public class MyPurchases extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my_purchases, menu);
+        getMenuInflater().inflate(R.menu.convert_to_cash_new, menu);
         return true;
     }
 
@@ -71,20 +72,30 @@ public class MyPurchases extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_home) {
+            //TODO: HOME ACTIVITY
+        } else if (id == R.id.nav_listing) {
+            //TODO: LISTING ACTIVITY
+            //THIS ONE
+        } else if (id == R.id.nav_my_listing) {
+            //TODO: MY LISTING ACTIVITY
+        } else if (id == R.id.nav_my_purchases) {
+            //TODO: MY PURCHASES ACTIVITY
+            Intent purchases = new Intent(this.getApplicationContext(), MyPurchases.class);
+            startActivity(purchases);
+        } else if (id == R.id.nav_convert_to_cash) {
+            //TODO: CONVERT TO CASH ACTIVITY
+            Intent convert = new Intent(this, ConvertToCashNew.class);
+            startActivity(convert);
+        } else if (id == R.id.nav_change_password) {
+            //TODO: CHANGE PASSWORD ACTIVITY
+        } else if (id == R.id.nav_save_the_environment) {
+            //TODO: SAVE THE ENVIRONMENT ACTIVITY
+        } else if (id == R.id.nav_give_us_feedback) {
+            //TODO: GIVE US FEEDBACK ACTIVITY
+            Intent feedback = new Intent(this, FeedbackForm.class);
+            startActivity(feedback);
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
