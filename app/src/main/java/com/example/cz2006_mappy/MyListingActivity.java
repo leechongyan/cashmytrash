@@ -1,7 +1,9 @@
 package com.example.cz2006_mappy;
 
+import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,9 +16,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyListingActivity extends AppCompatActivity
@@ -49,7 +53,7 @@ public class MyListingActivity extends AppCompatActivity
         mItemViewModel.getAllItems().observe(MyListingActivity.this, new Observer<List<Item>>() {
             @Override
             public void onChanged(@Nullable List<Item> items) {
-                gridView.setAdapter(new ItemAdapter(MyListingActivity.this, items));
+                gridView.setAdapter(new ItemAllAdapter(MyListingActivity.this, items));
             }
 
         });
@@ -81,23 +85,31 @@ public class MyListingActivity extends AppCompatActivity
                 }
             }
 
-            private void selectTab(int tabNumber){
+            public void selectTab(int tabNumber){
                 if (tabNumber == 0){
                     mItemViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemViewModel.class);
 
                     //Show item in gridview
                     final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
 
-                    List<Item> items = mItemViewModel.getSoldItems();
-                    gridView.setAdapter(new ItemAdapter(MyListingActivity.this, items));
-                }
-                else if (tabNumber == 1){
-                    final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
-
-                    mItemViewModel.getAllItems().observe(MyListingActivity.this, new Observer<List<Item>>() {
+                    mItemViewModel.getSoldItems().observe(MyListingActivity.this, new Observer<List<Item>>() {
                         @Override
                         public void onChanged(@Nullable List<Item> items) {
-                            gridView.setAdapter(new ItemAdapter(MyListingActivity.this, new ArrayList<Item>()));//change
+                            gridView.setAdapter(new ItemAllAdapter(MyListingActivity.this, items));
+                        }
+
+                    });
+                }
+                else if (tabNumber == 1){ // TODO: to deliver not implemented yet
+                    mItemViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemViewModel.class);
+
+                    //Show item in gridview
+                    final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
+
+                    mItemViewModel.getSoldItems().observe(MyListingActivity.this, new Observer<List<Item>>() {
+                        @Override
+                        public void onChanged(@Nullable List<Item> items) {
+                            gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, items));
                         }
 
                     });
@@ -132,8 +144,33 @@ public class MyListingActivity extends AppCompatActivity
                 }
             }
         });
+    }
 
+    public void displayConfirmationBox(View view){
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(MyListingActivity.this);
+        builder.setTitle("Deleting Items Being Sold");
+        builder.setMessage("Are you sure you want to remove the item?");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                TextView grid_item_all = (TextView) findViewById(R.id.grid_item_id_all);
+                String id = grid_item_all.getText().toString();
+                mItemViewModel.deleteSoldItem(Integer.parseInt(id));
+                Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(),"Cancelled", Toast.LENGTH_LONG).show();
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override

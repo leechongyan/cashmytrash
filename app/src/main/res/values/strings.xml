@@ -9,6 +9,7 @@
 
 
     <!--Item Detail Page -->
+    <string name="itemDetailId">Item Id</string>
     <string name="itemDetailName">Name of Item</string>
     <string name="itemDetailUsername">Sold By: Username</string>
     <string name="itemDetailPrice">Price : $SGD</string>
