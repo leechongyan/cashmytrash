@@ -17,5 +17,4 @@ public interface UserDAO {
     public User[] loadAllUsers();
     @Query("SELECT * FROM user WHERE emailaddress = :email")
     public User getUser(String email);
-
 }

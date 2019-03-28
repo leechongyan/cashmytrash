@@ -34,11 +34,11 @@ public class EditProfile extends AppCompatActivity {
         final UserDatabase db = UserDatabase.getAppDatabase(this);
         final UserDAO userDAO = db.userDao();
         // 1 imageview; 1 textview; 3 editText
-        curPass = (EditText) findViewById(R.id.changepassword);
-        newPass = (EditText) findViewById(R.id.changepassword2);
-        newerPass = (EditText) findViewById(R.id.changepassword3);
-        profPic = (ImageView) findViewById(R.id.editProfilePic);
-        textBox = (TextView) findViewById(R.id.uploadProfilePic);
+        curPass = findViewById(R.id.changepassword);
+        newPass = findViewById(R.id.changepassword2);
+        newerPass = findViewById(R.id.changepassword3);
+        profPic = findViewById(R.id.editProfilePic);
+        textBox = findViewById(R.id.uploadProfilePic);
         conf = findViewById(R.id.confirm);
         user = userDAO.getUser("123");
 
@@ -56,11 +56,43 @@ public class EditProfile extends AppCompatActivity {
         conf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String curP = curPass.getText().toString();
+                String newP = newPass.getText().toString();
+                String newerP = newerPass.getText().toString();
                 // logic for password here - refer to registration; userDAO update method lacking
-                userDAO.update(user);
-                Toast.makeText(getApplicationContext(), "Profile Updated!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(EditProfile.this, HomePage.class);
-                startActivity(intent);
+                // user uploads profile pic and does nothing else
+                if (curP.equals("") && newP.equals("") && newerP.equals("")) {
+                    userDAO.update(user);
+                    Toast.makeText(getApplicationContext(), "Profile Updated!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(EditProfile.this, HomePage.class);
+                    startActivity(intent);
+                }
+                else {
+                    if (curP.equals("") || newP.equals("") || newerP.equals("")) {
+                        Toast.makeText(getApplicationContext(), "Please enter all the fields to change your password!", Toast.LENGTH_SHORT).show();
+                    }
+                    // all fields are filled
+                    if (!(curP.equals(user.getPassword()))) {
+                        curPass.setError("Please make sure you have entered your current password correctly!");
+                    }
+                    if (newP.length() < 8 && !isValidPassword(newP)) {
+                        newPass.setError("Password must contain minimum 8 characters, at least 1 Alphabet, 1 Number and 1 Special Character");
+                    }
+                    if (newP.length() < 8 && !isValidPassword(newP)) {
+                        newerPass.setError("Password must contain minimum 8 characters, at least 1 Alphabet, 1 Number and 1 Special Character");
+                    }
+                    else if (!(newP.equals(newerP))) {
+                        Toast.makeText(getApplicationContext(), "Please ensure that your new passwords match!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        // TODO: persistence (user password not updating)
+                        // userDAO.update(user);
+                        user.setPassword(newP);
+                        Toast.makeText(getApplicationContext(), "Profile Updated!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(EditProfile.this, HomePage.class);
+                        startActivity(intent);
+                    }
+                }
             }
         });
     }
@@ -69,7 +101,6 @@ public class EditProfile extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
             profPic.setImageURI(selectedImage);
@@ -78,7 +109,7 @@ public class EditProfile extends AppCompatActivity {
         }
     }
 
-    // taken from registration -> regex matcher for valid password
+    // taken from registration - regex matcher for valid password
     public static boolean isValidPassword(final String password) {
         Pattern pattern;
         Matcher matcher;
