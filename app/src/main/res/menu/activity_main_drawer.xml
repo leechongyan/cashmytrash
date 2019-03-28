@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="HOME" />
+        <item
+            android:id="@+id/nav_listing"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Listing" />
+        <item
+            android:id="@+id/nav_my_listing"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="My Listing" />
+        <item
+            android:id="@+id/nav_my_purchases"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="My Purchases" />
+        <item
+            android:id="@+id/nav_convert_to_cash"
+            android:title="Convert to Cash" />
+        <item
+            android:id="@+id/nav_change_password"
+            android:title="Change Password" />
+        <item
+            android:id="@+id/nav_save_the_environment"
+            android:title="Save The Environment" />
+        <item
+            android:id="@+id/nav_give_us_feedback"
+            android:title="Give Us Feedback" />
+    </group>
+
+</menu>
