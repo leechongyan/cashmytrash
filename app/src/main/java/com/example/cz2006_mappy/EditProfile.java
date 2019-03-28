@@ -86,8 +86,8 @@ public class EditProfile extends AppCompatActivity {
                     }
                     else {
                         // TODO: persistence (user password not updating)
-                        // userDAO.update(user);
                         user.setPassword(newP);
+                        userDAO.update(user);
                         Toast.makeText(getApplicationContext(), "Profile Updated!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(EditProfile.this, HomePage.class);
                         startActivity(intent);
