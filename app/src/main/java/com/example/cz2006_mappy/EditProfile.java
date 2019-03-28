@@ -40,7 +40,6 @@ public class EditProfile extends AppCompatActivity {
         profPic = findViewById(R.id.editProfilePic);
         textBox = findViewById(R.id.uploadProfilePic);
         conf = findViewById(R.id.confirm);
-        user = userDAO.getUser("123");
 
         // taken from registration; intent: load gallery, select desired profile picture
         profPic.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +55,7 @@ public class EditProfile extends AppCompatActivity {
         conf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                user = userDAO.getUser("123");
                 String curP = curPass.getText().toString();
                 String newP = newPass.getText().toString();
                 String newerP = newerPass.getText().toString();
@@ -78,7 +78,7 @@ public class EditProfile extends AppCompatActivity {
                     if (newP.length() < 8 && !isValidPassword(newP)) {
                         newPass.setError("Password must contain minimum 8 characters, at least 1 Alphabet, 1 Number and 1 Special Character");
                     }
-                    if (newP.length() < 8 && !isValidPassword(newP)) {
+                    if (newerP.length() < 8 && !isValidPassword(newerP)) {
                         newerPass.setError("Password must contain minimum 8 characters, at least 1 Alphabet, 1 Number and 1 Special Character");
                     }
                     else if (!(newP.equals(newerP))) {
