@@ -1,5 +1,7 @@
 package com.example.cz2006_mappy;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,9 +15,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyPurchases extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private ItemViewModel mItemViewModel;
+    private ItemTransactionViewModel mItemTransactionViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,17 @@ public class MyPurchases extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mItemViewModel = ViewModelProviders.of(MyPurchases.this).get(ItemViewModel.class);
+        mItemTransactionViewModel = ViewModelProviders.of(this).get(ItemTransactionViewModel.class);
+        final GridView gridView = (GridView) findViewById(R.id.grid_my_purchases_view);
+        List<Integer> items_id= mItemTransactionViewModel.getItemTransaction("gabriella");
+        List<Item> items = new ArrayList<>();
+        for(int i =0; i< items_id.size(); i++){
+            int item_id = items_id.get(i);
+            items.add(mItemViewModel.getItem(item_id));
+        }
+        gridView.setAdapter(new ItemTransactionAdapter(MyPurchases.this, items));
     }
 
     @Override

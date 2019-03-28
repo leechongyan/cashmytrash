@@ -21,6 +21,7 @@ public class ItemRepository {
     LiveData<List<Item>> getAllItems() {
         return mAllItems;
     }
+    public Item getItem(int itemId){ return mItemDao.getItem(itemId);}
     public List<Item> getSearchedItems(String s) { return mItemDao.getSearchedItems(s);}
 
 

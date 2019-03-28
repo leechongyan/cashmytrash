@@ -9,7 +9,7 @@
     tools:showIn="@layout/app_bar_my_purchases">
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/my_purchases_view"
+        android:id="@+id/grid_my_purchases_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"

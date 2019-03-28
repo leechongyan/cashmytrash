@@ -184,6 +184,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //TODO: MY LISTING ACTIVITY
         } else if (id == R.id.nav_my_purchases) {
             //TODO: MY PURCHASES ACTIVITY
+            Intent purchases = new Intent(this.getApplicationContext(),MyPurchases.class);
+            startActivity(purchases);
         } else if (id == R.id.nav_convert_to_cash) {
             //TODO: CONVERT TO CASH ACTIVITY
             Intent convert = new Intent(this, ConvertToCashNew.class);

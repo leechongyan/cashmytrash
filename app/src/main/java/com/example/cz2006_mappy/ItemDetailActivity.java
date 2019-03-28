@@ -53,10 +53,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     }
     public void checkout(View view){
-        String name = getIntent().getExtras().getString("item_detail_name");
         String username = getIntent().getExtras().getString("item_detail_username");
-        String price = getIntent().getExtras().getString("item_detail_price");
-        String description = getIntent().getExtras().getString("item_detail_description");
         String itemId = getIntent().getExtras().getString("item_detail_id");
         String buyer_username = "gabriella";
         ItemTransaction transaction1 = new ItemTransaction(0,0,Integer.parseInt(itemId),username,1,buyer_username,0);
