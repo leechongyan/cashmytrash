@@ -3,6 +3,7 @@ package com.example.cz2006_mappy;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,6 +27,7 @@ public class MyPurchases extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private ItemViewModel mItemViewModel;
     private ItemTransactionViewModel mItemTransactionViewModel;
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +45,12 @@ public class MyPurchases extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        pref = getSharedPreferences("user_details", MODE_PRIVATE);
+        String username = pref.getString("username","Anon");
         mItemViewModel = ViewModelProviders.of(MyPurchases.this).get(ItemViewModel.class);
         mItemTransactionViewModel = ViewModelProviders.of(this).get(ItemTransactionViewModel.class);
         final GridView gridView = (GridView) findViewById(R.id.grid_my_purchases_view);
-        List<Integer> items_id= mItemTransactionViewModel.getItemTransaction("gabriella");
+        List<Integer> items_id= mItemTransactionViewModel.getItemTransaction(username);
         List<Item> items = new ArrayList<>();
         for(int i =0; i< items_id.size(); i++){
             int item_id = items_id.get(i);
@@ -127,5 +131,6 @@ public class MyPurchases extends AppCompatActivity
         token.putExtra("item_id_my_purchases", Integer.parseInt(id.getText().toString()));
 
         startActivity(token);
+        //manager.insertToken(view)
     }
 }

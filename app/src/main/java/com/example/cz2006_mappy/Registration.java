@@ -34,7 +34,7 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        final UserDatabase db = UserDatabase.getAppDatabase(this);
+        final AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
         final UserDAO userDAO = db.userDao();
         t1=(TextView)findViewById(R.id.existingacc);
         e1=(EditText)findViewById(R.id.username);

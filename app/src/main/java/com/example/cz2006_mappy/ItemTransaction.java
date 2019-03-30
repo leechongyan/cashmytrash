@@ -19,7 +19,7 @@ public class ItemTransaction {
 
     @NonNull
     @ColumnInfo(name = "seller_id")
-    private int seller_id;
+    private String seller_id;
 
     @NonNull
     @ColumnInfo(name = "item_id")
@@ -31,7 +31,7 @@ public class ItemTransaction {
 
     @NonNull
     @ColumnInfo(name = "buyer_id")
-    private int buyer_id;
+    private String buyer_id;
 
     @NonNull
     @ColumnInfo(name = "buyer_username")
@@ -42,7 +42,7 @@ public class ItemTransaction {
     private int delivered;
 
 
-    public ItemTransaction(@NonNull int transaction_id, @NonNull int seller_id,@NonNull int item_id, @NonNull String seller_username,@NonNull int buyer_id, @NonNull String buyer_username, @NonNull int delivered) {
+    public ItemTransaction(@NonNull int transaction_id, @NonNull String seller_id,@NonNull int item_id, @NonNull String seller_username,@NonNull String buyer_id, @NonNull String buyer_username, @NonNull int delivered) {
         this.transaction_id = transaction_id; // put 0 while constructing
         this.seller_id = seller_id;
         this.item_id = item_id;
@@ -56,13 +56,13 @@ public class ItemTransaction {
         return this.transaction_id;
     }
 
-    public int getSeller_id() {
+    public String getSeller_id() {
         return this.seller_id;
     }
     public int getItem_id(){return this.item_id;}
     public String getSeller_username() {return this.seller_username;}
 
-    public int getBuyer_id(){
+    public String getBuyer_id(){
         return this.buyer_id;
     }
     public String getBuyer_username(){

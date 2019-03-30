@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {Item.class, Feedback.class, ItemTransaction.class}, version = 4, exportSchema = false)
+@Database(entities = {Item.class, Feedback.class, ItemTransaction.class, User.class}, version = 3, exportSchema = false)
 public abstract class AndroidRoomDatabase extends RoomDatabase {
     //Later fill the entities {Item.class, UserAccount.class,... for example}
 
@@ -16,6 +16,8 @@ public abstract class AndroidRoomDatabase extends RoomDatabase {
     // to fill
 
     public abstract ItemTransactionDao transactionDao();
+
+    public abstract UserDAO userDao();
 
     private static AndroidRoomDatabase INSTANCE;
 
