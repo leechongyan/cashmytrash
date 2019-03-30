@@ -49,4 +49,6 @@
     <string name="cash_incentives"><p> Cash Incentives For Recyclables </p></string>
     <string name="back"><p> Back </p></string>
     <string name="title_activity_convert_to_cash_new">ConvertToCashNew</string>
+    <string name="title_activity_my_purchases">MyPurchases</string>
+    <string name="title_activity_insert_token">InsertToken</string>
 </resources>
