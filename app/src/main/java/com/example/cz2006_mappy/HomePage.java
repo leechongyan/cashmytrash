@@ -1,5 +1,4 @@
 package com.example.cz2006_mappy;
-
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.db.SupportSQLiteDatabase;
@@ -25,7 +24,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ItemViewModel mItemViewModel;
 
@@ -48,10 +47,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Show item in gridview
         final GridView gridView = (GridView) findViewById(R.id.listing_grid_view);
 
-        mItemViewModel.getAllItems().observe(MainActivity.this, new Observer<List<Item>>() {
+        mItemViewModel.getAllItems().observe(HomePage.this, new Observer<List<Item>>() {
             @Override
             public void onChanged(@Nullable List<Item> items) {
-                gridView.setAdapter(new ItemAdapter(MainActivity.this, items));
+                gridView.setAdapter(new ItemAdapter(HomePage.this, items));
             }
 
         });
@@ -88,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 List<Item> items = mItemViewModel.getSearchedItems(query);
                 if(items != null) {
-                    gridView.setAdapter(new ItemAdapter(MainActivity.this, items));
+                    gridView.setAdapter(new ItemAdapter(HomePage.this, items));
                 }
                 return false;
             }
@@ -96,10 +95,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText.equals("")) {
-                    mItemViewModel.getAllItems().observe(MainActivity.this, new Observer<List<Item>>() {
+                    mItemViewModel.getAllItems().observe(HomePage.this, new Observer<List<Item>>() {
                         @Override
                         public void onChanged(@Nullable List<Item> items) {
-                            gridView.setAdapter(new ItemAdapter(MainActivity.this, items));
+                            gridView.setAdapter(new ItemAdapter(HomePage.this, items));
                         }
 
                     });
