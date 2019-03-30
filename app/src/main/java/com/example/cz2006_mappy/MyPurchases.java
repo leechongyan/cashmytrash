@@ -16,9 +16,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class MyPurchases extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -95,6 +97,8 @@ public class MyPurchases extends AppCompatActivity
             //TODO: HOME ACTIVITY
         } else if (id == R.id.nav_listing) {
             //TODO: LISTING ACTIVITY
+            Intent listing = new Intent(this.getApplicationContext(), MainActivity.class);
+            startActivity(listing);
             //THIS ONE
         } else if (id == R.id.nav_my_listing) {
             //TODO: MY LISTING ACTIVITY
@@ -118,5 +122,12 @@ public class MyPurchases extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void insertToken(View view){
+        TextView id = (TextView) findViewById(R.id.grid_item_id_my_purchases);
+        Intent token = new Intent(this, InsertToken.class);
+        token.putExtra("item_id_my_purchases", Integer.parseInt(id.getText().toString()));
+
+        startActivity(token);
     }
 }

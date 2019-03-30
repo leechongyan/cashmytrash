@@ -63,7 +63,7 @@ public class ItemTransactionAdapter extends BaseAdapter {
             Double price = items.get(position).getPrice();
 
             itemName.setText(item_name);
-            itemId.setText(item_id);
+            itemId.setText(Integer.toString(item_id));
             seller_Username.setText(seller_username);
             itemPrice.setText(Double.toString(price));
 
