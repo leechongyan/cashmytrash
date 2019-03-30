@@ -102,6 +102,7 @@ public class MyPurchases extends AppCompatActivity
         } else if (id == R.id.nav_listing) {
             //TODO: LISTING ACTIVITY
             //THIS ONE
+            Intent listing = new Intent(this.getApplicationContext(), HomePage.class);
         } else if (id == R.id.nav_my_listing) {
             //TODO: MY LISTING ACTIVITY
         } else if (id == R.id.nav_my_purchases) {
