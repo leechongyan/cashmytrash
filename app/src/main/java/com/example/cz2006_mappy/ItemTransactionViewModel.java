@@ -26,4 +26,6 @@ public class ItemTransactionViewModel extends AndroidViewModel {
 
     public void insert(ItemTransaction transaction ) {mRepository.insert(transaction);}
 
+    public int updateDelivered(int itemId){ return mRepository.updateDelivered(itemId);}
+
 }

@@ -66,7 +66,7 @@ public class ItemTransaction {
         return this.buyer_id;
     }
     public String getBuyer_username(){
-        return this.seller_username;
+        return this.buyer_username;
     }
     public int getDelivered() {return this.delivered; }
 

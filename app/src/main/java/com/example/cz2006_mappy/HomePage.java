@@ -69,11 +69,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                 TextView itemPrice = (TextView) v.findViewById(R.id.grid_item_price);
                 TextView itemDescription = (TextView) v.findViewById(R.id.grid_item_description);
                 TextView itemId = (TextView) v.findViewById(R.id.grid_item_id);
-
-                showItemDetailActivity.putExtra("item_detail_username",itemUsername.getText());
-                showItemDetailActivity.putExtra("item_detail_name",itemName.getText());
-                showItemDetailActivity.putExtra("item_detail_price",itemPrice.getText() );
-                showItemDetailActivity.putExtra("item_detail_description", itemDescription.getText());
                 showItemDetailActivity.putExtra("item_detail_id",itemId.getText());
                 startActivity(showItemDetailActivity);
             }

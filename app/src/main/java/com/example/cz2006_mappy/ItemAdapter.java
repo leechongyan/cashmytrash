@@ -1,6 +1,8 @@
 package com.example.cz2006_mappy;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class ItemAdapter extends BaseAdapter {
@@ -39,7 +42,6 @@ public class ItemAdapter extends BaseAdapter {
             ImageView imageView = (ImageView) gridView
                     .findViewById(R.id.grid_item_image);
 
-            imageView.setImageResource(R.drawable.ic_menu_camera);
 
             TextView itemName = (TextView) gridView.findViewById(R.id.grid_item_name);
             TextView itemPrice = (TextView) gridView.findViewById(R.id.grid_item_price);
@@ -52,7 +54,9 @@ public class ItemAdapter extends BaseAdapter {
             String username = items.get(position).getSeller_username();
             String description = items.get(position).getItem_description();
             int id = items.get(position).getItem_id();
-
+            byte[] image = items.get(position).getImage();
+            Bitmap imageBitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+            imageView.setImageBitmap(Bitmap.createScaledBitmap(imageBitmap,150,150,false));
             itemName.setText(name);
             itemPrice.setText(Double.toString(price));
             itemUsername.setText(username);

@@ -17,7 +17,7 @@ public interface ItemDao {
     void deleteAll();
 
 
-    @Query("SELECT * FROM ITEM")
+    @Query("SELECT * FROM ITEM WHERE available = 1")
     LiveData<List<Item>> getAllItems();
 
     @Query("SELECT * FROM ITEM WHERE item_name LIKE '%'  ||:s || '%'")
@@ -25,5 +25,8 @@ public interface ItemDao {
 
     @Query("SELECT * FROM ITEM WHERE item_id = :itemId")
     Item getItem(int itemId);
+
+    @Query("UPDATE ITEM SET available = 0 WHERE item_id = :itemId")
+    int updateAvailable(int itemId);
 
 }
