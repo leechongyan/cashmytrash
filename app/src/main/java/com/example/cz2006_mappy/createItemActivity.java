@@ -41,7 +41,7 @@ public class createItemActivity extends AppCompatActivity {
                     //TODO: Get seller id and username
                     Item item = new Item(0,name,description,Double.parseDouble(price),Integer.parseInt(getRandomNumberString()),15, "elios");
                     mItemViewModel.insert(item);
-                    Intent success = new Intent(getApplicationContext(),MainActivity.class);
+                    Intent success = new Intent(getApplicationContext(), ListingActivity.class);
                     Toast.makeText(getApplicationContext(),"Item has been created !",Toast.LENGTH_SHORT).show();
                     startActivity(success);
                 } else {
@@ -56,7 +56,7 @@ public class createItemActivity extends AppCompatActivity {
         createItemBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent createItemBackIntent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent createItemBackIntent = new Intent(getApplicationContext(), ListingActivity.class);
                 startActivity(createItemBackIntent);
             }
         });

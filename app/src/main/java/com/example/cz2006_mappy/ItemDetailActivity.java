@@ -18,7 +18,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back = new Intent(getApplicationContext(), MainActivity.class);
+                Intent back = new Intent(getApplicationContext(), ListingActivity.class);
                 startActivity(back);
 
             }

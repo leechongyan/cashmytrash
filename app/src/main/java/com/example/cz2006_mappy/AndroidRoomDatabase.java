@@ -5,12 +5,17 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {Item.class}, version = 3, exportSchema = false)
+@Database(entities = {Item.class, Feedback.class,User.class}, version = 6)
 public abstract class AndroidRoomDatabase extends RoomDatabase {
     //Later fill the entities {Item.class, UserAccount.class,... for example}
 
     public abstract ItemDao itemDao();
     //later fill
+
+    public abstract FeedbackDao feedbackDao();
+    // to fill
+
+    public abstract UserDAO userDao();
 
     private static AndroidRoomDatabase INSTANCE;
 

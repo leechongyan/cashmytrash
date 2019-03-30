@@ -1,7 +1,9 @@
 package com.example.cz2006_mappy;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,14 +18,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.AlertDialog;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private EditText addEditText;
     private Button addButton;
-    private TextView savingsTextView;
     String savings;
     Double total = 0.0;
 
@@ -43,13 +43,23 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if(getIntent().hasExtra("com.example.cz2006.mappy.displayTarget") || getIntent().hasExtra("com.example.cz2006.mappy.goBack")){
-            TextView targetTextView = (TextView) findViewById(R.id.targetTextView);
-            String toDisplay = getIntent().getExtras().getString("com.example.cz2006.mappy.displayTarget");
-            targetTextView.setText(toDisplay);
+        AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
+        UserDAO userDAO = db.userDao();
+        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+        String email = channel.getString("email","");
+        User user = userDAO.getUser(email);
+
+        TextView targetTextView = (TextView) findViewById(R.id.targetTextView);
+        targetTextView.setText(Double.toString(user.getTarget()));
+
+        TextView savingsTextView = (TextView) findViewById(R.id.savingsTextView);
+        savingsTextView.setText(Double.toString(user.getSavings()));
+
+        if(getIntent().hasExtra("com.example.cz2006.mappy.displayTarget")){
+            Double toDisplay = getIntent().getExtras().getDouble("com.example.cz2006.mappy.displayTarget");
+            targetTextView.setText(Double.toString(toDisplay));
         }
         if(getIntent().hasExtra("com.example.cz2006.mappy.displaySavings")){
-            TextView savingsTextView = (TextView) findViewById(R.id.savingsTextView);
             String toDisplay = getIntent().getExtras().getString("com.example.cz2006.mappy.displaySavings");
             savingsTextView.setText(toDisplay);
         }
@@ -68,7 +78,6 @@ public class HomeActivity extends AppCompatActivity
 
         addEditText = (EditText) findViewById(R.id.addEditText);
         addButton = (Button) findViewById(R.id.addButton);
-        savingsTextView = (TextView) findViewById(R.id.savingsTextView);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +98,20 @@ public class HomeActivity extends AppCompatActivity
                             public void onClick(DialogInterface dialog, int which) {
                                 savings = addEditText.getText().toString();
                                 total = total + Double.parseDouble(savings);
-                                savingsTextView.setText(Double.toString(total));
+
+                                AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
+                                UserDAO userDAO = db.userDao();
+                                SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+                                String email = channel.getString("email","");
+                                User user = userDAO.getUser(email);
+                                user.setSavings(total);
+                                userDAO.update(user);
+                                SharedPreferences.Editor editor = channel.edit();
+                                editor.putString("savings", Double.toString(user.getSavings()));
+                                editor.commit();
+
+                                TextView savingsTextView = (TextView) findViewById(R.id.savingsTextView);
+                                savingsTextView.setText(Double.toString(user.getSavings()));
                                 Toast.makeText(getApplicationContext(),"Added to savings", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -152,7 +174,8 @@ public class HomeActivity extends AppCompatActivity
             startActivity(Home);
         } else if (id == R.id.nav_listing) {
             //TODO: LISTING ACTIVITY
-            //THIS ONE
+            Intent Listing = new Intent(this, ListingActivity.class);
+            startActivity(Listing);
         } else if (id == R.id.nav_my_listing) {
             //TODO: MY LISTING ACTIVITY
             Intent myListing = new Intent(this, MyListingActivity.class);

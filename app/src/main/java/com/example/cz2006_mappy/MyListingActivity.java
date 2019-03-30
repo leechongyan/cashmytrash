@@ -230,7 +230,8 @@ public class MyListingActivity extends AppCompatActivity
             startActivity(Home);
         } else if (id == R.id.nav_listing) {
             //TODO: LISTING ACTIVITY
-            //THIS ONE
+            Intent Listing = new Intent(this, ListingActivity.class);
+            startActivity(Listing);
         } else if (id == R.id.nav_my_listing) {
             //TODO: MY LISTING ACTIVITY
             Intent myListing = new Intent(this, MyListingActivity.class);

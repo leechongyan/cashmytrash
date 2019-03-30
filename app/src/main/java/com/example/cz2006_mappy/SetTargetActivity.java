@@ -1,6 +1,5 @@
 package com.example.cz2006_mappy;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,23 +24,36 @@ public class SetTargetActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
+        final UserDAO userDAO = db.userDao();
+
+        final SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+
+        String email = channel.getString("email","");
+        final User user = userDAO.getUser(email);
+
         if (getIntent().hasExtra("com.example.cz2006.mappy.setTarget")){
             setButton = (Button) findViewById(R.id.setButton);
             setEditText = (EditText) findViewById(R.id.setEditText);
             cancelButton = (Button) findViewById(R.id.cancelButton);
+
 
             setButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (v.getId() == setButton.getId()){
                         text = setEditText.getText().toString();
-                        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putFloat("1", Float.parseFloat(text));
-                        editor.apply();
-                        Intent displayText = new Intent(getApplicationContext(), HomeActivity.class);
-                        displayText.putExtra("com.example.cz2006.mappy.displayTarget", text);
-                        startActivity(displayText);
+
+                        user.setTarget(Double.parseDouble(text));
+                        userDAO.update(user);
+                        SharedPreferences.Editor editor = channel.edit();
+                        editor.putString("target", Double.toString(user.getTarget()));
+                        editor.commit();
+
+                        Intent gotoHome = new Intent(getApplicationContext(), HomeActivity.class);
+                        gotoHome.putExtra("com.example.cz2006.mappy.displayTarget", user.getTarget());
+                        startActivity(gotoHome);
+
                         Toast.makeText(getApplicationContext(),"Savings Target Set",Toast.LENGTH_LONG).show();
                     }
                 }
@@ -51,13 +63,8 @@ public class SetTargetActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (v.getId() == cancelButton.getId()){
-                        Intent goBack = new Intent(getApplicationContext(), HomeActivity.class);
-                        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-                        float target = sharedPref.getFloat("1", 0);
-                        goBack.putExtra("com.example.cz2006.mappy.displayTarget", Float.toString(target));
-                        goBack.putExtra("com.example.cz2006.mappy.goBack", "Go Back");
-                        startActivity(goBack);
                         Toast.makeText(getApplicationContext(),"Setting Savings Target Cancelled",Toast.LENGTH_LONG).show();
+                        onBackPressed();
                     }
                 }
             });

@@ -44,6 +44,15 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/grid_item_token_to_deliver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="10sp"
+            android:text="@string/itemDetailToken"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+
+        <TextView
             android:id="@+id/grid_item_description_to_deliver"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
