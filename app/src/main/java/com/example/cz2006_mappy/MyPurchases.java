@@ -97,14 +97,12 @@ public class MyPurchases extends AppCompatActivity
             //TODO: HOME ACTIVITY
         } else if (id == R.id.nav_listing) {
             //TODO: LISTING ACTIVITY
-            Intent listing = new Intent(this.getApplicationContext(), MainActivity.class);
-            startActivity(listing);
             //THIS ONE
         } else if (id == R.id.nav_my_listing) {
             //TODO: MY LISTING ACTIVITY
         } else if (id == R.id.nav_my_purchases) {
             //TODO: MY PURCHASES ACTIVITY
-            Intent purchases = new Intent(this.getApplicationContext(), MyPurchases.class);
+            Intent purchases = new Intent(this.getApplicationContext(),MyPurchases.class);
             startActivity(purchases);
         } else if (id == R.id.nav_convert_to_cash) {
             //TODO: CONVERT TO CASH ACTIVITY
