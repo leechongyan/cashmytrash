@@ -23,7 +23,7 @@ public class FeedbackForm extends AppCompatActivity {
         feedbackBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backIntent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent backIntent = new Intent(getApplicationContext(), HomePage.class);
                 startActivity(backIntent);
             }
         });
@@ -46,7 +46,7 @@ public class FeedbackForm extends AppCompatActivity {
                     Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
-            Intent goHome = new Intent(this, MainActivity.class);
+            Intent goHome = new Intent(this, HomePage.class);
             Feedback fb = new Feedback(0,feedback,"some username"); //todo: username to be integrated
             mFeedbackViewModel.insert(fb);
 
