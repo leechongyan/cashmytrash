@@ -10,7 +10,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="100dp">
         <TextView
             android:id="@+id/grid_item_name_my_purchases"
             android:layout_width="match_parent"
@@ -33,15 +35,6 @@
             android:text="@string/itemDetailPrice"
             android:textAllCaps="false"
             android:textSize="18sp" />
-        <!--<TextView-->
-        <!--android:id="@+id/grid_item_transaction_id_my_purchases"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:lineSpacingExtra="10sp"-->
-        <!--android:text="Transaction ID"-->
-        <!--android:textAllCaps="false"-->
-        <!--android:textSize="18sp"-->
-        <!--android:visibility="invisible" />-->
 
         <TextView
             android:id="@+id/grid_item_id_my_purchases"
@@ -53,22 +46,31 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:layout_marginLeft="260dp"
+            android:layout_marginLeft="280dp"
             android:layout_marginTop="20dp"
             android:text="Insert Token"
             android:onClick="insertToken"/>
     </LinearLayout>
-    <!--<ImageView-->
-        <!--android:id="@+id/grid_item_item_image"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="99dp"-->
-        <!--app:srcCompat="@android:drawable/ic_input_add" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp">
+
+        <ImageView
+            android:id="@+id/grid_item_id_my_purchases_item_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:srcCompat="@android:drawable/ic_menu_camera"
+            />
+    </LinearLayout>
 
 
 

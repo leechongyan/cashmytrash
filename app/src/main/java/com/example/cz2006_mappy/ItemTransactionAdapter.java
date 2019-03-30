@@ -4,6 +4,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Transaction;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.view.menu.MenuView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,8 +48,9 @@ public class ItemTransactionAdapter extends BaseAdapter {
             gridView = mInflater.inflate(R.layout.mypurchase, null);
 
             // set image based on selected text
-//            ImageView imageView = (ImageView) gridView
-//                    .findViewById(R.id.grid_item_image);
+            ImageView imageView = (ImageView) gridView
+                    .findViewById(R.id.grid_item_id_my_purchases_item_image);
+
 
 //            imageView.setImageResource(R.drawable.ic_menu_camera);
 //
@@ -61,7 +64,10 @@ public class ItemTransactionAdapter extends BaseAdapter {
             int item_id = items.get(position).getItem_id();
             String seller_username = items.get(position).getSeller_username();
             Double price = items.get(position).getPrice();
-
+            imageView.setImageResource(R.drawable.ic_menu_camera);
+            byte[] image = items.get(position).getImage();
+            Bitmap imageBitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+            imageView.setImageBitmap(Bitmap.createScaledBitmap(imageBitmap,150,150,false));
             itemName.setText(item_name);
             itemId.setText(Integer.toString(item_id));
             seller_Username.setText(seller_username);

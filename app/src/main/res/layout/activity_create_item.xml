@@ -20,8 +20,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_group_expand_15" />
 
-    <ImageButton
-        android:id="@+id/createItemImageButton"
+    <!--<ImageButton-->
+        <!--android:id="@+id/createItemImageButton"-->
+        <!--android:layout_width="84dp"-->
+        <!--android:layout_height="87dp"-->
+        <!--android:layout_marginStart="16dp"-->
+        <!--android:layout_marginLeft="16dp"-->
+        <!--android:layout_marginTop="24dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:scaleType="centerInside"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.0"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/createItemBackButton"-->
+        <!--app:srcCompat="@drawable/ic_menu_gallery" />-->
+    <ImageView
+        android:id="@+id/itemImage"
         android:layout_width="84dp"
         android:layout_height="87dp"
         android:layout_marginStart="16dp"
@@ -34,7 +49,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createItemBackButton"
-        app:srcCompat="@drawable/ic_menu_gallery" />
+        />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -47,7 +62,7 @@
         android:layout_marginRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/createItemImageButton"
+        app:layout_constraintStart_toEndOf="@+id/itemImage"
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.design.widget.TextInputEditText
@@ -76,7 +91,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createItemImageButton" />
+        app:layout_constraintTop_toBottomOf="@+id/itemImage" />
 
     <Button
         android:id="@+id/createItemButton"
@@ -109,8 +124,19 @@
         app:layout_constraintBottom_toTopOf="@+id/createItemDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/createItemImageButton"
+        app:layout_constraintStart_toEndOf="@+id/itemImage"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
         app:layout_constraintVertical_bias="0.133" />
+
+    <Button
+        android:id="@+id/uploadImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="276dp"
+        android:layout_marginRight="276dp"
+        android:text="Upload Image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemImage" />
 
 </android.support.constraint.ConstraintLayout>
