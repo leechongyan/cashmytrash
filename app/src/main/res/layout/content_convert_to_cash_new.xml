@@ -43,10 +43,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.952" />
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="277dp"
-        android:layout_height="384dp"
+    <fragment
+        android:id="@+id/map_convert_to_cash"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="330dp"
+        android:layout_height="456dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
