@@ -28,7 +28,7 @@ public class MyPurchases extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private ItemViewModel mItemViewModel;
     private ItemTransactionViewModel mItemTransactionViewModel;
-    private TransactionManager manager;
+    private TransactionManager manager = new TransactionManager();
     SharedPreferences pref;
 
     @Override
