@@ -30,8 +30,7 @@ public class InsertToken extends AppCompatActivity {
         tokenBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backIntent = new Intent(getApplicationContext(), MyPurchases.class);
-                startActivity(backIntent);
+                onBackPressed();
             }
         });
     }
@@ -41,14 +40,15 @@ public class InsertToken extends AppCompatActivity {
         int token = Integer.parseInt(editTextToken.getText().toString());
         Item item = mItemViewModel.getItem(id);
         int item_token = item.getToken();
-        if(token == item_token){
+        if(token-item_token==0){
             int updated = mItemTransactionViewModel.updateDelivered(id);
             Toast toast = Toast.makeText(getApplicationContext(),
                     "Your item has been received. Thank you for shopping with us",
                     Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
-            onBackPressed();
+            Intent goPurchase = new Intent(getApplicationContext(), MyPurchases.class);
+            startActivity(goPurchase);
         }
         else{
             Toast toast = Toast.makeText(getApplicationContext(),

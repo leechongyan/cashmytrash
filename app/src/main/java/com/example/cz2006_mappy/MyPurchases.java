@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -24,8 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class MyPurchases extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MyPurchases extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private ItemViewModel mItemViewModel;
     private ItemTransactionViewModel mItemTransactionViewModel;
     private TransactionManager manager = new TransactionManager();
@@ -47,14 +47,6 @@ public class MyPurchases extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        Button btninsertToken = (Button) findViewById(R.id.btninsertToken);
-//        btninsertToken.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                manager.insertToken(v);
-//            }
-//        });
-
         pref = getSharedPreferences("user_details", MODE_PRIVATE);
         String username = pref.getString("username","Anon");
         mItemViewModel = ViewModelProviders.of(MyPurchases.this).get(ItemViewModel.class);
@@ -62,12 +54,8 @@ public class MyPurchases extends AppCompatActivity
         final GridView gridView = (GridView) findViewById(R.id.grid_my_purchases_view);
         List<Integer> items_id= mItemTransactionViewModel.getItemTransaction(username);
         List<Item> items = manager.getItems(items_id);
-//        List<Item> items = new ArrayList<>();
-//        for(int i =0; i< items_id.size(); i++){
-//            int item_id = items_id.get(i);
-//            items.add(mItemViewModel.getItem(item_id));
-//        }
         gridView.setAdapter(new ItemTransactionAdapter(MyPurchases.this, items));
+
     }
 
     @Override
@@ -137,12 +125,23 @@ public class MyPurchases extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void onClick(View v){
+        switch(v.getId()){
+            case R.id.btninsertToken:
+                TextView id = (TextView) findViewById(R.id.grid_item_id_my_purchases);
+                Intent token = new Intent(this, InsertToken.class);
+                token.putExtra("item_id_my_purchases", Integer.parseInt(id.getText().toString()));
+
+                startActivity(token);
+        }
+    }
     public void insertToken(View view){
         TextView id = (TextView) findViewById(R.id.grid_item_id_my_purchases);
         Intent token = new Intent(this, InsertToken.class);
         token.putExtra("item_id_my_purchases", Integer.parseInt(id.getText().toString()));
 
         startActivity(token);
-        //manager.insertToken(view)
     }
 }
