@@ -46,7 +46,7 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
                 Bitmap image = ((BitmapDrawable) itemImage.getDrawable()).getBitmap();
                 byte[] byteImage = uploadImage(image);
 
-                String status = createInputValid(name,price,description);
+                String status = createInputValid(name,price,description, byteImage);
                 if(status.equals("success")){
                     //TODO: Get seller id and username
                     Item item = new Item(0,name,description,Double.parseDouble(price),Integer.parseInt(getRandomNumberString()),15, "elios",1, byteImage);
@@ -96,13 +96,18 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
         return stream.toByteArray();
     }
 
-    private String createInputValid(String name, String price, String description){
+    private String createInputValid(String name, String price, String description, byte[] byteImage){
+        System.out.println(byteImage);
         System.out.println(name+price+description);
         if(name == null | name.isEmpty() | name.length() == 0){
-            return "Item Name cannot be empty.";
+            return "Item Name cannot be empty";
         }
         if(price == null | price.isEmpty() | price.length() == 0){
             return "Item price cannot be empty";
+        }
+        //TODO: toast doesn't show up when image not uploaded (+ crashes)
+        if(byteImage == null | byteImage.length == 0){
+            return "An item image must be uploaded";
         }
         if(description == null | description.isEmpty() | description.length() == 0){
             return "Item description cannot be empty";
@@ -114,12 +119,11 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
             return "Item price cannot be negative";
         }
         if(description.length() <50){
-            return "Item description must consists of minimum 50 characters";
+            return "Item description must consist of minimum 50 characters";
         }
         return "success";
-
-
     }
+
     public static boolean isNumeric(String str) {
         return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
     }
