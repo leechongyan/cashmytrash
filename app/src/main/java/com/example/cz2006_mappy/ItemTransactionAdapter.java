@@ -1,20 +1,14 @@
 package com.example.cz2006_mappy;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModelProviders;
-import android.arch.persistence.room.Transaction;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.view.menu.MenuView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -60,6 +54,7 @@ public class ItemTransactionAdapter extends BaseAdapter {
             TextView itemPrice = (TextView) gridView.findViewById(R.id.grid_item_price_my_purchases);
 //            TextView transactionId = (TextView) gridView.findViewById(R.id.grid_item_transaction_id_my_purchases);
 
+
             String item_name = items.get(position).getItem_name();
             int item_id = items.get(position).getItem_id();
             String seller_username = items.get(position).getSeller_username();
@@ -67,6 +62,8 @@ public class ItemTransactionAdapter extends BaseAdapter {
             imageView.setImageResource(R.drawable.ic_menu_camera);
             byte[] image = items.get(position).getImage();
             Bitmap imageBitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+
+
             imageView.setImageBitmap(Bitmap.createScaledBitmap(imageBitmap,150,150,false));
             itemName.setText(item_name);
             itemId.setText(Integer.toString(item_id));
@@ -91,6 +88,8 @@ public class ItemTransactionAdapter extends BaseAdapter {
             gridView = (View) convertView;
         }
 
+
+
         return gridView;
     }
 
@@ -101,12 +100,12 @@ public class ItemTransactionAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return items.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
 }

@@ -1,14 +1,9 @@
 package com.example.cz2006_mappy;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,15 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
-public class MyPurchases extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class MyPurchases extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ItemViewModel mItemViewModel;
     private ItemTransactionViewModel mItemTransactionViewModel;
     private TransactionManager manager = new TransactionManager();
@@ -55,6 +49,10 @@ public class MyPurchases extends AppCompatActivity implements NavigationView.OnN
         List<Integer> items_id= mItemTransactionViewModel.getItemTransaction(username);
         List<Item> items = manager.getItems(items_id);
         gridView.setAdapter(new ItemTransactionAdapter(MyPurchases.this, items));
+
+
+
+
 
     }
 
@@ -126,19 +124,10 @@ public class MyPurchases extends AppCompatActivity implements NavigationView.OnN
         return true;
     }
 
-    @Override
-    public void onClick(View v){
-        switch(v.getId()){
-            case R.id.btninsertToken:
-                TextView id = (TextView) findViewById(R.id.grid_item_id_my_purchases);
-                Intent token = new Intent(this, InsertToken.class);
-                token.putExtra("item_id_my_purchases", Integer.parseInt(id.getText().toString()));
-
-                startActivity(token);
-        }
-    }
     public void insertToken(View view){
-        TextView id = (TextView) findViewById(R.id.grid_item_id_my_purchases);
+        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
+        TextView id = (TextView) v.findViewById(R.id.grid_item_id_my_purchases);
+
         Intent token = new Intent(this, InsertToken.class);
         token.putExtra("item_id_my_purchases", Integer.parseInt(id.getText().toString()));
 
