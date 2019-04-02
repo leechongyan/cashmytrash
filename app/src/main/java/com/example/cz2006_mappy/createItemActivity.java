@@ -37,14 +37,19 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
         createItemActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                byte[] byteImage;
                 EditText itemName = (EditText) findViewById(R.id.createItemName);
                 EditText itemPrice = (EditText) findViewById(R.id.createItemPrice);
                 EditText itemDescription = (EditText) findViewById(R.id.createItemDescription);
                 String name = itemName.getText().toString();
                 String price = itemPrice.getText().toString();
                 String description = itemDescription.getText().toString();
-                Bitmap image = ((BitmapDrawable) itemImage.getDrawable()).getBitmap();
-                byte[] byteImage = uploadImage(image);
+                if(itemImage.getDrawable() != null) {
+                    Bitmap image = ((BitmapDrawable) itemImage.getDrawable()).getBitmap();
+                    byteImage = uploadImage(image);
+                }else{
+                    byteImage =null;
+                }
 
                 String status = createInputValid(name,price,description, byteImage);
                 if(status.equals("success")){
@@ -106,7 +111,7 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
             return "Item price cannot be empty";
         }
         //TODO: toast doesn't show up when image not uploaded (+ crashes)
-        if(byteImage == null | byteImage.length == 0){
+        if(byteImage == null){
             return "An item image must be uploaded";
         }
         if(description == null | description.isEmpty() | description.length() == 0){

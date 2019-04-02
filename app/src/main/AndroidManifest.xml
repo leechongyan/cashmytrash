@@ -33,7 +33,7 @@
 
         <activity
             android:name=".ListingActivity"
-            android:label="@string/title_activity_home"
+            android:label="@string/title_activity_listing"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity android:name=".SeeMoreCashIncentives" />
@@ -50,7 +50,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home"
+            android:label="@string/title_activity_listing"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ItemDetailActivity" />
         <activity

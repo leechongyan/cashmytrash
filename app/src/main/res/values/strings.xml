@@ -17,14 +17,14 @@
     <string name="itemDetailPrice">Price : $SGD</string>
     <string name="itemDetailToken">Token: token</string>
     <string name="itemDetailDescription">Item Description</string>
-
+    <string name="itemDetailSellerId">Sold By: Seller Id</string>
 
     <!--Create Item Page -->
     <string name="createItemName">Item Name:</string>
     <string name="createItemPrice">Item Price (SGD):</string>
     <string name="createItemDescription">Item Description</string>
     <string name="createItemButton">CREATE</string>
-    <string name="title_activity_home">Home</string>
+    <string name="title_activity_listing">Listing</string>
     <string name="title_activity_set_target">SetTargetActivity</string>
     <string name="title_activity_my_listing">MyListingActivity</string>
 

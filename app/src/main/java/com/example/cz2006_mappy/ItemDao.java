@@ -23,8 +23,8 @@ public interface ItemDao {
     @Query("SELECT * FROM ITEM WHERE item_name LIKE '%'  ||:s || '%'")
     List<Item> getSearchedItems(String s);
 
-    @Query("SELECT * FROM ITEM WHERE seller_id = 15")
-    LiveData<List<Item>> getSoldItems();
+    @Query("SELECT * FROM ITEM WHERE seller_id = :sellerId")
+    LiveData<List<Item>> getSoldItems(int sellerId);
 
     @Query("DELETE FROM ITEM WHERE item_id = :i")
     void deleteSoldItem(int i);

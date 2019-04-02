@@ -10,14 +10,12 @@ public class ItemRepository {
 
     private ItemDao mItemDao;
     private LiveData<List<Item>> mAllItems;
-    private LiveData<List<Item>> soldItems;
     //list all member variable of the dao, check the return value of the method in Dao
 
     public ItemRepository(Application application) {
         AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(application);
         mItemDao = db.itemDao();
         mAllItems = mItemDao.getAllItems();
-        soldItems = mItemDao.getSoldItems();
     }
 
     LiveData<List<Item>> getAllItems() {
@@ -27,7 +25,7 @@ public class ItemRepository {
     public List<Item> getSearchedItems(String s) { return mItemDao.getSearchedItems(s);}
     public int updateAvailable(int itemId){ return mItemDao.updateAvailable(itemId);}
 
-    LiveData<List<Item>> getSoldItems() {return soldItems;}
+    LiveData<List<Item>> getSoldItems(int sellerId) {return mItemDao.getSoldItems(sellerId);}
 
     public void deleteSoldItem(int i) {mItemDao.deleteSoldItem(i);}
 

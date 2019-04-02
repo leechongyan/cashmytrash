@@ -92,7 +92,9 @@ public class MyListingActivity extends AppCompatActivity
                     //Show item in gridview
                     final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
 
-                    mItemViewModel.getSoldItems().observe(MyListingActivity.this, new Observer<List<Item>>() {
+                    TextView grid_item_seller_id_all = (TextView) findViewById(R.id.grid_item_seller_id_all);
+                    String seller_id = grid_item_seller_id_all.getText().toString();
+                    mItemViewModel.getSoldItems(Integer.parseInt(seller_id)).observe(MyListingActivity.this, new Observer<List<Item>>() {
                         @Override
                         public void onChanged(@Nullable List<Item> items) {
                             gridView.setAdapter(new ItemAllAdapter(MyListingActivity.this, items));
@@ -101,18 +103,7 @@ public class MyListingActivity extends AppCompatActivity
                     });
                 }
                 else if (tabNumber == 1){ // TODO: to deliver not implemented yet
-                    mItemViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemViewModel.class);
 
-                    //Show item in gridview
-                    final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
-
-                    mItemViewModel.getSoldItems().observe(MyListingActivity.this, new Observer<List<Item>>() {
-                        @Override
-                        public void onChanged(@Nullable List<Item> items) {
-                            gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, items));
-                        }
-
-                    });
                 }
             }
 

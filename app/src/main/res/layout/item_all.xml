@@ -50,6 +50,13 @@
             android:layout_height="wrap_content"
             android:text="@string/itemDetailDescription"
             android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/grid_item_seller_id_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/itemDetailSellerId"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
