@@ -9,7 +9,6 @@
     <string name="registration_activity">Registration</string>
 
 
-
     <!--Item Detail Page -->
     <string name="itemDetailId">Item Id</string>
     <string name="itemDetailName">Name of Item</string>
@@ -24,6 +23,8 @@
     <string name="createItemPrice">Item Price (SGD):</string>
     <string name="createItemDescription">Item Description</string>
     <string name="createItemButton">CREATE</string>
+
+    <string name="title_activity_home">Home</string>
     <string name="title_activity_listing">Listing</string>
     <string name="title_activity_set_target">SetTargetActivity</string>
     <string name="title_activity_my_listing">MyListingActivity</string>
@@ -51,4 +52,5 @@
     <string name="title_activity_convert_to_cash_new">ConvertToCashNew</string>
     <string name="title_activity_my_purchases">MyPurchases</string>
     <string name="title_activity_insert_token">InsertToken</string>
+    <string name="title_activity_contact_seller">ContactSeller</string>
 </resources>

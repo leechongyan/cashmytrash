@@ -52,14 +52,14 @@ public class ItemAllAdapter extends BaseAdapter {
             double price = items.get(position).getPrice();
             String username = items.get(position).getSeller_username();
             String description = items.get(position).getItem_description();
-            int sellerId = items.get(position).getSeller_id();
+            String sellerId = items.get(position).getSeller_id();
 
             itemId.setText(Integer.toString(id));
             itemName.setText(name);
             itemPrice.setText(Double.toString(price));
             itemUsername.setText(username);
             itemDescription.setText(description);
-            itemSellerId.setText(Integer.toString(sellerId));
+            itemSellerId.setText(sellerId);
 
         } else {
             gridView = (View) convertView;

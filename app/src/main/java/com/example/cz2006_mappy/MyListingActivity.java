@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -27,6 +28,13 @@ public class MyListingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ItemViewModel mItemViewModel;
+    private ItemTransactionViewModel mItemTransactionViewModel;
+
+    AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
+    UserDAO userDAO = db.userDao();
+    SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+    String email = channel.getString("email","");
+    User user = userDAO.getUser(email);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +100,7 @@ public class MyListingActivity extends AppCompatActivity
                     //Show item in gridview
                     final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
 
-                    TextView grid_item_seller_id_all = (TextView) findViewById(R.id.grid_item_seller_id_all);
-                    String seller_id = grid_item_seller_id_all.getText().toString();
-                    mItemViewModel.getSoldItems(Integer.parseInt(seller_id)).observe(MyListingActivity.this, new Observer<List<Item>>() {
+                    mItemViewModel.getSoldItems(user.getEmailaddress()).observe(MyListingActivity.this, new Observer<List<Item>>() {
                         @Override
                         public void onChanged(@Nullable List<Item> items) {
                             gridView.setAdapter(new ItemAllAdapter(MyListingActivity.this, items));
@@ -103,7 +109,13 @@ public class MyListingActivity extends AppCompatActivity
                     });
                 }
                 else if (tabNumber == 1){ // TODO: to deliver not implemented yet
+                    mItemTransactionViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemTransactionViewModel.class);
 
+                    //Show item in gridview
+                    final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
+
+
+                    // user.getEmailAddress() param getToDeliverTransaction
                 }
             }
 

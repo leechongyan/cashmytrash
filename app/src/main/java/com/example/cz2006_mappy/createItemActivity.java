@@ -2,6 +2,7 @@ package com.example.cz2006_mappy;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -23,6 +24,7 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
     private ItemViewModel mItemViewModel;
     private static final int RESULT_LOAD_IMAGE=1;
     ImageView itemImage;
+    SharedPreferences pref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,10 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
                 String status = createInputValid(name,price,description, byteImage);
                 if(status.equals("success")){
                     //TODO: Get seller id and username
-                    Item item = new Item(0,name,description,Double.parseDouble(price),Integer.parseInt(getRandomNumberString()),15, "elios",1, byteImage);
+                    pref = getSharedPreferences("user_details", MODE_PRIVATE);
+                    String seller_username = pref.getString("username", "Anon");
+                    String seller_id = pref.getString("email","Anon");
+                    Item item = new Item(0,name,description,Double.parseDouble(price),Integer.parseInt(getRandomNumberString()),seller_id, seller_username,1, byteImage);
                     mItemViewModel.insert(item);
                     Intent success = new Intent(getApplicationContext(), ListingActivity.class);
                     Toast.makeText(getApplicationContext(),"Item has been created !",Toast.LENGTH_SHORT).show();

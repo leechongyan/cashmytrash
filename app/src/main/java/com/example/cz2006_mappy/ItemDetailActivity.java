@@ -1,23 +1,23 @@
 package com.example.cz2006_mappy;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.arch.persistence.room.Transaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 public class ItemDetailActivity extends AppCompatActivity {
     private ItemViewModel mItemViewModel;
     private ItemTransactionViewModel mItemTransactionViewModel;
+    SharedPreferences pref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,20 +62,29 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         ImageView imageView = (ImageView) findViewById(R.id.createItemImageButton);
         imageView.setImageBitmap(Bitmap.createScaledBitmap(imageBitmap,150,150,false));
-
-
     }
     public void checkout(View view){
+        pref = getSharedPreferences("user_details", MODE_PRIVATE);
         TextView item_Id = (TextView) findViewById(R.id.itemDetailId);
         String itemId = item_Id.getText().toString();
-        TextView itemDetailName = (TextView) findViewById(R.id.itemDetailName);
-        String username = itemDetailName.getText().toString();
-        String buyer_username = "gabriella";
-        ItemTransaction transaction1 = new ItemTransaction(0,0,Integer.parseInt(itemId),username,1,buyer_username,0);
-        mItemTransactionViewModel.insert(transaction1);
-        int updated = mItemViewModel.updateAvailable(Integer.parseInt(itemId));
-        Intent success = new Intent(getApplicationContext(),MyPurchases.class);
-        Toast.makeText(getApplicationContext(),"Checkout is successful!",Toast.LENGTH_SHORT).show();
-        startActivity(success);
+        Item item = mItemViewModel.getItem(Integer.parseInt(itemId));
+        String seller_id = item.getSeller_id();
+        String buyer_id = pref.getString("email", "Anon");
+        if(seller_id.equals(buyer_id)){
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "You cannot buy your own item", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+        else{
+            String username = item.getSeller_username();
+            String buyer_username = pref.getString("username","Anon");
+            ItemTransaction transaction1 = new ItemTransaction(0,seller_id,Integer.parseInt(itemId),username,buyer_id,buyer_username,0);
+            mItemTransactionViewModel.insert(transaction1);
+            int updated = mItemViewModel.updateAvailable(Integer.parseInt(itemId));
+            Intent success = new Intent(getApplicationContext(),MyPurchases.class);
+            Toast.makeText(getApplicationContext(),"Checkout is successful!",Toast.LENGTH_SHORT).show();
+            startActivity(success);
+        }
     }
 }

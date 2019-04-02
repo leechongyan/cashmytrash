@@ -25,7 +25,7 @@ public class ItemRepository {
     public List<Item> getSearchedItems(String s) { return mItemDao.getSearchedItems(s);}
     public int updateAvailable(int itemId){ return mItemDao.updateAvailable(itemId);}
 
-    LiveData<List<Item>> getSoldItems(int sellerId) {return mItemDao.getSoldItems(sellerId);}
+    LiveData<List<Item>> getSoldItems(String sellerId) {return mItemDao.getSoldItems(sellerId);}
 
     public void deleteSoldItem(int i) {mItemDao.deleteSoldItem(i);}
 

@@ -21,7 +21,7 @@ public class ItemViewModel extends AndroidViewModel {
     LiveData<List<Item>> getAllItems() {return mAllItems;}
     Item getItem(int itemId){ return mRepository.getItem(itemId); }
     List<Item> getSearchedItems(String s) {return mRepository.getSearchedItems(s);}
-    LiveData<List<Item>> getSoldItems(int sellerId) {return mRepository.getSoldItems(sellerId);}
+    LiveData<List<Item>> getSoldItems(String sellerId) {return mRepository.getSoldItems(sellerId);}
     public void deleteSoldItem(int i){mRepository.deleteSoldItem(i);}
     int updateAvailable(int itemId){return mRepository.updateAvailable(itemId);}
 
