@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
@@ -76,8 +78,7 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
         createItemBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent createItemBackIntent = new Intent(getApplicationContext(), HomePage.class);
-                startActivity(createItemBackIntent);
+                onBackPressed();
             }
         });
     }
@@ -142,5 +143,8 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
 
         // this will convert any number sequence into 6 character.
         return String.format("%06d", number);
+    }
+    public void onBackPressed() {
+            super.onBackPressed();
     }
 }
