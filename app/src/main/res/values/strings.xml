@@ -9,7 +9,6 @@
     <string name="registration_activity">Registration</string>
 
 
-
     <!--Item Detail Page -->
     <string name="itemDetailName">Name of Item</string>
     <string name="itemDetailUsername">Sold By: Username</string>
@@ -44,4 +43,5 @@
     <string name="title_activity_convert_to_cash_new">ConvertToCashNew</string>
     <string name="title_activity_my_purchases">MyPurchases</string>
     <string name="title_activity_insert_token">InsertToken</string>
+    <string name="title_activity_contact_seller">ContactSeller</string>
 </resources>

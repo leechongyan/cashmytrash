@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        final UserDatabase db = UserDatabase.getAppDatabase(this);
+        final AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
         final UserDAO userDAO = db.userDao();
 
         //for fake login

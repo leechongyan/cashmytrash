@@ -13,10 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ContactSeller" />
         <activity
             android:name=".InsertToken"
             android:label="@string/title_activity_insert_token"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MyPurchases"
             android:label="@string/title_activity_my_purchases"
@@ -24,18 +25,15 @@
         <activity
             android:name=".ConvertToCashNew"
             android:label="@string/title_activity_convert_to_cash_new"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Registration"
             android:label="@string/registration_activity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HomePage"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SeeMoreCashIncentives" />
         <activity android:name=".FeedbackForm" />
         <activity android:name=".createItemActivity" />
@@ -51,7 +49,5 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
 </manifest>

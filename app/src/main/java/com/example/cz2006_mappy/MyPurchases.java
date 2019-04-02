@@ -1,12 +1,9 @@
 package com.example.cz2006_mappy;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,17 +12,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
-public class MyPurchases extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MyPurchases extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ItemViewModel mItemViewModel;
     private ItemTransactionViewModel mItemTransactionViewModel;
+    private TransactionManager manager = new TransactionManager();
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +41,16 @@ public class MyPurchases extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        pref = getSharedPreferences("user_details", MODE_PRIVATE);
+        String username = pref.getString("username","Anon");
         mItemViewModel = ViewModelProviders.of(MyPurchases.this).get(ItemViewModel.class);
         mItemTransactionViewModel = ViewModelProviders.of(this).get(ItemTransactionViewModel.class);
         final GridView gridView = (GridView) findViewById(R.id.grid_my_purchases_view);
-        List<Integer> items_id= mItemTransactionViewModel.getItemTransaction("gabriella");
-        List<Item> items = new ArrayList<>();
-        for(int i =0; i< items_id.size(); i++){
-            int item_id = items_id.get(i);
-            items.add(mItemViewModel.getItem(item_id));
-        }
+        List<Integer> items_id= mItemTransactionViewModel.getItemTransaction(username);
+        List<Item> items = manager.getItems(items_id);
         gridView.setAdapter(new ItemTransactionAdapter(MyPurchases.this, items));
+
+
     }
 
     @Override
@@ -98,6 +96,7 @@ public class MyPurchases extends AppCompatActivity
         } else if (id == R.id.nav_listing) {
             //TODO: LISTING ACTIVITY
             //THIS ONE
+            Intent listing = new Intent(this.getApplicationContext(), HomePage.class);
         } else if (id == R.id.nav_my_listing) {
             //TODO: MY LISTING ACTIVITY
         } else if (id == R.id.nav_my_purchases) {
@@ -121,11 +120,25 @@ public class MyPurchases extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     public void insertToken(View view){
-        TextView id = (TextView) findViewById(R.id.grid_item_id_my_purchases);
+        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
+        TextView id = (TextView) v.findViewById(R.id.grid_item_id_my_purchases);
+
         Intent token = new Intent(this, InsertToken.class);
         token.putExtra("item_id_my_purchases", Integer.parseInt(id.getText().toString()));
 
         startActivity(token);
+    }
+
+    public void contactSeller(View view){
+        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
+        TextView id = (TextView) v.findViewById(R.id.grid_item_id_my_purchases);
+
+        Item item = mItemViewModel.getItem(Integer.parseInt(id.getText().toString()));
+        String seller_id = item.getSeller_id();
+        Intent contact = new Intent(getApplicationContext(),ContactSeller.class);
+        contact.putExtra("user_id", seller_id);
+        startActivity(contact);
     }
 }
