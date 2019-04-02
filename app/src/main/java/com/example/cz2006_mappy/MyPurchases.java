@@ -51,9 +51,6 @@ public class MyPurchases extends AppCompatActivity implements NavigationView.OnN
         gridView.setAdapter(new ItemTransactionAdapter(MyPurchases.this, items));
 
 
-
-
-
     }
 
     @Override
@@ -132,5 +129,16 @@ public class MyPurchases extends AppCompatActivity implements NavigationView.OnN
         token.putExtra("item_id_my_purchases", Integer.parseInt(id.getText().toString()));
 
         startActivity(token);
+    }
+
+    public void contactSeller(View view){
+        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
+        TextView id = (TextView) v.findViewById(R.id.grid_item_id_my_purchases);
+
+        Item item = mItemViewModel.getItem(Integer.parseInt(id.getText().toString()));
+        String seller_id = item.getSeller_id();
+        Intent contact = new Intent(getApplicationContext(),ContactSeller.class);
+        contact.putExtra("user_id", seller_id);
+        startActivity(contact);
     }
 }

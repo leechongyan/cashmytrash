@@ -55,13 +55,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="280dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:layout_marginRight="20dp"
             android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:onClick="insertToken"
             android:text="Insert Token" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_contact_seller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/contactSellerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="280dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginRight="20dp"
+            android:clickable="true"
+            android:text="Contact Seller"
+            android:onClick="contactSeller"/>
+
     </LinearLayout>
 
     <LinearLayout
