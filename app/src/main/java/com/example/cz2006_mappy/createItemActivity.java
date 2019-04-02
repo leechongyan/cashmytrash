@@ -37,8 +37,8 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
         mItemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
         final ImageView itemImage = (ImageView) findViewById(R.id.itemImage);
         itemImage.setOnClickListener(this);
+        itemImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_gallery));
 
-        //TODO: Get User Object
         //onCreate
         Button createItemActivityButton = (Button) findViewById(R.id.createItemButton);
         createItemActivityButton.setOnClickListener(new View.OnClickListener() {
