@@ -192,6 +192,18 @@ public class MyListingActivity extends AppCompatActivity
         mItemViewModel.deleteToDeliverItem(Integer.parseInt(id), user.getEmailaddress());
         mItemTransactionViewModel.deleteToDeliverTransaction(Integer.parseInt(id), user.getEmailaddress());
 
+        final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
+
+        ItemDao itemDao = db.itemDao();
+
+        List<Integer> item_to_deliver_id = mItemTransactionViewModel.getItemIdToDeliver(user.getEmailaddress());
+        List<Item> items = new ArrayList<>();
+        for(int i =0; i< item_to_deliver_id.size(); i++){
+            int item_id = item_to_deliver_id.get(i);
+            items.add(itemDao.getItem(item_id));
+            gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, items));
+        }
+
         Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
     }
 
