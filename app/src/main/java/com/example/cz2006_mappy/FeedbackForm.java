@@ -2,6 +2,7 @@ package com.example.cz2006_mappy;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ public class FeedbackForm extends AppCompatActivity {
 
 
     private FeedbackViewModel mFeedbackViewModel;
+    SharedPreferences pref;
+    private FeedbackManager manager = new FeedbackManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +49,11 @@ public class FeedbackForm extends AppCompatActivity {
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
             Intent goHome = new Intent(this, HomePage.class);
-            Feedback fb = new Feedback(0,feedback,"some username"); //todo: username to be integrated
-            mFeedbackViewModel.insert(fb);
 
-            goHome.putExtra("feedbackContent", feedback); //todo: to be deleted
+            pref = getSharedPreferences("user_details", MODE_PRIVATE);
+            String username = pref.getString("username","Anon");
+            String user_id = pref.getString("email","Anon");
+            manager.insertFeedback(feedback, user_id,username);
             startActivity(goHome);
         }
     }
