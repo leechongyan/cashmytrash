@@ -52,13 +52,13 @@ public class MyListingActivity extends AppCompatActivity
         //Show item in gridview
         final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
 
-        mItemViewModel.getAllItems().observe(MyListingActivity.this, new Observer<List<Item>>() {
-            @Override
-            public void onChanged(@Nullable List<Item> items) {
-                gridView.setAdapter(new ItemAllAdapter(MyListingActivity.this, items));
-            }
-
-        });
+//        mItemViewModel.getAllItems().observe(MyListingActivity.this, new Observer<List<Item>>() {
+//            @Override
+//            public void onChanged(@Nullable List<Item> items) {
+//                gridView.setAdapter(new ItemAllAdapter(MyListingActivity.this, items));
+//            }
+//
+//        });
 
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
 
@@ -121,6 +121,15 @@ public class MyListingActivity extends AppCompatActivity
                     String email = channel.getString("email","");
                     User user = userDAO.getUser(email);
 
+                    // observe
+                    mItemTransactionViewModel.getItemIdToDeliver(user.getEmailaddress()).observe(MyListingActivity.this, new Observer<List<ItemTransaction>>() {
+                        @Override
+                        public void onChanged(@Nullable List<ItemTransaction> itemTransactions) {
+                            gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, itemTransactions));
+                        }
+                    });
+
+                    // for loop
                     List<Integer> item_to_deliver_id = mItemTransactionViewModel.getItemIdToDeliver(user.getEmailaddress());
                     List<Item> items = new ArrayList<>();
                     for(int i =0; i< item_to_deliver_id.size(); i++){
@@ -157,11 +166,32 @@ public class MyListingActivity extends AppCompatActivity
                         }
                     });
                 }
+                if(tab.getPosition() == 1){
+                    selectTab(tab.getPosition());
+                    tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                        @Override
+                        public void onTabSelected(TabLayout.Tab tab) {
+                            selectTab(tab.getPosition());
+                        }
+
+                        @Override
+                        public void onTabUnselected(TabLayout.Tab tab) {
+
+                        }
+
+                        @Override
+                        public void onTabReselected(TabLayout.Tab tab) {
+
+                        }
+                    });
+                }
             }
         });
     }
 
     public void deleteItemInAllTab(View view){
+        mItemViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemViewModel.class);
+
         RelativeLayout v = (RelativeLayout) view.getParent().getParent();
         TextView grid_item_all = (TextView) v.findViewById(R.id.grid_item_id_all);
         String id = grid_item_all.getText().toString();
@@ -178,6 +208,9 @@ public class MyListingActivity extends AppCompatActivity
 
     //TODO: have to go to tab All to see result
     public void deleteItemInToDeliverTab(View view){
+        mItemViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemViewModel.class);
+        mItemTransactionViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemTransactionViewModel.class);
+
         RelativeLayout v = (RelativeLayout) view.getParent().getParent();
         TextView grid_item_id_to_deliver = (TextView) v.findViewById(R.id.grid_item_id_to_deliver);
         String id = grid_item_id_to_deliver.getText().toString();
@@ -191,23 +224,25 @@ public class MyListingActivity extends AppCompatActivity
         // delete from ToDeliver: delete from Item and Transaction databases
         mItemViewModel.deleteToDeliverItem(Integer.parseInt(id), user.getEmailaddress());
         mItemTransactionViewModel.deleteToDeliverTransaction(Integer.parseInt(id), user.getEmailaddress());
-
-        final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
-
-        ItemDao itemDao = db.itemDao();
-
-        List<Integer> item_to_deliver_id = mItemTransactionViewModel.getItemIdToDeliver(user.getEmailaddress());
-        List<Item> items = new ArrayList<>();
-        for(int i =0; i< item_to_deliver_id.size(); i++){
-            int item_id = item_to_deliver_id.get(i);
-            items.add(itemDao.getItem(item_id));
-            gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, items));
-        }
+//
+//        final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
+//
+//        ItemDao itemDao = db.itemDao();
+//
+//        List<Integer> item_to_deliver_id = mItemTransactionViewModel.getItemIdToDeliver(user.getEmailaddress());
+//        List<Item> items = new ArrayList<>();
+//        for(int i =0; i< item_to_deliver_id.size(); i++){
+//            int item_id = item_to_deliver_id.get(i);
+//            items.add(itemDao.getItem(item_id));
+//            gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, items));
+//        }
 
         Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
     }
 
     public void makeAppointment(View view){
+        mItemTransactionViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemTransactionViewModel.class);
+
         RelativeLayout v = (RelativeLayout) view.getParent().getParent();
         TextView id = (TextView) v.findViewById(R.id.grid_item_id_to_deliver);
 
@@ -216,6 +251,18 @@ public class MyListingActivity extends AppCompatActivity
         Intent contactBuyer = new Intent(getApplicationContext(),MakeAppointmentActivity.class);
         contactBuyer.putExtra("buyer_id", buyer_id);
         startActivity(contactBuyer);
+    }
+
+    public void itemDelivered(View view){
+        mItemTransactionViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemTransactionViewModel.class);
+
+        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
+        TextView grid_item_id_to_deliver = (TextView) v.findViewById(R.id.grid_item_id_to_deliver);
+        String id = grid_item_id_to_deliver.getText().toString();
+        
+        mItemTransactionViewModel.updateDelivered(Integer.parseInt(id));
+
+        Toast.makeText(getApplicationContext(),"Item Delivered", Toast.LENGTH_LONG).show();
     }
 
     @Override

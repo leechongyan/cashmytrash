@@ -26,6 +26,8 @@ public class ItemRepository {
     public void updateAvailable(int itemId){ mItemDao.updateAvailable(itemId);}
     public void deleteFromMyPurchases(int itemId){mItemDao.deleteFromMyPurchases(itemId);}
 
+    double getPriceItemsDelivered(int itemId){ return mItemDao.getPriceItemsDelivered(itemId); }
+
     LiveData<List<Item>> getSoldItems(String sellerId) {return mItemDao.getSoldItems(sellerId);}
 
     public void deleteSoldItem(int itemId, String seller_email) {mItemDao.deleteSoldItem(itemId, seller_email);}

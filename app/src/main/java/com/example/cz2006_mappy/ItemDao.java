@@ -46,4 +46,7 @@ public interface ItemDao {
     @Query("UPDATE ITEM SET available = 1 WHERE item_id = :itemId")
     void deleteFromMyPurchases(int itemId);
 
+    @Query("SELECT price FROM Item WHERE item_id = :itemId")
+    double getPriceItemsDelivered(int itemId);
+
 }

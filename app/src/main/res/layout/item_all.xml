@@ -65,7 +65,7 @@
             android:adjustViewBounds="false"
             android:cropToPadding="false"
             android:onClick="deleteItemInAllTab"
-            app:srcCompat="@android:drawable/ic_delete" />
+            app:srcCompat="@drawable/ic_delete" />
     </LinearLayout>
 
 </RelativeLayout>

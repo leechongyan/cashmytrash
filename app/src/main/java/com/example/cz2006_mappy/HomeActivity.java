@@ -1,6 +1,7 @@
 package com.example.cz2006_mappy;
 
 import android.app.AlertDialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +20,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -26,6 +29,8 @@ public class HomeActivity extends AppCompatActivity
     private Button addButton;
     String savings;
     Double total = 0.0;
+    Double listingsSold = 0.0;
+    private ItemTransactionViewModel mItemTransactionViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +133,28 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
+        // listings sold
+        String user_id = user.getEmailaddress();
+        ItemDao itemDao = db.itemDao();
+
+        mItemTransactionViewModel = ViewModelProviders.of(HomeActivity.this).get(ItemTransactionViewModel.class);
+        Integer numDelivered = mItemTransactionViewModel.countDelivered(user_id);
+
+//        if(numDelivered > 0){
+            List<Integer> item_delivered_id = mItemTransactionViewModel.getItemsDelivered(user_id);
+
+            for(int i =0; i< item_delivered_id.size(); i++){
+                int item_id = item_delivered_id.get(i);
+                listingsSold = listingsSold + itemDao.getPriceItemsDelivered(item_id);
+            }
+
+            TextView listingsSoldTextView = (TextView) findViewById(R.id.listingsSoldTextView);
+            listingsSoldTextView.setText(Double.toString(listingsSold));
+//        }
+//        else{
+//            TextView listingsSoldTextView = (TextView) findViewById(R.id.listingsSoldTextView);
+//            listingsSoldTextView.setText("0.00");
+//        }
     }
 
     @Override

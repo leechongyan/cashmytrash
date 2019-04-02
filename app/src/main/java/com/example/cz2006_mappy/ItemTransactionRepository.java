@@ -27,8 +27,16 @@ public class ItemTransactionRepository {
         return mItemTransactionDao.getItemTransaction(username);
     }
 
-    List<Integer> getItemIdToDeliver(String seller_email){
+    LiveData<List<ItemTransaction>> getItemIdToDeliver(String seller_email){
         return mItemTransactionDao.getItemIdToDeliver(seller_email);
+    }
+
+    Integer countDelivered(String user_id){
+        return mItemTransactionDao.countDelivered(user_id);
+    }
+
+    List<Integer> getItemsDelivered(String user_id){
+        return mItemTransactionDao.getItemsDelivered(user_id);
     }
 
     ItemTransaction getItemTransaction(int itemId){

@@ -19,21 +19,27 @@ public interface ItemTransactionDao {
     @Query("SELECT * FROM ItemTransaction")
     LiveData<List<ItemTransaction>> getAllTransactions();
 
-    @Query("SELECT item_id FROM ItemTransaction WHERE buyer_username == :username AND delivered == 0")
+    @Query("SELECT item_id FROM ItemTransaction WHERE buyer_username = :username AND delivered = 0")
     List<Integer> getItemTransaction(String username);
 
-    @Query("UPDATE ItemTransaction SET delivered = 1 WHERE item_id == :itemId")
+    @Query("UPDATE ItemTransaction SET delivered = 1 WHERE item_id = :itemId")
     void updateDelivered(int itemId);
 
     @Query("DELETE FROM ITEMTRANSACTION WHERE item_id = :itemId")
     void deleteFromMyPurchases(int itemId);
 
-    @Query("SELECT item_id FROM ItemTransaction WHERE seller_id == :seller_email AND delivered == 0")
-    List<Integer> getItemIdToDeliver(String seller_email);
+    @Query("SELECT item_id FROM ItemTransaction WHERE seller_id = :seller_email AND delivered = 0")
+    LiveData<List<ItemTransaction>> getItemIdToDeliver(String seller_email);
 
     @Query("DELETE FROM ItemTransaction WHERE item_id = :itemId AND seller_id = :seller_email")
     void deleteToDeliverTransaction(int itemId, String seller_email);
 
     @Query("SELECT * FROM ItemTransaction WHERE item_id = :itemId")
     ItemTransaction getItemTransaction(int itemId);
+
+    @Query("SELECT item_id FROM ItemTransaction WHERE seller_id = :user_id AND delivered = 1")
+    List<Integer> getItemsDelivered(String user_id);
+
+    @Query("SELECT COUNT(item_id) FROM ItemTransaction WHERE seller_id = :user_id AND delivered = 1")
+    Integer countDelivered(String user_id);
 }
