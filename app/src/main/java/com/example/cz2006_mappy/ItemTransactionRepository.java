@@ -17,7 +17,7 @@ public class ItemTransactionRepository {
         mItemTransactionDao = db.transactionDao();
         mAllTransactions = mItemTransactionDao.getAllTransactions();
     }
-    public int updateDelivered(int itemId){return mItemTransactionDao.updateDelivered(itemId);}
+    public void updateDelivered(int itemId){mItemTransactionDao.updateDelivered(itemId);}
 
     LiveData<List<ItemTransaction>> getAllTransactions() {
         return mAllTransactions;
@@ -25,6 +25,10 @@ public class ItemTransactionRepository {
 
     List<Integer> getItemTransaction(String username){
         return mItemTransactionDao.getItemTransaction(username);
+    }
+
+    void deleteFromMyPurchases(int itemId){
+        mItemTransactionDao.deleteFromMyPurchases(itemId);
     }
 
 

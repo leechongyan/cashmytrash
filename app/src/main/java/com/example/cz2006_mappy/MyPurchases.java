@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -97,6 +98,7 @@ public class MyPurchases extends AppCompatActivity implements NavigationView.OnN
             //TODO: LISTING ACTIVITY
             //THIS ONE
             Intent listing = new Intent(this.getApplicationContext(), HomePage.class);
+            startActivity(listing);
         } else if (id == R.id.nav_my_listing) {
             //TODO: MY LISTING ACTIVITY
         } else if (id == R.id.nav_my_purchases) {
@@ -140,5 +142,16 @@ public class MyPurchases extends AppCompatActivity implements NavigationView.OnN
         Intent contact = new Intent(getApplicationContext(),ContactSeller.class);
         contact.putExtra("user_id", seller_id);
         startActivity(contact);
+    }
+
+    public void delete(View view){
+        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
+        TextView id = (TextView) v.findViewById(R.id.grid_item_id_my_purchases);
+        int item_id = Integer.parseInt(id.getText().toString());
+        manager.delete(item_id);
+        Toast.makeText(getApplicationContext(),"Item has been deleted from your purchases!",Toast.LENGTH_SHORT).show();
+        finish();
+        startActivity(getIntent());
+
     }
 }

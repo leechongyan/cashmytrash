@@ -26,6 +26,9 @@ public interface ItemTransactionDao {
     List<Integer> getItemTransaction(String username);
 
     @Query("UPDATE ItemTransaction SET delivered = 1 WHERE item_id == :itemId")
-    int updateDelivered(int itemId);
+    void updateDelivered(int itemId);
+
+    @Query("DELETE FROM ITEMTRANSACTION WHERE item_id = :itemId")
+    void deleteFromMyPurchases(int itemId);
 
 }

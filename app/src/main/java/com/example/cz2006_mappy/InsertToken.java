@@ -16,6 +16,7 @@ public class InsertToken extends AppCompatActivity {
 
     private ItemViewModel mItemViewModel;
     private ItemTransactionViewModel mItemTransactionViewModel;
+    private TransactionManager manager = new TransactionManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +39,8 @@ public class InsertToken extends AppCompatActivity {
         int id = getIntent().getExtras().getInt("item_id_my_purchases");
         EditText editTextToken = (EditText) findViewById(R.id.editTextToken);
         int token = Integer.parseInt(editTextToken.getText().toString());
-        Item item = mItemViewModel.getItem(id);
-        int item_token = item.getToken();
-        if(token-item_token==0){
-            int updated = mItemTransactionViewModel.updateDelivered(id);
+        boolean result = manager.submitToken(token,id);
+        if(result){
             Toast toast = Toast.makeText(getApplicationContext(),
                     "Your item has been received. Thank you for shopping with us",
                     Toast.LENGTH_SHORT);
@@ -58,6 +57,7 @@ public class InsertToken extends AppCompatActivity {
             toast.show();
         }
 
-    }
 
+
+    }
 }

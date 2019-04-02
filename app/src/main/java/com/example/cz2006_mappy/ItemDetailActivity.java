@@ -84,7 +84,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             String buyer_username = pref.getString("username","Anon");
             ItemTransaction transaction1 = new ItemTransaction(0,seller_id,Integer.parseInt(itemId),username,buyer_id,buyer_username,0);
             mItemTransactionViewModel.insert(transaction1);
-            int updated = mItemViewModel.updateAvailable(Integer.parseInt(itemId));
+            mItemViewModel.updateAvailable(Integer.parseInt(itemId));
             Intent success = new Intent(getApplicationContext(),MyPurchases.class);
             Toast.makeText(getApplicationContext(),"Checkout is successful!",Toast.LENGTH_SHORT).show();
             startActivity(success);
