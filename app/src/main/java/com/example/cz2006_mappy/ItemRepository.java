@@ -23,11 +23,14 @@ public class ItemRepository {
     }
     public Item getItem(int itemId){ return mItemDao.getItem(itemId);}
     public List<Item> getSearchedItems(String s) { return mItemDao.getSearchedItems(s);}
-    public int updateAvailable(int itemId){ return mItemDao.updateAvailable(itemId);}
+    public void updateAvailable(int itemId){ mItemDao.updateAvailable(itemId);}
+    public void deleteFromMyPurchases(int itemId){mItemDao.deleteFromMyPurchases(itemId);}
 
     LiveData<List<Item>> getSoldItems(String sellerId) {return mItemDao.getSoldItems(sellerId);}
 
-    public void deleteSoldItem(int i) {mItemDao.deleteSoldItem(i);}
+    public void deleteSoldItem(int itemId, String seller_email) {mItemDao.deleteSoldItem(itemId, seller_email);}
+
+    public void deleteToDeliverItem(int itemId, String seller_email){ mItemDao.deleteToDeliverItem(itemId, seller_email); }
 
     public void insert(Item item) {
         new insertAsyncTask(mItemDao).execute(item);

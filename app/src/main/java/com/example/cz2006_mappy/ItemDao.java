@@ -26,8 +26,11 @@ public interface ItemDao {
     @Query("SELECT * FROM ITEM WHERE seller_id = :seller_email AND available = 1")
     LiveData<List<Item>> getSoldItems(String seller_email);
 
-    @Query("DELETE FROM ITEM WHERE item_id = :i")
-    void deleteSoldItem(int i);
+    @Query("DELETE FROM ITEM WHERE item_id = :itemId AND seller_id = :seller_email")
+    void deleteSoldItem(int itemId, String seller_email);
+
+    @Query("DELETE FROM ITEM WHERE item_id = :itemId AND seller_id = :seller_email")
+    void deleteToDeliverItem(int itemId, String seller_email);
 
     @Delete
     void delete(Item item);
@@ -38,6 +41,9 @@ public interface ItemDao {
     Item getItem(int itemId);
 
     @Query("UPDATE ITEM SET available = 0 WHERE item_id = :itemId")
-    int updateAvailable(int itemId);
+    void updateAvailable(int itemId);
+
+    @Query("UPDATE ITEM SET available = 1 WHERE item_id = :itemId")
+    void deleteFromMyPurchases(int itemId);
 
 }

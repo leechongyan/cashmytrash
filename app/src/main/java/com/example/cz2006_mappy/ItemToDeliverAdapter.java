@@ -35,7 +35,7 @@ public class ItemToDeliverAdapter extends BaseAdapter {
             // get layout from mobile.xml
             gridView = mInflater.inflate(R.layout.item_to_deliver, null);
 
-
+            TextView itemId = (TextView) gridView.findViewById(R.id.grid_item_id_to_deliver);
             TextView itemName = (TextView) gridView.findViewById(R.id.grid_item_name_to_deliver);
             TextView itemPrice = (TextView) gridView.findViewById(R.id.grid_item_price_to_deliver);
             TextView itemUsername = (TextView) gridView.findViewById(R.id.grid_item_username_to_deliver);
@@ -52,12 +52,14 @@ public class ItemToDeliverAdapter extends BaseAdapter {
 
             imageView_message.setImageResource(R.drawable.ic_message);
 
+            int id = items.get(position).getItem_id();
             String name = items.get(position).getItem_name();
             double price = items.get(position).getPrice();
             String username = items.get(position).getSeller_username();
             int token = items.get(position).getToken();
             String description = items.get(position).getItem_description();
 
+            itemId.setText(Integer.toString(id));
             itemName.setText(name);
             itemPrice.setText(Double.toString(price));
             itemUsername.setText(username);

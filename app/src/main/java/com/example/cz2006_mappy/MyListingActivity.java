@@ -1,9 +1,7 @@
 package com.example.cz2006_mappy;
 
-import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,9 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyListingActivity extends AppCompatActivity
@@ -29,12 +29,6 @@ public class MyListingActivity extends AppCompatActivity
 
     private ItemViewModel mItemViewModel;
     private ItemTransactionViewModel mItemTransactionViewModel;
-
-    AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
-    UserDAO userDAO = db.userDao();
-    SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
-    String email = channel.getString("email","");
-    User user = userDAO.getUser(email);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +94,12 @@ public class MyListingActivity extends AppCompatActivity
                     //Show item in gridview
                     final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
 
+                    AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
+                    UserDAO userDAO = db.userDao();
+                    SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+                    String email = channel.getString("email","");
+                    User user = userDAO.getUser(email);
+
                     mItemViewModel.getSoldItems(user.getEmailaddress()).observe(MyListingActivity.this, new Observer<List<Item>>() {
                         @Override
                         public void onChanged(@Nullable List<Item> items) {
@@ -108,14 +108,26 @@ public class MyListingActivity extends AppCompatActivity
 
                     });
                 }
-                else if (tabNumber == 1){ // TODO: to deliver not implemented yet
+                else if (tabNumber == 1){
                     mItemTransactionViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemTransactionViewModel.class);
 
                     //Show item in gridview
                     final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
 
+                    AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
+                    UserDAO userDAO = db.userDao();
+                    ItemDao itemDao = db.itemDao();
+                    SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+                    String email = channel.getString("email","");
+                    User user = userDAO.getUser(email);
 
-                    // user.getEmailAddress() param getToDeliverTransaction
+                    List<Integer> item_to_deliver_id = mItemTransactionViewModel.getItemIdToDeliver(user.getEmailaddress());
+                    List<Item> items = new ArrayList<>();
+                    for(int i =0; i< item_to_deliver_id.size(); i++){
+                        int item_id = item_to_deliver_id.get(i);
+                        items.add(itemDao.getItem(item_id));
+                        gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, items));
+                    }
                 }
             }
 
@@ -149,44 +161,49 @@ public class MyListingActivity extends AppCompatActivity
         });
     }
 
-    public void displayConfirmationBox(View view){
-        AlertDialog.Builder builder = new AlertDialog.Builder(MyListingActivity.this);
-        builder.setTitle("Deleting Items Being Sold");
-        builder.setMessage("Are you sure you want to remove the item?");
-        builder.setCancelable(false);
+    public void deleteItemInAllTab(View view){
+        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
+        TextView grid_item_all = (TextView) v.findViewById(R.id.grid_item_id_all);
+        String id = grid_item_all.getText().toString();
 
-        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                TextView grid_item_all = (TextView) findViewById(R.id.grid_item_id_all);
-                String id = grid_item_all.getText().toString();
-                mItemViewModel.deleteSoldItem(Integer.parseInt(id));
-                Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(),"Cancelled", Toast.LENGTH_LONG).show();
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
+        AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
+        UserDAO userDAO = db.userDao();
+        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+        String email = channel.getString("email","");
+        User user = userDAO.getUser(email);
+
+        mItemViewModel.deleteSoldItem(Integer.parseInt(id), user.getEmailaddress());
+        Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
+    }
+
+    //TODO: have to go to tab All to see result
+    public void deleteItemInToDeliverTab(View view){
+        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
+        TextView grid_item_id_to_deliver = (TextView) v.findViewById(R.id.grid_item_id_to_deliver);
+        String id = grid_item_id_to_deliver.getText().toString();
+
+        AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
+        UserDAO userDAO = db.userDao();
+        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+        String email = channel.getString("email","");
+        User user = userDAO.getUser(email);
+
+        // delete from ToDeliver: delete from Item and Transaction databases
+        mItemViewModel.deleteToDeliverItem(Integer.parseInt(id), user.getEmailaddress());
+        mItemTransactionViewModel.deleteToDeliverTransaction(Integer.parseInt(id), user.getEmailaddress());
+
+        Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
     }
 
     public void makeAppointment(View view){
-        Intent buyerUsername = new Intent(getApplicationContext(), MakeAppointmentActivity.class);
-        buyerUsername.putExtra("com.example.cz2006.mappy.buyerUsername", "Buyer Username");
-        startActivity(buyerUsername);
+        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
+        TextView id = (TextView) v.findViewById(R.id.grid_item_id_to_deliver);
 
-        Intent contactNumber = new Intent(getApplicationContext(), MakeAppointmentActivity.class);
-        contactNumber.putExtra("com.example.cz2006.mappy.contactNumber", "Contact Number");
-        startActivity(contactNumber);
-
-        Intent emailAddress = new Intent(getApplicationContext(), MakeAppointmentActivity.class);
-        emailAddress.putExtra("com.example.cz2006.mappy.emailAddress", "Email Address");
-        startActivity(emailAddress);
+        ItemTransaction item = mItemTransactionViewModel.getItemTransaction(Integer.parseInt(id.getText().toString()));
+        String buyer_id = item.getBuyer_id();
+        Intent contactBuyer = new Intent(getApplicationContext(),MakeAppointmentActivity.class);
+        contactBuyer.putExtra("buyer_id", buyer_id);
+        startActivity(contactBuyer);
     }
 
     @Override

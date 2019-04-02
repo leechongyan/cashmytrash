@@ -40,7 +40,6 @@ public class ItemAllAdapter extends BaseAdapter {
             TextView itemPrice = (TextView) gridView.findViewById(R.id.grid_item_price_all);
             TextView itemUsername = (TextView) gridView.findViewById(R.id.grid_item_username_all);
             TextView itemDescription = (TextView) gridView.findViewById(R.id.grid_item_description_all);
-            TextView itemSellerId = (TextView) gridView.findViewById(R.id.grid_item_seller_id_all);
 
             ImageView imageView_trash = (ImageView) gridView
                     .findViewById(R.id.grid_item_trash_all);
@@ -52,14 +51,12 @@ public class ItemAllAdapter extends BaseAdapter {
             double price = items.get(position).getPrice();
             String username = items.get(position).getSeller_username();
             String description = items.get(position).getItem_description();
-            String sellerId = items.get(position).getSeller_id();
 
             itemId.setText(Integer.toString(id));
             itemName.setText(name);
             itemPrice.setText(Double.toString(price));
             itemUsername.setText(username);
             itemDescription.setText(description);
-            itemSellerId.setText(sellerId);
 
         } else {
             gridView = (View) convertView;

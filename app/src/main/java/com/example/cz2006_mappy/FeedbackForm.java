@@ -23,8 +23,7 @@ public class FeedbackForm extends AppCompatActivity {
         feedbackBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backIntent = new Intent(getApplicationContext(), ListingActivity.class);
-                startActivity(backIntent);
+                onBackPressed();
             }
         });
     }
@@ -53,6 +52,8 @@ public class FeedbackForm extends AppCompatActivity {
             goHome.putExtra("feedbackContent", feedback); //todo: to be deleted
             startActivity(goHome);
         }
-
+    }
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

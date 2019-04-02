@@ -23,9 +23,17 @@ public interface ItemTransactionDao {
     List<Integer> getItemTransaction(String username);
 
     @Query("UPDATE ItemTransaction SET delivered = 1 WHERE item_id == :itemId")
-    int updateDelivered(int itemId);
+    void updateDelivered(int itemId);
 
-    @Query("SELECT item_id FROM ItemTransaction WHERE seller_id == :seller_email")
-    List<Integer> getItemToDeliver(String seller_email);
-    //get item ids trs pass to itemdao
+    @Query("DELETE FROM ITEMTRANSACTION WHERE item_id = :itemId")
+    void deleteFromMyPurchases(int itemId);
+
+    @Query("SELECT item_id FROM ItemTransaction WHERE seller_id == :seller_email AND delivered == 0")
+    List<Integer> getItemIdToDeliver(String seller_email);
+
+    @Query("DELETE FROM ItemTransaction WHERE item_id = :itemId AND seller_id = :seller_email")
+    void deleteToDeliverTransaction(int itemId, String seller_email);
+
+    @Query("SELECT * FROM ItemTransaction WHERE item_id = :itemId")
+    ItemTransaction getItemTransaction(int itemId);
 }

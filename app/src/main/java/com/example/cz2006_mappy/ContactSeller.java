@@ -1,13 +1,11 @@
 package com.example.cz2006_mappy;
 
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class ContactSeller extends AppCompatActivity {
 
@@ -25,21 +23,24 @@ public class ContactSeller extends AppCompatActivity {
         TextView sellerUsername = (TextView) findViewById(R.id.sellerUsername);
         TextView sellerPhone = (TextView) findViewById(R.id.sellerPhone);
         TextView sellerEmail = (TextView) findViewById(R.id.sellerEmail);
+        ImageView sellerPhoto = (ImageView) findViewById(R.id.sellerPhoto);
 
-        sellerUsername.setText("Seller Username: " + seller_username);
-        sellerEmail.setText("Seller E-mail: " + user_id);
-        sellerPhone.setText("Seller Phone: " + Integer.toString(seller_phone));
-    }
-    public void back(View v){
-        onBackPressed();
+        sellerUsername.setText(seller_username);
+        sellerEmail.setText(user_id);
+        sellerPhone.setText(Integer.toString(seller_phone));
+        sellerPhoto.setImageDrawable(getResources().getDrawable(R.drawable.profilepic));
+        //TODO: set seller profile picture
+
+        FloatingActionButton contactBackButton = (FloatingActionButton) findViewById(R.id.contactBackButton);
+        contactBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
             super.onBackPressed();
-        }
     }
 }

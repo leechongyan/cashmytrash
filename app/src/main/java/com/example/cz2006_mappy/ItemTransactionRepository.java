@@ -17,7 +17,7 @@ public class ItemTransactionRepository {
         mItemTransactionDao = db.transactionDao();
         mAllTransactions = mItemTransactionDao.getAllTransactions();
     }
-    public int updateDelivered(int itemId){return mItemTransactionDao.updateDelivered(itemId);}
+    public void updateDelivered(int itemId){mItemTransactionDao.updateDelivered(itemId);}
 
     LiveData<List<ItemTransaction>> getAllTransactions() {
         return mAllTransactions;
@@ -26,6 +26,21 @@ public class ItemTransactionRepository {
     List<Integer> getItemTransaction(String username){
         return mItemTransactionDao.getItemTransaction(username);
     }
+
+    List<Integer> getItemIdToDeliver(String seller_email){
+        return mItemTransactionDao.getItemIdToDeliver(seller_email);
+    }
+
+    ItemTransaction getItemTransaction(int itemId){
+        return mItemTransactionDao.getItemTransaction(itemId);
+    }
+
+    public void deleteToDeliverTransaction(int itemId, String seller_email){ mItemTransactionDao.deleteToDeliverTransaction(itemId, seller_email); }
+
+    void deleteFromMyPurchases(int itemId){
+        mItemTransactionDao.deleteFromMyPurchases(itemId);
+    }
+
 
     public void insert(ItemTransaction transaction) {
         new insertAsyncTask(mItemTransactionDao).execute(transaction);
