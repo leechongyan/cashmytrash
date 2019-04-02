@@ -28,14 +28,14 @@ public class TransactionManager extends AppCompatActivity {
     }
 
     public void delete(int id){
-        int deletedItem = itemDao.deleteFromMyPurchases(id);
-        int deletedTransaction = itemTransactionDao.deleteFromMyPurchases(id);
+        itemDao.deleteFromMyPurchases(id);
+        itemTransactionDao.deleteFromMyPurchases(id);
     }
     public boolean submitToken(int token, int id){
         Item item = itemDao.getItem(id);
         int item_token = item.getToken();
         if(token==item_token){
-            int updated = itemTransactionDao.updateDelivered(id);
+            itemTransactionDao.updateDelivered(id);
             return true;
         }
         else{
