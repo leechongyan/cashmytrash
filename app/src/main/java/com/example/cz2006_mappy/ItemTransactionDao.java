@@ -28,4 +28,7 @@ public interface ItemTransactionDao {
     @Query("UPDATE ItemTransaction SET delivered = 1 WHERE item_id == :itemId")
     int updateDelivered(int itemId);
 
+    @Query("DELETE FROM ITEMTRANSACTION WHERE item_id = :itemId")
+    int deleteFromMyPurchases(int itemId);
+
 }

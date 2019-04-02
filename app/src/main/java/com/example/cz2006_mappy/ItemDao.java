@@ -29,4 +29,7 @@ public interface ItemDao {
     @Query("UPDATE ITEM SET available = 0 WHERE item_id = :itemId")
     int updateAvailable(int itemId);
 
+    @Query("UPDATE ITEM SET available = 1 WHERE item_id = :itemId")
+    int deleteFromMyPurchases(int itemId);
+
 }

@@ -27,6 +27,10 @@ public class ItemTransactionRepository {
         return mItemTransactionDao.getItemTransaction(username);
     }
 
+    int deleteFromMyPurchases(int itemId){
+        return mItemTransactionDao.deleteFromMyPurchases(itemId);
+    }
+
 
     public void insert(ItemTransaction transaction) {
         new insertAsyncTask(mItemTransactionDao).execute(transaction);
