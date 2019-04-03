@@ -22,6 +22,7 @@ public class FeedbackForm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback_form);
 
+        //back button
         FloatingActionButton feedbackBackButton = (FloatingActionButton) findViewById(R.id.feedbackBackButton);
         feedbackBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,6 +33,7 @@ public class FeedbackForm extends AppCompatActivity {
     }
 
     public void insertFeedback(View view){
+        //gets all data necessary to pass to manager's function
         mFeedbackViewModel = ViewModelProviders.of(this).get(FeedbackViewModel.class);
         EditText content = findViewById(R.id.editTextFeedback);
         String feedback = content.getText().toString();
@@ -39,6 +41,7 @@ public class FeedbackForm extends AppCompatActivity {
         String username = pref.getString("username","Anon");
         String user_id = pref.getString("email","Anon");
 
+        //calls manager class to handle insertion of feedback
         boolean success = manager.insertFeedback(feedback, user_id,username);
         if(success){
             Toast toast = Toast.makeText(getApplicationContext(),
