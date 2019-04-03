@@ -140,7 +140,7 @@ public class HomeActivity extends AppCompatActivity
         mItemTransactionViewModel = ViewModelProviders.of(HomeActivity.this).get(ItemTransactionViewModel.class);
         Integer numDelivered = mItemTransactionViewModel.countDelivered(user_id);
 
-//        if(numDelivered > 0){
+        if(numDelivered > 0){
             List<Integer> item_delivered_id = mItemTransactionViewModel.getItemsDelivered(user_id);
 
             for(int i =0; i< item_delivered_id.size(); i++){
@@ -150,11 +150,11 @@ public class HomeActivity extends AppCompatActivity
 
             TextView listingsSoldTextView = (TextView) findViewById(R.id.listingsSoldTextView);
             listingsSoldTextView.setText(Double.toString(listingsSold));
-//        }
-//        else{
-//            TextView listingsSoldTextView = (TextView) findViewById(R.id.listingsSoldTextView);
-//            listingsSoldTextView.setText("0.00");
-//        }
+        }
+        else{
+            TextView listingsSoldTextView = (TextView) findViewById(R.id.listingsSoldTextView);
+            listingsSoldTextView.setText("0.00");
+        }
     }
 
     @Override
