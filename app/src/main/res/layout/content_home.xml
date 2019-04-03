@@ -9,16 +9,16 @@
     tools:showIn="@layout/app_bar_home">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="401dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/box_bg"
             android:orientation="vertical">
@@ -91,34 +91,34 @@
             android:id="@+id/relativeLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/box_bg"
-            android:orientation="horizontal"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="360dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginTop="250dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/box_bg"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/targetLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/small_box_bg"
                 android:gravity="center"
                 android:text="Target: "
-                android:textSize="24sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="50dp"/>
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/targetTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="$ Target"
-                android:textSize="24sp"
                 android:layout_marginLeft="210dp"
-                android:layout_marginRight="50dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="10dp"
+                android:hint="$ Target"
+                android:textSize="24sp" />
 
         </RelativeLayout>
 
@@ -126,41 +126,45 @@
             android:id="@+id/setTargetButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SET SAVINGS TARGET"
-            android:textSize="24sp"
             android:layout_marginLeft="70dp"
-            android:layout_marginTop="460dp"
+            android:layout_marginTop="350dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/colorPrimary"
-            android:padding="@dimen/default_gap"/>
+            android:padding="@dimen/default_gap"
+            android:text="SET SAVINGS TARGET"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/sgdLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:text="SGD"
             android:layout_marginLeft="60dp"
-            android:layout_marginTop="580dp" />
+            android:layout_marginTop="470dp"
+            android:layout_marginBottom="10dp"
+            android:text="SGD"
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/addEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="3"
-            android:inputType="numberDecimal"
             android:layout_marginLeft="130dp"
-            android:layout_marginTop="575dp"/>
+            android:layout_marginTop="465dp"
+            android:layout_marginBottom="10dp"
+            android:ems="3"
+            android:inputType="numberDecimal" />
 
         <Button
             android:id="@+id/addButton"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="ADD TO SAVINGS"
-            android:textSize="24sp"
             android:layout_marginLeft="210dp"
-            android:layout_marginTop="550dp"
+            android:layout_marginTop="430dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/colorPrimary"
-            android:padding="@dimen/default_gap"/>
+            android:padding="@dimen/default_gap"
+            android:text="ADD TO SAVINGS"
+            android:textSize="24sp" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

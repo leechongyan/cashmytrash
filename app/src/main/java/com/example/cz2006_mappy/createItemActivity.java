@@ -115,7 +115,6 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
         if(price == null | price.isEmpty() | price.length() == 0){
             return "Item price cannot be empty";
         }
-        //TODO: toast doesn't show up when image not uploaded (+ crashes)
         if(byteImage == null){
             return "An item image must be uploaded";
         }
