@@ -135,8 +135,9 @@ public class MyListingActivity extends AppCompatActivity
                     for(int i =0; i< item_to_deliver_id.size(); i++){
                         int item_id = item_to_deliver_id.get(i);
                         items.add(itemDao.getItem(item_id));
-                        gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, items));
                     }
+                    gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, items));
+
                 }
             }
 
