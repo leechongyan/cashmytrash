@@ -31,30 +31,29 @@ public class FeedbackForm extends AppCompatActivity {
         });
     }
 
-    public void displayToast(View view){
+    public void insertFeedback(View view){
+        mFeedbackViewModel = ViewModelProviders.of(this).get(FeedbackViewModel.class);
         EditText content = findViewById(R.id.editTextFeedback);
         String feedback = content.getText().toString();
-        if(feedback.isEmpty()){
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "You cannot send an empty feedback", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        }
-        else {
-            mFeedbackViewModel = ViewModelProviders.of(this).get(FeedbackViewModel.class);
+        pref = getSharedPreferences("user_details", MODE_PRIVATE);
+        String username = pref.getString("username","Anon");
+        String user_id = pref.getString("email","Anon");
 
+        boolean success = manager.insertFeedback(feedback, user_id,username);
+        if(success){
             Toast toast = Toast.makeText(getApplicationContext(),
                     "Your Feedback has been sent",
                     Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
             Intent goHome = new Intent(this, HomePage.class);
-
-            pref = getSharedPreferences("user_details", MODE_PRIVATE);
-            String username = pref.getString("username","Anon");
-            String user_id = pref.getString("email","Anon");
-            manager.insertFeedback(feedback, user_id,username);
             startActivity(goHome);
+        }
+        else{
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "You cannot send an empty feedback", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
         }
     }
     public void onBackPressed() {
