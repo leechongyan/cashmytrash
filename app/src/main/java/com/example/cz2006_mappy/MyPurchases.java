@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -124,7 +125,7 @@ public class MyPurchases extends AppCompatActivity implements NavigationView.OnN
     }
 
     public void insertToken(View view){
-        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
+        ConstraintLayout v = (ConstraintLayout) view.getParent();
         TextView id = (TextView) v.findViewById(R.id.grid_item_id_my_purchases);
 
         Intent token = new Intent(this, InsertToken.class);
@@ -134,7 +135,7 @@ public class MyPurchases extends AppCompatActivity implements NavigationView.OnN
     }
 
     public void contactSeller(View view){
-        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
+        ConstraintLayout v = (ConstraintLayout) view.getParent();
         TextView id = (TextView) v.findViewById(R.id.grid_item_id_my_purchases);
 
         Item item = mItemViewModel.getItem(Integer.parseInt(id.getText().toString()));
@@ -145,7 +146,7 @@ public class MyPurchases extends AppCompatActivity implements NavigationView.OnN
     }
 
     public void delete(View view){
-        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
+        ConstraintLayout v = (ConstraintLayout) view.getParent();
         TextView id = (TextView) v.findViewById(R.id.grid_item_id_my_purchases);
         int item_id = Integer.parseInt(id.getText().toString());
         manager.delete(item_id);
