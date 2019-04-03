@@ -107,8 +107,7 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
     }
 
     private String createInputValid(String name, String price, String description, byte[] byteImage){
-        System.out.println(byteImage);
-        System.out.println(name+price+description);
+
         if(name == null | name.isEmpty() | name.length() == 0){
             return "Item Name cannot be empty";
         }

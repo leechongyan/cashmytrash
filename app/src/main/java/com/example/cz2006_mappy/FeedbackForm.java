@@ -49,7 +49,7 @@ public class FeedbackForm extends AppCompatActivity {
                     Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
-            Intent goHome = new Intent(this, HomePage.class);
+            Intent goHome = new Intent(this, HomeActivity.class);
             startActivity(goHome);
         }
         else{

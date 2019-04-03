@@ -114,7 +114,6 @@ public class ListingActivity extends AppCompatActivity implements NavigationView
             @Override
             public void onClick(View view) {
                 Intent createItemActivity = new Intent(getApplicationContext(), createItemActivity.class);
-                //TODO: Pass User Object
                 startActivity(createItemActivity);
             }
         });
