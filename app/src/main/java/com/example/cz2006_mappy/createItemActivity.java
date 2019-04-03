@@ -5,17 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class createItemActivity extends AppCompatActivity implements View.OnClickListener {
@@ -39,23 +34,27 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
         mItemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
         final ImageView itemImage = (ImageView) findViewById(R.id.itemImage);
         itemImage.setOnClickListener(this);
-        itemImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_gallery));
 
         //onCreate
         Button createItemActivityButton = (Button) findViewById(R.id.createItemButton);
         createItemActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                byte[] byteImage;
                 EditText itemName = (EditText) findViewById(R.id.createItemName);
                 EditText itemPrice = (EditText) findViewById(R.id.createItemPrice);
                 EditText itemDescription = (EditText) findViewById(R.id.createItemDescription);
                 String name = itemName.getText().toString();
                 String price = itemPrice.getText().toString();
                 String description = itemDescription.getText().toString();
-                Bitmap image = ((BitmapDrawable) itemImage.getDrawable()).getBitmap();
-                byte[] byteImage = uploadImage(image);
+                if(itemImage.getDrawable() != null) {
+                    Bitmap image = ((BitmapDrawable) itemImage.getDrawable()).getBitmap();
+                    byteImage = uploadImage(image);
+                }else{
+                    byteImage =null;
+                }
 
-                String status = createInputValid(name,price,description);
+                String status = createInputValid(name,price,description, byteImage);
                 if(status.equals("success")){
                     //TODO: Get seller id and username
                     pref = getSharedPreferences("user_details", MODE_PRIVATE);
@@ -63,7 +62,7 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
                     String seller_id = pref.getString("email","Anon");
                     Item item = new Item(0,name,description,Double.parseDouble(price),Integer.parseInt(getRandomNumberString()),seller_id, seller_username,1, byteImage);
                     mItemViewModel.insert(item);
-                    Intent success = new Intent(getApplicationContext(), HomePage.class);
+                    Intent success = new Intent(getApplicationContext(), ListingActivity.class);
                     Toast.makeText(getApplicationContext(),"Item has been created !",Toast.LENGTH_SHORT).show();
                     startActivity(success);
                 } else {
@@ -107,13 +106,18 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
         return stream.toByteArray();
     }
 
-    private String createInputValid(String name, String price, String description){
+    private String createInputValid(String name, String price, String description, byte[] byteImage){
+        System.out.println(byteImage);
         System.out.println(name+price+description);
         if(name == null | name.isEmpty() | name.length() == 0){
-            return "Item Name cannot be empty.";
+            return "Item Name cannot be empty";
         }
         if(price == null | price.isEmpty() | price.length() == 0){
             return "Item price cannot be empty";
+        }
+        //TODO: toast doesn't show up when image not uploaded (+ crashes)
+        if(byteImage == null){
+            return "An item image must be uploaded";
         }
         if(description == null | description.isEmpty() | description.length() == 0){
             return "Item description cannot be empty";
@@ -125,12 +129,11 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
             return "Item price cannot be negative";
         }
         if(description.length() <50){
-            return "Item description must consists of minimum 50 characters";
+            return "Item description must consist of minimum 50 characters";
         }
         return "success";
-
-
     }
+
     public static boolean isNumeric(String str) {
         return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
     }
@@ -143,8 +146,5 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
 
         // this will convert any number sequence into 6 character.
         return String.format("%06d", number);
-    }
-    public void onBackPressed() {
-            super.onBackPressed();
     }
 }

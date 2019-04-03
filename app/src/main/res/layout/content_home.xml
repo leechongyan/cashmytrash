@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".HomeActivity"
+    tools:showIn="@layout/app_bar_home">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/box_bg"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/totalLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/small_box_bg"
+                android:gravity="center"
+                android:text="Total:"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/savingsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/small_box_bg"
+                android:gravity="center"
+                android:text="Savings:"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/listingsSoldLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="150dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/small_box_bg"
+                android:gravity="center"
+                android:text="Listings Sold:"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/totalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="240dp"
+                android:layout_marginTop="10dp"
+                android:hint="$ Total"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/savingsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="240dp"
+                android:layout_marginTop="80dp"
+                android:hint="$ Savings"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/listingsSoldTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="240dp"
+                android:layout_marginTop="150dp"
+                android:hint="$ Listings"
+                android:textSize="24sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_bg"
+            android:orientation="horizontal"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="360dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/targetLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/small_box_bg"
+                android:gravity="center"
+                android:text="Target: "
+                android:textSize="24sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="50dp"/>
+
+            <TextView
+                android:id="@+id/targetTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="$ Target"
+                android:textSize="24sp"
+                android:layout_marginLeft="210dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/setTargetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SET SAVINGS TARGET"
+            android:textSize="24sp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="460dp"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/default_gap"/>
+
+        <TextView
+            android:id="@+id/sgdLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="SGD"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="580dp" />
+
+        <EditText
+            android:id="@+id/addEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="3"
+            android:inputType="numberDecimal"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="575dp"/>
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="ADD TO SAVINGS"
+            android:textSize="24sp"
+            android:layout_marginLeft="210dp"
+            android:layout_marginTop="550dp"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/default_gap"/>
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

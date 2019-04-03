@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".SetTargetActivity"
+    tools:showIn="@layout/activity_set_target">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/setSavingsTargetLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:text="Set Savings Target:"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="120dp" />
+        <TextView
+            android:id="@+id/reminderLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/colorAccent"
+            android:text="* Target will be reset monthly"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="170dp" />
+
+        <TextView
+            android:id="@+id/sgdLabel2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="SGD"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="250dp" />
+
+        <EditText
+            android:id="@+id/setEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="3"
+            android:inputType="numberDecimal"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="245dp"/>
+
+        <Button
+            android:id="@+id/setButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SET"
+            android:textSize="24sp"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="350dp"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/default_gap"/>
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CANCEL"
+            android:textSize="24sp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="350dp"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/default_gap"/>
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

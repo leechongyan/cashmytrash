@@ -94,7 +94,7 @@ public class Registration extends AppCompatActivity {
                         if (s2.equals(s3)) {
 
 
-                            User user = new User(s4, s1, s2, i5,profilePath);
+                            User user = new User(s4, s1, s2, i5,0,0,profilePath);
                             if (userDAO.getUser(s4) == null) {
                                 userDAO.insert(user);
                                 Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();

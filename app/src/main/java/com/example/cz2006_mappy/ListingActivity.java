@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 
-public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ListingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ItemViewModel mItemViewModel;
 
@@ -42,20 +42,16 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 //                500.0, 12345,45,"elbert999");
 //        mItemViewModel.insert(test);
 
-
-
         //Show item in gridview
         final GridView gridView = (GridView) findViewById(R.id.listing_grid_view);
 
-        mItemViewModel.getAllItems().observe(HomePage.this, new Observer<List<Item>>() {
+        mItemViewModel.getAllItems().observe(ListingActivity.this, new Observer<List<Item>>() {
             @Override
             public void onChanged(@Nullable List<Item> items) {
-                gridView.setAdapter(new ItemAdapter(HomePage.this, items));
+                gridView.setAdapter(new ItemAdapter(ListingActivity.this, items));
             }
 
         });
-
-
 
         //onItemClick
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,7 +65,12 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                 TextView itemPrice = (TextView) v.findViewById(R.id.grid_item_price);
                 TextView itemDescription = (TextView) v.findViewById(R.id.grid_item_description);
                 TextView itemId = (TextView) v.findViewById(R.id.grid_item_id);
+                showItemDetailActivity.putExtra("item_detail_username",itemUsername.getText());
+                showItemDetailActivity.putExtra("item_detail_name", itemName.getText());
+                showItemDetailActivity.putExtra("item_detail_price", itemPrice.getText());
+                showItemDetailActivity.putExtra("item_detail_description", itemDescription.getText());
                 showItemDetailActivity.putExtra("item_detail_id",itemId.getText());
+
                 startActivity(showItemDetailActivity);
             }
         });
@@ -87,7 +88,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
                 List<Item> items = mItemViewModel.getSearchedItems(query);
                 if(items != null) {
-                    gridView.setAdapter(new ItemAdapter(HomePage.this, items));
+                    gridView.setAdapter(new ItemAdapter(ListingActivity.this, items));
                 }
                 return false;
             }
@@ -95,10 +96,10 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText.equals("")) {
-                    mItemViewModel.getAllItems().observe(HomePage.this, new Observer<List<Item>>() {
+                    mItemViewModel.getAllItems().observe(ListingActivity.this, new Observer<List<Item>>() {
                         @Override
                         public void onChanged(@Nullable List<Item> items) {
-                            gridView.setAdapter(new ItemAdapter(HomePage.this, items));
+                            gridView.setAdapter(new ItemAdapter(ListingActivity.this, items));
                         }
 
                     });
@@ -171,11 +172,16 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
         if (id == R.id.nav_home) {
             //TODO: HOME ACTIVITY
+            Intent Home = new Intent(this, HomeActivity.class);
+            startActivity(Home);
         } else if (id == R.id.nav_listing) {
             //TODO: LISTING ACTIVITY
-            //THIS ONE
+            Intent Listing = new Intent(this, ListingActivity.class);
+            startActivity(Listing);
         } else if (id == R.id.nav_my_listing) {
             //TODO: MY LISTING ACTIVITY
+            Intent myListing = new Intent(this, MyListingActivity.class);
+            startActivity(myListing);
         } else if (id == R.id.nav_my_purchases) {
             //TODO: MY PURCHASES ACTIVITY
             Intent purchases = new Intent(this.getApplicationContext(),MyPurchases.class);

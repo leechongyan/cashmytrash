@@ -32,7 +32,7 @@ public class Login extends AppCompatActivity {
         final UserDAO userDAO = db.userDao();
 
         //for fake login
-        User fake = new User("123", "123", "123", 123,"123");
+        User fake = new User("123", "123", "123", 123, 0, 0, "123");
 
         User vaild = userDAO.getUser(fake.getEmailaddress());
         if (vaild == null) {
@@ -76,8 +76,10 @@ public class Login extends AppCompatActivity {
                         editor.putString("email", email);
                         editor.putString("password", password);
                         editor.putInt("phone", user.getPhone());
+                        editor.putString("target", Double.toString(user.getTarget()));
+                        editor.putString("savings", Double.toString(user.getSavings()));
                         editor.commit();
-                        i1 = new Intent(Login.this, HomePage.class);
+                        Intent i1 = new Intent(Login.this, HomeActivity.class);
                         startActivity(i1);
                     } else {
                         Toast.makeText(getApplicationContext(), "Invalid Password", Toast.LENGTH_SHORT).show();

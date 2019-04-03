@@ -94,13 +94,16 @@ public class MyPurchases extends AppCompatActivity implements NavigationView.OnN
 
         if (id == R.id.nav_home) {
             //TODO: HOME ACTIVITY
+            Intent Home = new Intent(this, HomeActivity.class);
+            startActivity(Home);
         } else if (id == R.id.nav_listing) {
             //TODO: LISTING ACTIVITY
-            //THIS ONE
-            Intent listing = new Intent(this.getApplicationContext(), HomePage.class);
-            startActivity(listing);
+            Intent Listing = new Intent(this, ListingActivity.class);
+            startActivity(Listing);
         } else if (id == R.id.nav_my_listing) {
             //TODO: MY LISTING ACTIVITY
+            Intent myListing = new Intent(this, MyListingActivity.class);
+            startActivity(myListing);
         } else if (id == R.id.nav_my_purchases) {
             //TODO: MY PURCHASES ACTIVITY
             Intent purchases = new Intent(this.getApplicationContext(),MyPurchases.class);

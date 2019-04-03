@@ -2,7 +2,6 @@ package com.example.cz2006_mappy;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
-import android.arch.persistence.room.Dao;
 import android.os.AsyncTask;
 
 import java.util.List;

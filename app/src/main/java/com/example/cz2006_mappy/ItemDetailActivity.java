@@ -1,7 +1,6 @@
 package com.example.cz2006_mappy;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.arch.persistence.room.Transaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -15,8 +14,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 public class ItemDetailActivity extends AppCompatActivity {
     private ItemViewModel mItemViewModel;
