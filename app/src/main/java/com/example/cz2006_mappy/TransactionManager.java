@@ -44,4 +44,19 @@ public class TransactionManager extends AppCompatActivity {
 
     }
 
+    public boolean checkout(int item_id, String buyer_id, String buyer_username){
+        Item item = itemDao.getItem(item_id);
+        String seller_id = item.getSeller_id();
+        if(seller_id.equals(buyer_id)){
+            return false;
+        }
+        else{
+            String seller_username = item.getSeller_username();
+            ItemTransaction transaction1 = new ItemTransaction(0,seller_id,item_id,seller_username,buyer_id,buyer_username,0);
+            itemTransactionDao.insert(transaction1);
+            itemDao.updateAvailable(item_id);
+            return true;
+        }
+    }
+
 }
