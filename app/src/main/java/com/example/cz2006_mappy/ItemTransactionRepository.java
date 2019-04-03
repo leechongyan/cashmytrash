@@ -27,7 +27,7 @@ public class ItemTransactionRepository {
         return mItemTransactionDao.getItemTransaction(username);
     }
 
-    LiveData<List<ItemTransaction>> getItemIdToDeliver(String seller_email){
+    List<Integer> getItemIdToDeliver(String seller_email){
         return mItemTransactionDao.getItemIdToDeliver(seller_email);
     }
 

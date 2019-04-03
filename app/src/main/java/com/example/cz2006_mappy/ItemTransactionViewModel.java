@@ -28,7 +28,7 @@ public class ItemTransactionViewModel extends AndroidViewModel {
 
     Integer countDelivered(String user_id){ return mRepository.countDelivered(user_id); }
 
-    LiveData<List<ItemTransaction>> getItemIdToDeliver(String seller_email){ return mRepository.getItemIdToDeliver(seller_email); }
+    List<Integer> getItemIdToDeliver(String seller_email){ return mRepository.getItemIdToDeliver(seller_email); }
 
     ItemTransaction getItemTransaction(int itemId){ return mRepository.getItemTransaction(itemId); }
 

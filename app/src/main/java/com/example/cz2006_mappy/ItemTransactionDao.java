@@ -29,7 +29,7 @@ public interface ItemTransactionDao {
     void deleteFromMyPurchases(int itemId);
 
     @Query("SELECT item_id FROM ItemTransaction WHERE seller_id = :seller_email AND delivered = 0")
-    LiveData<List<ItemTransaction>> getItemIdToDeliver(String seller_email);
+    List<Integer> getItemIdToDeliver(String seller_email);
 
     @Query("DELETE FROM ItemTransaction WHERE item_id = :itemId AND seller_id = :seller_email")
     void deleteToDeliverTransaction(int itemId, String seller_email);

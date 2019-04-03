@@ -121,13 +121,13 @@ public class MyListingActivity extends AppCompatActivity
                     String email = channel.getString("email","");
                     User user = userDAO.getUser(email);
 
-                    // observe
-                    mItemTransactionViewModel.getItemIdToDeliver(user.getEmailaddress()).observe(MyListingActivity.this, new Observer<List<ItemTransaction>>() {
-                        @Override
-                        public void onChanged(@Nullable List<ItemTransaction> itemTransactions) {
-                            gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, itemTransactions));
-                        }
-                    });
+//                    // observe
+//                    mItemTransactionViewModel.getItemIdToDeliver(user.getEmailaddress()).observe(MyListingActivity.this, new Observer<List<ItemTransaction>>() {
+//                        @Override
+//                        public void onChanged(@Nullable List<ItemTransaction> itemTransactions) {
+//                            gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, itemTransactions));
+//                        }
+//                    });
 
                     // for loop
                     List<Integer> item_to_deliver_id = mItemTransactionViewModel.getItemIdToDeliver(user.getEmailaddress());
