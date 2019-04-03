@@ -89,6 +89,15 @@ public class HomeActivity extends AppCompatActivity
             public void onClick(View v) {
                 if (v.getId() == addButton.getId()){
                     TextView targetTextView = (TextView) findViewById(R.id.targetTextView);
+                    TextView savingsTextView = (TextView) findViewById(R.id.savingsTextView);
+                    String savingsTv = savingsTextView.getText().toString();
+                    String status = validSavings(savingsTv);
+                    if(status.equals("success")){
+
+                    } else {
+                        Toast.makeText(getApplicationContext(),status,Toast.LENGTH_SHORT).show();
+                    }
+
                     if(targetTextView.getText().toString().equals("")){
                         Toast.makeText(getApplicationContext(),"Please Set a Target First",Toast.LENGTH_LONG).show();
                     }
@@ -228,5 +237,16 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private String validSavings(String savings){
+        if(savings == null | savings.isEmpty() | savings.length() == 0){
+            return "Savings cannot be empty";
+        }
+        if(Double.parseDouble(savings) < 0){
+            return "Savings cannot be negative";
+        }
+        // special characters
+        return "success";
     }
 }

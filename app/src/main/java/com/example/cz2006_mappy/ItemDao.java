@@ -24,7 +24,7 @@ public interface ItemDao {
     List<Item> getSearchedItems(String s);
 
     @Query("SELECT * FROM ITEM WHERE seller_id = :seller_email AND available = 1")
-    LiveData<List<Item>> getSoldItems(String seller_email);
+    List<Item> getSoldItems(String seller_email);
 
     @Query("DELETE FROM ITEM WHERE item_id = :itemId AND seller_id = :seller_email")
     void deleteSoldItem(int itemId, String seller_email);
