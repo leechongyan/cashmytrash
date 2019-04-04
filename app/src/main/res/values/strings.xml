@@ -7,15 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="registration_activity">Registration</string>
-    <string name="confirm">Confirm</string>
 
-    <!--Edit Profile Page -->
-    <string name="upload_profile_picture">Upload Profile Picture</string>
-    <string name="current_password">Current Password</string>
-    <string name="new_password">New Password</string>
-    <string name="enter_new_password">Please enter your new Password</string>
-    <string name="reenter_new_password">Please re-enter your new Password</string>
-    <string name="enter_current_password">Please enter your current password</string>
 
     <!--Item Detail Page -->
     <string name="itemDetailId">Item Id</string>

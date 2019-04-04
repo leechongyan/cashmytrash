@@ -15,9 +15,10 @@ public abstract class AndroidRoomDatabase extends RoomDatabase {
     public abstract FeedbackDao feedbackDao();
     // to fill
 
+    public abstract UserDAO userDao();
+
     public abstract ItemTransactionDao transactionDao();
 
-    public abstract UserDAO userDao();
 
     private static AndroidRoomDatabase INSTANCE;
 
