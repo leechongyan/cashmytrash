@@ -7,6 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="registration_activity">Registration</string>
+<<<<<<< HEAD
     <string name="confirm">Confirm</string>
 
     <!--Edit Profile Page -->
@@ -16,29 +17,22 @@
     <string name="enter_new_password">Please enter your new Password</string>
     <string name="reenter_new_password">Please re-enter your new Password</string>
     <string name="enter_current_password">Please enter your current password</string>
+=======
+
+>>>>>>> 285de06888242b90e7371107706a17bb15b96a21
 
     <!--Item Detail Page -->
-    <string name="itemDetailId">Item Id</string>
     <string name="itemDetailName">Name of Item</string>
     <string name="itemDetailUsername">Sold By: Username</string>
     <string name="itemDetailPrice">Price : $SGD</string>
-    <string name="itemDetailToken">Item Token</string>
     <string name="itemDetailDescription">Item Description</string>
-    <string name="itemDetailSellerId">Sold By: Seller Id</string>
+
 
     <!--Create Item Page -->
     <string name="createItemName">Item Name:</string>
     <string name="createItemPrice">Item Price (SGD):</string>
     <string name="createItemDescription">Item Description</string>
     <string name="createItemButton">CREATE</string>
-
-    <string name="title_activity_home">Home</string>
-    <string name="title_activity_listing">Listing</string>
-    <string name="title_activity_set_target">SetTargetActivity</string>
-    <string name="title_activity_my_listing">MyListingActivity</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--Feedback page -->
     <string name="feedback_warning">Kindly note that the feedback is limited to 1500 characters</string>
@@ -57,6 +51,7 @@
     <string name="see_more"><p> See More</p></string>
     <string name="cash_incentives"><p> Cash Incentives For Recyclables </p></string>
     <string name="back"><p> Back </p></string>
+    <string name="title_activity_home">Home</string>
     <string name="title_activity_convert_to_cash_new">ConvertToCashNew</string>
     <string name="title_activity_my_purchases">MyPurchases</string>
     <string name="title_activity_insert_token">InsertToken</string>

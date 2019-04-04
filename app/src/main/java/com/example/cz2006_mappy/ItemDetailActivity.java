@@ -33,11 +33,11 @@ public class ItemDetailActivity extends AppCompatActivity {
         //back button
         FloatingActionButton backButton = (FloatingActionButton) findViewById(R.id.itemDetailBackButton);
         backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
+            @Overrid
             public void onClick(View v) {
                 onBackPressed();
             }
-        });
+        })
 
         //get data to display in the ItemDetail page
         String id = getIntent().getExtras().getString("item_detail_id");
