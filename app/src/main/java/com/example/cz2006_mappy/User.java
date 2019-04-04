@@ -22,15 +22,23 @@ public class User {
     @ColumnInfo(name="phone")
     private int phone;
 
+    @ColumnInfo(name="target")
+    private double target;
+
+    @ColumnInfo(name="savings")
+    private double savings;
+
     @Ignore
     @ColumnInfo(name="imagepath")
     private String imagePath;
 
-    public User(String emailaddress, String username, String password, int phone, String imagePath) {
+    public User(String emailaddress, String username, String password, int phone, double target, double savings, String imagePath) {
         this.emailaddress = emailaddress;
         this.username = username;
         this.password = password;
         this.phone = phone;
+        this.target = target;
+        this.savings = savings;
         this.imagePath = imagePath;
     }
 
@@ -53,6 +61,10 @@ public class User {
         return phone;
     }
 
+    public double getTarget() { return target; }
+
+    public double getSavings() { return savings; }
+
     public void setEmailaddress(String emailaddress) {
         this.emailaddress = emailaddress;
     }
@@ -68,6 +80,10 @@ public class User {
     public void setPhone(int phone) {
         this.phone = phone;
     }
+
+    public void setTarget(double target) { this.target = target; }
+
+    public void setSavings(double savings) { this.savings = savings; }
 
     public String getImagePath() {
         return imagePath;

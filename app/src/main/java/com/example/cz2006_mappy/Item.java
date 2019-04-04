@@ -28,18 +28,27 @@ public class Item {
     @NonNull
     @ColumnInfo(name = "token")
     private int token;
+    
 
     @NonNull
     @ColumnInfo(name = "seller_id")
-    private int seller_id;
+    private String seller_id;
 
     @NonNull
     @ColumnInfo(name = "seller_username")
     private String seller_username;
 
+    @NonNull
+    @ColumnInfo(name="available")
+    private Integer available;
+
+    @NonNull
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte [] image;
+
 
     public Item(@NonNull int item_id,@NonNull String item_name, @NonNull String item_description, @NonNull double price
-    ,@NonNull int token, @NonNull int seller_id, @NonNull String seller_username) {
+    ,@NonNull int token, @NonNull String seller_id, @NonNull String seller_username, @NonNull Integer available, @NonNull byte[] image) {
         this.item_id = item_id; // put 0 while constructing
         this.item_name = item_name;
         this.item_description = item_description;
@@ -47,6 +56,8 @@ public class Item {
         this.token = token;
         this.seller_id = seller_id;
         this.seller_username = seller_username;
+        this.available = available;
+        this.image = image;
     }
 
     public int getItem_id() {
@@ -62,9 +73,11 @@ public class Item {
         return price;
     }
     public int getToken() {return this.token;}
-    public int getSeller_id() {
+    public String getSeller_id() {
         return this.seller_id;
     }
     public String getSeller_username() {return this.seller_username;}
+    public Integer getAvailable() {return this.available;}
+    public byte[] getImage(){return this.image;}
 
 }

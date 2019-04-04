@@ -79,8 +79,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         });
 
 
-
-
         //Search panel
         SearchView searchView = (SearchView) findViewById(R.id.listing_search_field);
 
@@ -194,7 +192,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         } else if (id == R.id.nav_save_the_environment) {
             //TODO: SAVE THE ENVIRONMENT ACTIVITY
         } else if (id == R.id.nav_give_us_feedback) {
-            //TODO: GIVE US FEEDBACK ACTIVITY
+            // TODO: GIVE US FEEDBACK ACTIVITY
             Intent feedback = new Intent(this, FeedbackForm.class);
             startActivity(feedback);
         }

@@ -22,7 +22,7 @@
         android:hint="@string/feedback_placeholder"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
-        android:maxLines="10"
+        android:maxLines="16"
         android:singleLine="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@android:color/black"
@@ -31,7 +31,8 @@
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.48000002" />
+        app:layout_constraintVertical_bias="0.48000002"
+        android:maxLength="1500"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/feedbackBackButton"
@@ -84,7 +85,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="@android:color/holo_blue_light"
-        android:onClick="displayToast"
+        android:onClick="insertFeedback"
         android:text="@string/send_feedback"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintBottom_toBottomOf="parent"
