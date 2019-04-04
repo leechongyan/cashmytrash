@@ -37,26 +37,33 @@ public class InsertToken extends AppCompatActivity {
     public void submitToken(View view){
         int id = getIntent().getExtras().getInt("item_id_my_purchases");
         EditText editTextToken = (EditText) findViewById(R.id.editTextToken);
-        int token = Integer.parseInt(editTextToken.getText().toString());
-        boolean result = manager.submitToken(token,id);
-        if(result){
+        String inserted_token = editTextToken.getText().toString();
+        if(inserted_token == null | inserted_token.isEmpty() | inserted_token.length() == 0){
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "Your item has been received. Thank you for shopping with us",
+                    "Token cannot be empty",
                     Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
-            Intent goPurchase = new Intent(getApplicationContext(), MyPurchases.class);
-            startActivity(goPurchase);
         }
         else{
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "Token entered is invalid. Please enter your token again.",
-                    Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
+            int token = Integer.parseInt(inserted_token);
+            boolean result = manager.submitToken(token,id);
+            if(result){
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Your item has been received. Thank you for shopping with us",
+                        Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+                Intent goPurchase = new Intent(getApplicationContext(), MyPurchases.class);
+                startActivity(goPurchase);
+            }
+            else{
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Token entered is invalid. Please enter your token again.",
+                        Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            }
         }
-
-
-
     }
 }
