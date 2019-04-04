@@ -21,11 +21,16 @@ public class Feedback {
     @ColumnInfo(name = "sender_username")
     private String sender_username;
 
+    @NonNull
+    @ColumnInfo(name= "sender_id")
+    private String sender_id;
 
-    public Feedback(@NonNull int feedback_id,@NonNull String feedback_content, @NonNull String sender_username) {
+
+    public Feedback(@NonNull int feedback_id,@NonNull String feedback_content, @NonNull String sender_username, @NonNull String sender_id) {
         this.feedback_id = feedback_id; // put 0 while constructing
         this.feedback_content = feedback_content;
         this.sender_username = sender_username;
+        this.sender_id = sender_id;
     }
 
     public int getFeedback_id() {
@@ -37,5 +42,6 @@ public class Feedback {
     public String getSender_username() {
         return this.sender_username;
     }
+    public String getSender_id(){return this.sender_id; }
 
 }

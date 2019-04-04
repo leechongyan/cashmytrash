@@ -34,7 +34,7 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        final UserDatabase db = UserDatabase.getAppDatabase(this);
+        final AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
         final UserDAO userDAO = db.userDao();
         t1=(TextView)findViewById(R.id.existingacc);
         e1=(EditText)findViewById(R.id.username);
@@ -93,7 +93,7 @@ public class Registration extends AppCompatActivity {
                         if (s2.equals(s3)) {
 
 
-                            User user = new User(s4, s1, s2, i5,profilePath);
+                            User user = new User(s4, s1, s2, i5,0,0,profilePath);
                             if (userDAO.getUser(s4) == null) {
                                 userDAO.insert(user);
                                 Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();

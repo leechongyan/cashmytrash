@@ -40,6 +40,7 @@ public class EditProfile extends AppCompatActivity {
         profPic = findViewById(R.id.editProfilePic);
         textBox = findViewById(R.id.uploadProfilePic);
         conf = findViewById(R.id.confirm);
+        user = userDAO.getUser("123");
 
         // taken from registration; intent: load gallery, select desired profile picture
         profPic.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +56,6 @@ public class EditProfile extends AppCompatActivity {
         conf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user = userDAO.getUser("123");
                 String curP = curPass.getText().toString();
                 String newP = newPass.getText().toString();
                 String newerP = newerPass.getText().toString();
@@ -78,7 +78,7 @@ public class EditProfile extends AppCompatActivity {
                     if (newP.length() < 8 && !isValidPassword(newP)) {
                         newPass.setError("Password must contain minimum 8 characters, at least 1 Alphabet, 1 Number and 1 Special Character");
                     }
-                    if (newerP.length() < 8 && !isValidPassword(newerP)) {
+                    if (newP.length() < 8 && !isValidPassword(newP)) {
                         newerPass.setError("Password must contain minimum 8 characters, at least 1 Alphabet, 1 Number and 1 Special Character");
                     }
                     else if (!(newP.equals(newerP))) {
@@ -86,8 +86,8 @@ public class EditProfile extends AppCompatActivity {
                     }
                     else {
                         // TODO: persistence (user password not updating)
+                        // userDAO.update(user);
                         user.setPassword(newP);
-                        userDAO.update(user);
                         Toast.makeText(getApplicationContext(), "Profile Updated!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(EditProfile.this, HomePage.class);
                         startActivity(intent);
