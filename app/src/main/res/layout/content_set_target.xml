@@ -22,15 +22,6 @@
             android:text="Set Savings Target:"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="120dp" />
-        <TextView
-            android:id="@+id/reminderLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@color/colorAccent"
-            android:text="* Target will be reset monthly"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="170dp" />
 
         <TextView
             android:id="@+id/sgdLabel2"

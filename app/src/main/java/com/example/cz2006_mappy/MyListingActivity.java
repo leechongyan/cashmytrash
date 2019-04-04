@@ -189,6 +189,9 @@ public class MyListingActivity extends AppCompatActivity
 
         mItemViewModel.deleteSoldItem(Integer.parseInt(id), user.getEmailaddress());
         Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
+
+        GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
+        gridView.setAdapter(new ItemAllAdapter(MyListingActivity.this, mItemViewModel.getSoldItems(user.getEmailaddress())));
     }
 
     public void deleteItemInToDeliverTab(View view){

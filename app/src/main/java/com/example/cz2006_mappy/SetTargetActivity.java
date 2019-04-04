@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,18 +44,22 @@ public class SetTargetActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if (v.getId() == setButton.getId()){
                         text = setEditText.getText().toString();
+                        String status = validSavings(text);
+                        if(status.equals("success")){
+                            user.setTarget(Double.parseDouble(text));
+                            userDAO.update(user);
+                            SharedPreferences.Editor editor = channel.edit();
+                            editor.putString("target", Double.toString(user.getTarget()));
+                            editor.commit();
 
-                        user.setTarget(Double.parseDouble(text));
-                        userDAO.update(user);
-                        SharedPreferences.Editor editor = channel.edit();
-                        editor.putString("target", Double.toString(user.getTarget()));
-                        editor.commit();
+                            Intent gotoHome = new Intent(getApplicationContext(), HomeActivity.class);
+                            gotoHome.putExtra("com.example.cz2006.mappy.displayTarget", user.getTarget());
+                            startActivity(gotoHome);
 
-                        Intent gotoHome = new Intent(getApplicationContext(), HomeActivity.class);
-                        gotoHome.putExtra("com.example.cz2006.mappy.displayTarget", user.getTarget());
-                        startActivity(gotoHome);
-
-                        Toast.makeText(getApplicationContext(),"Savings Target Set",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Savings Target Set",Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(),status,Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });
@@ -70,6 +75,16 @@ public class SetTargetActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    private String validSavings(String target){
+        if(TextUtils.isEmpty(target) | target == null | target.isEmpty() | target.length() == 0){
+            return "Target cannot be empty";
+        }
+        if(target.equals(".")){
+            return "Target invalid";
+        }
+        return "success";
     }
 
 }
