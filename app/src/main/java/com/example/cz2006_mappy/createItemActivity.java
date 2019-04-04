@@ -113,13 +113,13 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
     private String createInputValid(String name, String price, String description, byte[] byteImage){
 
         if(name == null | name.isEmpty() | name.length() == 0){
-            return "Item Name cannot be empty~";
+            return "Item Name cannot be empty";
         }
         if(price == null | price.isEmpty() | price.length() == 0){
-            return "Item price cannot be empty~";
+            return "Item price cannot be empty";
         }
         if(byteImage == null){
-            return "An item image must be uploaded@";
+            return "An item image must be uploaded";
         }
         if(description == null | description.isEmpty() | description.length() == 0){
             return "Item description cannot be empty";
