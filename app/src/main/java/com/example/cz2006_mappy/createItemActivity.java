@@ -116,7 +116,7 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
             return "Item Name cannot be empty";
         }
         if(price == null | price.isEmpty() | price.length() == 0){
-            return "Item price cannot be empty";
+            return "Item price cannot be empty~";
         }
         if(byteImage == null){
             return "An item image must be uploaded";
