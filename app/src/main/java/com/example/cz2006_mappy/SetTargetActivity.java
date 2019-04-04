@@ -81,10 +81,9 @@ public class SetTargetActivity extends AppCompatActivity {
         if(TextUtils.isEmpty(target) | target == null | target.isEmpty() | target.length() == 0){
             return "Target cannot be empty";
         }
-        if(Double.parseDouble(target) < 0){
-            return "Target cannot be negative";
+        if(target.equals(".")){
+            return "Target invalid";
         }
-        // special characters
         return "success";
     }
 

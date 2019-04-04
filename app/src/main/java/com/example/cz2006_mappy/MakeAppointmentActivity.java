@@ -1,6 +1,5 @@
 package com.example.cz2006_mappy;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -34,8 +33,7 @@ public class MakeAppointmentActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back = new Intent(getApplicationContext(), MyListingActivity.class);
-                startActivity(back);
+                onBackPressed();
 
             }
         });

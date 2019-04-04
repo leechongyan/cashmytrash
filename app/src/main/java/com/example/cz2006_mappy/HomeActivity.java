@@ -92,46 +92,41 @@ public class HomeActivity extends AppCompatActivity
                     TextView targetTextView = (TextView) findViewById(R.id.targetTextView);
                     String status = validSavings(addEditText.getText().toString());
                     if(status.equals("success")){
-                        if(targetTextView.getText().toString().isEmpty()){
-                            Toast.makeText(getApplicationContext(),"Please Set a Target First",Toast.LENGTH_LONG).show();
-                        }
-                        else{
-                            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-                            builder.setTitle("Adding to Savings");
-                            builder.setMessage("Are you sure you want to add SGD " + Double.toString(Double.parseDouble(addEditText.getText().toString())) + " to your savings?");
-                            builder.setCancelable(false);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                        builder.setTitle("Adding to Savings");
+                        builder.setMessage("Are you sure you want to add SGD " + Double.toString(Double.parseDouble(addEditText.getText().toString())) + " to your savings?");
+                        builder.setCancelable(false);
 
-                            builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    savings = addEditText.getText().toString();
-                                    total = total + Double.parseDouble(savings);
+                        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                savings = addEditText.getText().toString();
+                                total = total + Double.parseDouble(savings);
 
-                                    AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
-                                    UserDAO userDAO = db.userDao();
-                                    SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
-                                    String email = channel.getString("email","");
-                                    User user = userDAO.getUser(email);
-                                    user.setSavings(total);
-                                    userDAO.update(user);
-                                    SharedPreferences.Editor editor = channel.edit();
-                                    editor.putString("savings", Double.toString(user.getSavings()));
-                                    editor.commit();
+                                AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
+                                UserDAO userDAO = db.userDao();
+                                SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+                                String email = channel.getString("email","");
+                                User user = userDAO.getUser(email);
+                                user.setSavings(total);
+                                userDAO.update(user);
+                                SharedPreferences.Editor editor = channel.edit();
+                                editor.putString("savings", Double.toString(user.getSavings()));
+                                editor.commit();
 
-                                    TextView savingsTextView = (TextView) findViewById(R.id.savingsTextView);
-                                    savingsTextView.setText(Double.toString(user.getSavings()));
-                                    Toast.makeText(getApplicationContext(),"Added to savings", Toast.LENGTH_LONG).show();
-                                }
-                            });
-                            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
-                            AlertDialog alert = builder.create();
-                            alert.show();
-                        }
+                                TextView savingsTextView = (TextView) findViewById(R.id.savingsTextView);
+                                savingsTextView.setText(Double.toString(user.getSavings()));
+                                Toast.makeText(getApplicationContext(),"Added to savings", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        AlertDialog alert = builder.create();
+                        alert.show();
                     } else {
                         Toast.makeText(getApplicationContext(),status,Toast.LENGTH_SHORT).show();
                     }
@@ -240,10 +235,9 @@ public class HomeActivity extends AppCompatActivity
         if(TextUtils.isEmpty(savings) | savings == null | savings.isEmpty() | savings.length() == 0){
             return "Savings cannot be empty";
         }
-        if(Double.parseDouble(savings) < 0){
-            return "Savings cannot be negative";
+        if(savings.equals(".")){
+            return "Savings invalid";
         }
-        // special characters
         return "success";
     }
 }
