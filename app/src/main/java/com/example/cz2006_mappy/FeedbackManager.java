@@ -17,5 +17,15 @@ public class FeedbackManager extends AppCompatActivity {
             feedbackDao.insert(fb);
             return true;
         }
+    };
+
+    public boolean resolveFeedback(int feedback_id){
+        Feedback result = feedbackDao.getFeedback(feedback_id);
+        if (result==null){
+            return false;
+        }else{
+            return(feedbackDao.delete(result)!=0);
+        }
     }
+
 }
