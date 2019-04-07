@@ -114,7 +114,6 @@ public class Login extends AppCompatActivity {
             m.setFrom("leechongyan@gmail.com");
             m.setSubject("Reset Password");
             m.setBody("Your new password is 1234. Please reset upon logging in!");
-
             try {
                 if (m.send()) {
                     Message msg = handler.obtainMessage();
