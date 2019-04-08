@@ -74,7 +74,7 @@ public class Registration extends AppCompatActivity {
                 if (s1.equals("")||s2.equals("")||s3.equals("")||s4.equals("")||s5==null){
                     Toast.makeText(getApplicationContext(), "Fields are empty", Toast.LENGTH_SHORT).show();
                 }else{
-                    if(s1.length()<3||s1.length()>20){
+                    if(s1.length()<4||s1.length()>19){
                         e1.setError("Username must be between 3 to 20 letters long");
                         flag=0;
                     }
@@ -130,14 +130,14 @@ public class Registration extends AppCompatActivity {
     public static boolean isValidPassword(final String password) {
         Pattern pattern;
         Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        final String PASSWORD_PATTERN = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
         pattern = Pattern.compile(PASSWORD_PATTERN);
         matcher = pattern.matcher(password);
         return matcher.matches();
     }
 
     public static boolean isEmailValid(String email) {
-        String expression = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
