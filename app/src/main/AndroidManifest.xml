@@ -22,10 +22,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity
             android:name=".EditProfile"
             android:label="@string/title_activity_edit_profile"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+=======
+        <activity android:name=".AdminControl"></activity>
+>>>>>>> 284f1f2e69892fd025d3d1480d615d4794066b8d
         <activity android:name=".ContactSeller" />
         <activity
             android:name=".InsertToken"
@@ -89,6 +93,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".SavetheEnvironment"
+            android:label="@string/saveenvironment"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

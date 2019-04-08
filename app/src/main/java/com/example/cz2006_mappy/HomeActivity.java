@@ -222,6 +222,8 @@ public class HomeActivity extends AppCompatActivity
             startActivity(change_password);
         } else if (id == R.id.nav_save_the_environment) {
             //TODO: SAVE THE ENVIRONMENT ACTIVITY
+            Intent convert = new Intent(this, SavetheEnvironment.class);
+            startActivity(convert);
         } else if (id == R.id.nav_give_us_feedback) {
             //TODO: GIVE US FEEDBACK ACTIVITY
             Intent feedback = new Intent(this, FeedbackForm.class);

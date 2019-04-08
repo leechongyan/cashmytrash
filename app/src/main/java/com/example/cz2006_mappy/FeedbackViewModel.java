@@ -20,4 +20,6 @@ public class FeedbackViewModel extends AndroidViewModel {
     LiveData<List<Feedback>> getAllFeedbacks() {return mAllFeedbacks;}
 
     public void insert(Feedback feedback) {mRepository.insert(feedback);}
+
+    public int deleteFeedback(Feedback feedback){return mRepository.deleteFeedback(feedback);}
 }

@@ -1,9 +1,12 @@
 package com.example.cz2006_mappy;
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
+
+import java.util.List;
 
 @Dao
 public interface UserDAO {
@@ -21,4 +24,11 @@ public interface UserDAO {
 
     @Query("SELECT * FROM user WHERE emailaddress = :email")
     public User getUser(String email);
+
+    @Query("SELECT * FROM user")
+    LiveData<List<User>> getAllUsers();
+
+    @Query("SELECT * FROM user WHERE username LIKE '%'  ||:s || '%'")
+    List<User> getSearchedUser(String s);
+
 }
