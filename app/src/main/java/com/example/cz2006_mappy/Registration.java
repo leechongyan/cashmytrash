@@ -70,26 +70,27 @@ public class Registration extends AppCompatActivity {
                 String s3=e3.getText().toString();
                 String s4=e4.getText().toString();
                 String s5=e5.getText().toString();
+                int flag=1;
                 if (s1.equals("")||s2.equals("")||s3.equals("")||s4.equals("")||s5==null){
                     Toast.makeText(getApplicationContext(), "Fields are empty", Toast.LENGTH_SHORT).show();
                 }else{
                     if(s1.length()<4||s1.length()>19){
                         e1.setError("Username must be between 3 to 20 letters long");
+                        flag=0;
                     }
                     if(s5.length()!=8){
                         e5.setError("Phone no is invalid");
+                        flag=0;
                     }
                     if(s2.length()<8&&!isValidPassword(s2)){
                         e2.setError("Password must contain minimum 8 characters at least 1 Alphabet, 1 Number and 1 Special Character");
+                        flag=0;
                     }
                     if(!isEmailValid(s4)){
                         e4.setError("Email is invalid");
+                        flag=0;
                     }
-//                    if(profilepic.getText() != "Upload Success"){
-//                        profilepic.setText("Upload a Image before registering");
-//                    }
-
-                    else {
+                    else if (flag==1){
                         int i5 = Integer.parseInt(s5);
                         if (s2.equals(s3)) {
 

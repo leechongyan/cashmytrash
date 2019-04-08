@@ -10,15 +10,19 @@
         android:id="@+id/createItemBackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:clickable="true"
         android:focusable="true"
         android:rotation="270"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.971"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_group_expand_15" />
+        app:srcCompat="@drawable/ic_dialog_close_light" />
 
     <!--<ImageButton-->
         <!--android:id="@+id/createItemImageButton"-->
@@ -45,11 +49,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:scaleType="centerInside"
+        android:src="@android:drawable/ic_menu_upload"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createItemBackButton"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/createItemBackButton" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -120,6 +124,7 @@
         android:ems="10"
         android:hint="@string/itemDetailPrice"
         android:inputType="numberDecimal"
+        android:src="@drawable/upload"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/createItemDescription"
         app:layout_constraintEnd_toEndOf="parent"

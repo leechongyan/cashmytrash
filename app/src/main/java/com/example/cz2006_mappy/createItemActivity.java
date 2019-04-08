@@ -25,12 +25,15 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
 
     private ItemViewModel mItemViewModel;
     private static final int RESULT_LOAD_IMAGE=1;
+    boolean changedimage;
     ImageView itemImage;
     SharedPreferences pref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_item);
+        changedimage = false;
         mItemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
         final ImageView itemImage = (ImageView) findViewById(R.id.itemImage);
         itemImage.setOnClickListener(this);
@@ -97,6 +100,7 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
         if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK){
             Uri selectedImage = data.getData();
             itemImage.setImageURI(selectedImage);
+            changedimage = true;
         }
     }
 
@@ -128,6 +132,9 @@ public class createItemActivity extends AppCompatActivity implements View.OnClic
         }
         if(description.length() <50){
             return "Item description must consist of minimum 50 characters";
+        }
+        if(changedimage == false){
+            return "Please upload a image";
         }
         return "success";
     }

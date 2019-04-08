@@ -11,13 +11,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ItemAllAdapter extends BaseAdapter {
+public class ItemAdminAdaptor extends BaseAdapter {
     LayoutInflater mInflater;
     private Context context;
 
     private List<Item> items;
 
-    public ItemAllAdapter(Context context, List<Item> items) {
+    public ItemAdminAdaptor(Context context, List<Item> items) {
         Log.e("itemalladpter instanced", "--------------");
 
         this.context = context;
@@ -36,18 +36,13 @@ public class ItemAllAdapter extends BaseAdapter {
             gridView = new View(context);
 
             // get layout from mobile.xml
-            gridView = mInflater.inflate(R.layout.item_all, null);
+            gridView = mInflater.inflate(R.layout.admin_item_all, null);
 
             TextView itemId = (TextView) gridView.findViewById(R.id.grid_item_id_all);
             TextView itemName = (TextView) gridView.findViewById(R.id.grid_item_name_all);
             TextView itemPrice = (TextView) gridView.findViewById(R.id.grid_item_price_all);
             TextView itemUsername = (TextView) gridView.findViewById(R.id.grid_item_username_all);
             TextView itemDescription = (TextView) gridView.findViewById(R.id.grid_item_description_all);
-
-            ImageView imageView_trash = (ImageView) gridView
-                    .findViewById(R.id.grid_item_trash_all);
-
-            imageView_trash.setImageResource(R.drawable.ic_delete);
 
             int id = items.get(position).getItem_id();
             String name = items.get(position).getItem_name();

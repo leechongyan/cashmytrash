@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -27,7 +26,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.maps.android.kml.KmlLayer;
-
+import android.widget.TextView;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -52,6 +51,7 @@ public class ConvertToCashNew extends AppCompatActivity
         setContentView(R.layout.activity_convert_to_cash_new);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final TextView txtVw = findViewById(R.id.placeName);
 
 
         //GOOGLE MAPS
@@ -85,13 +85,16 @@ public class ConvertToCashNew extends AppCompatActivity
             @Override
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                // Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                txtVw.setText(place.getName());
             }
+
 
             @Override
             public void onError(Status status) {
                 // TODO: Handle the error.
-                Log.i(TAG, "An error occurred: " + status);
+                // Log.i(TAG, "An error occurred: " + status);
+                txtVw.setText(status.toString());
             }
         });
 
@@ -159,12 +162,20 @@ public class ConvertToCashNew extends AppCompatActivity
             startActivity(convert);
         } else if (id == R.id.nav_change_password) {
             //TODO: CHANGE PASSWORD ACTIVITY
+            Intent change_password = new Intent(this, EditProfile.class);
+            startActivity(change_password);
         } else if (id == R.id.nav_save_the_environment) {
             //TODO: SAVE THE ENVIRONMENT ACTIVITY
+            Intent convert = new Intent(this, SavetheEnvironment.class);
+            startActivity(convert);
         } else if (id == R.id.nav_give_us_feedback) {
             //TODO: GIVE US FEEDBACK ACTIVITY
             Intent feedback = new Intent(this, FeedbackForm.class);
             startActivity(feedback);
+        }else if (id == R.id.logout) {
+            //TODO: GIVE US FEEDBACK ACTIVITY
+            Intent logout = new Intent(this, Login.class);
+            startActivity(logout);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

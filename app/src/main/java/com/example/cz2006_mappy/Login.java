@@ -67,23 +67,28 @@ public class Login extends AppCompatActivity {
                 email = e1.getText().toString();
                 password = e2.getText().toString();
                 User user = userDAO.getUser(email);
-                if (user == null) {
-                    Toast.makeText(getApplicationContext(), "Invalid Email", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (password.equals(user.getPassword())) {
-                        SharedPreferences.Editor editor = pref.edit();
-                        editor.putString("username", user.getUsername());
-                        editor.putString("email", email);
-                        editor.putString("password", password);
-                        editor.putInt("phone", user.getPhone());
-                        editor.putString("target", Double.toString(user.getTarget()));
-                        editor.putString("savings", Double.toString(user.getSavings()));
-                        editor.commit();
-                        Intent i1 = new Intent(Login.this, HomeActivity.class);
-                        startActivity(i1);
+                if(email.equals("admin") && password.equals("admin123")) {
+                    Intent i1 = new Intent(Login.this, AdminControl.class);
+                    startActivity(i1);
+                }else {
+                    if (user == null) {
+                        Toast.makeText(getApplicationContext(), "Invalid Email", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Invalid Password", Toast.LENGTH_SHORT).show();
-                        t2.setVisibility(View.VISIBLE);
+                        if (password.equals(user.getPassword())) {
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putString("username", user.getUsername());
+                            editor.putString("email", email);
+                            editor.putString("password", password);
+                            editor.putInt("phone", user.getPhone());
+                            editor.putString("target", Double.toString(user.getTarget()));
+                            editor.putString("savings", Double.toString(user.getSavings()));
+                            editor.commit();
+                            Intent i2 = new Intent(Login.this, HomeActivity.class);
+                            startActivity(i2);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Invalid Password", Toast.LENGTH_SHORT).show();
+                            t2.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
             }
@@ -114,7 +119,6 @@ public class Login extends AppCompatActivity {
             m.setFrom("leechongyan@gmail.com");
             m.setSubject("Reset Password");
             m.setBody("Your new password is 1234. Please reset upon logging in!");
-
             try {
                 if (m.send()) {
                     Message msg = handler.obtainMessage();
