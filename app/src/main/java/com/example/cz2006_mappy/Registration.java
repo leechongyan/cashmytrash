@@ -90,10 +90,6 @@ public class Registration extends AppCompatActivity {
                         e4.setError("Email is invalid");
                         flag=0;
                     }
-//                    if(profilepic.getText() != "Upload Success"){
-//                        profilepic.setText("Upload a Image before registering");
-//                    }
-
                     else if (flag==1){
                         int i5 = Integer.parseInt(s5);
                         if (s2.equals(s3)) {
