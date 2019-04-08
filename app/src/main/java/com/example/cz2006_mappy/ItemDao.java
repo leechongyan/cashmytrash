@@ -33,7 +33,7 @@ public interface ItemDao {
     void deleteToDeliverItem(int itemId, String seller_email);
 
     @Delete
-    void delete(Item item);
+    int delete(Item item);
 //    @Query("SELECT * FROM ITEM WHERE ")
 //    List<Item> getToDeliverItems();
 
