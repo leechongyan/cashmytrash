@@ -44,7 +44,7 @@ public class EditProfile extends AppCompatActivity implements NavigationView.OnN
         final UserDAO userDAO = db.userDao();
         SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
         String email = channel.getString("email","");
-        final User user = userDAO.getUser(email);
+        user = userDAO.getUser(email);
         // 1 imageview; 1 textview; 3 editText
         curPass = findViewById(R.id.changepassword);
         newPass = findViewById(R.id.changepassword2);
@@ -107,9 +107,9 @@ public class EditProfile extends AppCompatActivity implements NavigationView.OnN
                         Toast.makeText(getApplicationContext(), "Please ensure that your new passwords match!", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        // TODO: persistence (user password not updating)
-                        // userDAO.update(user);
+                        // TODO: persistence (user password not updating
                         user.setPassword(newP);
+                        userDAO.update(user);
                         Toast.makeText(getApplicationContext(), "Profile Updated!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(EditProfile.this, HomeActivity.class);
                         startActivity(intent);
