@@ -62,11 +62,8 @@
     <string name="title_activity_insert_token">InsertToken</string>
     <string name="title_activity_contact_seller">ContactSeller</string>
     <string name="title_activity_maps">Map</string>
-<<<<<<< HEAD
     <string name="title_activity_edit_profile">EditProfile</string>
-=======
     <string name="saveenvironment">SaveTheEnvironment</string>
     <!--Admin User page -->
     <string name="user">User Name</string>
->>>>>>> 284f1f2e69892fd025d3d1480d615d4794066b8d
 </resources>
