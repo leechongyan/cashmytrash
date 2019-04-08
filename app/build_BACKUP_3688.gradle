@@ -49,5 +49,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-places:16.0.0'
     implementation 'pub.devrel:easypermissions:2.0.1'
     implementation 'com.google.android.libraries.places:places:1.0.0'
+<<<<<<< HEAD
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+=======
 
+>>>>>>> 284f1f2e69892fd025d3d1480d615d4794066b8d
 }

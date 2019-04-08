@@ -2,18 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.example.cz2006_mappy">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <dist:module dist:instant="true" />
 
@@ -24,6 +22,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".EditProfile"
+            android:label="@string/title_activity_edit_profile"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".AdminControl"
+            android:label="AdminControl"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".ContactSeller" />
         <activity
             android:name=".InsertToken"
@@ -33,7 +44,6 @@
             android:name=".MyPurchases"
             android:label="@string/title_activity_my_purchases"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -42,17 +52,18 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
+        <!-- for API -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".ConvertToCashNew"
             android:label="@string/title_activity_convert_to_cash_new"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Registration"
             android:label="@string/registration_activity"
@@ -60,12 +71,11 @@
         <activity
             android:name=".ListingActivity"
             android:label="@string/title_activity_listing"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SeeMoreCashIncentives" />
         <activity android:name=".FeedbackForm" />
         <activity android:name=".createItemActivity" />
-        <activity android:name=".MakeAppointmentActivity"></activity>
+        <activity android:name=".MakeAppointmentActivity" />
         <activity
             android:name=".MyListingActivity"
             android:label="@string/title_activity_my_listing"
@@ -83,11 +93,11 @@
             android:name=".Login"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SavetheEnvironment"
+            android:label="@string/saveenvironment"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

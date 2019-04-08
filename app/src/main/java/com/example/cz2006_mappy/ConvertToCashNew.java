@@ -11,25 +11,34 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.maps.android.kml.KmlLayer;
-
+import android.widget.TextView;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class ConvertToCashNew extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+    private static final String TAG = "ConvertToCashNew";
+    private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
 
 
     private GoogleMap mMap;
@@ -42,6 +51,7 @@ public class ConvertToCashNew extends AppCompatActivity
         setContentView(R.layout.activity_convert_to_cash_new);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final TextView txtVw = findViewById(R.id.placeName);
 
 
         //GOOGLE MAPS
@@ -60,6 +70,36 @@ public class ConvertToCashNew extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         requestLocationPermission();
+        Places.initialize(getApplicationContext(),String.valueOf(R.string.google_maps_key));
+        PlacesClient placesClient = Places.createClient(this);
+
+        // Initialize the AutocompleteSupportFragment.
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+
+        // Set up a PlaceSelectionListener to handle the response.
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                // Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                txtVw.setText(place.getName());
+            }
+
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                // Log.i(TAG, "An error occurred: " + status);
+                txtVw.setText(status.toString());
+            }
+        });
+
+
+
     }
 
     @Override
@@ -75,7 +115,7 @@ public class ConvertToCashNew extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.convert_to_cash_new, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -210,5 +250,7 @@ public class ConvertToCashNew extends AppCompatActivity
             EasyPermissions.requestPermissions(this, "Please grant the location permission", REQUEST_LOCATION_PERMISSION, perms);
         }
     }
+
+
 
 }

@@ -23,7 +23,9 @@ public class FeedbackRepository {
     public void insert(Feedback feedback) {
         new FeedbackRepository.insertAsyncTask(mFeedbackDao).execute(feedback);
     }
-
+    public int deleteFeedback(Feedback feedback){
+        return mFeedbackDao.delete(feedback);
+    }
     private static class insertAsyncTask extends AsyncTask<Feedback, Void, Void> {
 
 

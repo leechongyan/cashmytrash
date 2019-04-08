@@ -1,9 +1,10 @@
 package com.example.cz2006_mappy;
-
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -14,24 +15,29 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyListingActivity extends AppCompatActivity
+public class AdminControl extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ItemViewModel mItemViewModel;
     private ItemTransactionViewModel mItemTransactionViewModel;
+    private FeedbackViewModel mFeedbackViewModel;
+    private static final int USER = 0;
+    private static final int ITEM = 1;
+    private static final int FEEDBACK = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_listing);
+        setContentView(R.layout.activity_admin_control);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -45,11 +51,10 @@ public class MyListingActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mItemViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemViewModel.class);
+        mItemViewModel = ViewModelProviders.of(AdminControl.this).get(ItemViewModel.class);
 
         //Show item in gridview
-        final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
-
+        final GridView gridView = (GridView) findViewById(R.id.listing_list_view);
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
 
         // so that tabs are ready to have operations performed on it.
@@ -57,7 +62,7 @@ public class MyListingActivity extends AppCompatActivity
             @Override
             public void run() {
                 TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-                tabs.getTabAt(0).select();
+                tabs.getTabAt(USER).select();
             }
         });
 
@@ -67,10 +72,13 @@ public class MyListingActivity extends AppCompatActivity
                 int  numTab =  tab.getPosition();
                 switch(numTab){
                     case 0:
-                        selectTab(0);
+                        selectTab(USER);
                         break;
                     case 1:
-                        selectTab(1);
+                        selectTab(ITEM);
+                        break;
+                    case 2:
+                        selectTab(FEEDBACK);
                         break;
                     default:
                         selectTab(0);
@@ -78,50 +86,33 @@ public class MyListingActivity extends AppCompatActivity
             }
 
             public void selectTab(int tabNumber){
-                if (tabNumber == 0){
-                    mItemViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemViewModel.class);
-
-                    //Show item in gridview
-                    final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
-
-                    AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
-                    UserDAO userDAO = db.userDao();
-                    SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
-                    String email = channel.getString("email","");
-                    User user = userDAO.getUser(email);
-
-                    gridView.setAdapter(new ItemAllAdapter(MyListingActivity.this, mItemViewModel.getSoldItems(user.getEmailaddress())));
-
-//                    mItemViewModel.getSoldItems(user.getEmailaddress()).observe(MyListingActivity.this, new Observer<List<Item>>() {
-//                        @Override
-//                        public void onChanged(@Nullable List<Item> items) {
-//                            gridView.setAdapter(new ItemAllAdapter(MyListingActivity.this, items));
-//                        }
-//
-//                    });
+                if (tabNumber == USER){
+                    //to implement User viewmodel and repo, link to dao
+                    return;
                 }
-                else if (tabNumber == 1){
-                    mItemTransactionViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemTransactionViewModel.class);
+                if (tabNumber == ITEM){
+                    mItemViewModel = ViewModelProviders.of(AdminControl.this).get(ItemViewModel.class);
 
-                    //Show item in gridview
-                    final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
+                    final GridView gridView = (GridView) findViewById(R.id.listing_list_view);
+                    mItemViewModel.getAllItems().observe(AdminControl.this, new Observer<List<Item>>() {
+                        @Override
+                        public void onChanged(@Nullable List<Item> items) {
+                            gridView.setAdapter(new ItemAllAdapter(AdminControl.this, items));
+                        }
 
-                    AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
-                    UserDAO userDAO = db.userDao();
-                    ItemDao itemDao = db.itemDao();
-                    SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
-                    String email = channel.getString("email","");
-                    User user = userDAO.getUser(email);
-
-                    // for loop
-                    List<Integer> item_to_deliver_id = mItemTransactionViewModel.getItemIdToDeliver(user.getEmailaddress());
-                    List<Item> items = new ArrayList<>();
-                    for(int i =0; i< item_to_deliver_id.size(); i++){
-                        int item_id = item_to_deliver_id.get(i);
-                        items.add(itemDao.getItem(item_id));
-                    }
-                    gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, items));
-
+                    });
+                }
+                else if (tabNumber == FEEDBACK){
+                    mFeedbackViewModel = ViewModelProviders.of(AdminControl.this).get(FeedbackViewModel.class);
+//
+                    final GridView gridView = (GridView) findViewById(R.id.listing_list_view);
+                    mFeedbackViewModel.getAllFeedbacks().observe(AdminControl.this, new Observer<List<Feedback>>() {
+//                        @Override
+                        public void onChanged(@Nullable List<Feedback> feedbacks) {
+                            gridView.setAdapter(new FeedbackAdapter(AdminControl.this, feedbacks));
+                        }
+//                    !!!!Need to implement feedbackadaptor
+                    });
                 }
             }
 
@@ -132,7 +123,7 @@ public class MyListingActivity extends AppCompatActivity
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-                if(tab.getPosition() == 0){
+                if(tab.getPosition() == USER){
                     selectTab(tab.getPosition());
                     tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                         @Override
@@ -151,7 +142,7 @@ public class MyListingActivity extends AppCompatActivity
                         }
                     });
                 }
-                if(tab.getPosition() == 1){
+                if(tab.getPosition() == ITEM){
                     selectTab(tab.getPosition());
                     tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                         @Override
@@ -173,9 +164,31 @@ public class MyListingActivity extends AppCompatActivity
             }
         });
     }
+    public void deleteFeedback(View view) {
+        mFeedbackViewModel = ViewModelProviders.of(this).get(FeedbackViewModel.class);
+        AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
+        UserDAO userDAO = db.userDao();
+        FeedbackDao feedbackDAO = db.feedbackDao();
+        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+        String email = channel.getString("email","");
+        User user = userDAO.getUser(email);
+
+        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
+        Button grid_trash_all = (Button) v.findViewById(R.id.grid_item_trash_all);
+        int id = Integer.parseInt(grid_trash_all.getText().toString());
+
+        mFeedbackViewModel.deleteFeedback(feedbackDAO.getFeedback(id));
+        Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
+
+        GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
+        // changed from mylistingactivity
+        // new FeedbackAdapter(AdminControl.this, feedbacks))
+        gridView.setAdapter(new FeedbackAdapter(this, mFeedbackViewModel.getAllFeedbacks().getValue()));
+    }
 
     public void deleteItemInAllTab(View view){
-        mItemViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemViewModel.class);
+        // might have error; previously was mylistingactivity but it wasn't instantiated - no context
+        mItemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
 
         RelativeLayout v = (RelativeLayout) view.getParent().getParent();
         TextView grid_item_all = (TextView) v.findViewById(R.id.grid_item_id_all);
@@ -191,12 +204,14 @@ public class MyListingActivity extends AppCompatActivity
         Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
 
         GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
-        gridView.setAdapter(new ItemAllAdapter(MyListingActivity.this, mItemViewModel.getSoldItems(user.getEmailaddress())));
+        // changed from mylistingactivity
+        gridView.setAdapter(new ItemAllAdapter(this, mItemViewModel.getSoldItems(user.getEmailaddress())));
     }
 
     public void deleteItemInToDeliverTab(View view){
-        mItemViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemViewModel.class);
-        mItemTransactionViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemTransactionViewModel.class);
+        // per above, changed context from mylistingactivity to this
+        mItemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
+        mItemTransactionViewModel = ViewModelProviders.of(this).get(ItemTransactionViewModel.class);
 
         RelativeLayout v = (RelativeLayout) view.getParent().getParent();
         TextView grid_item_id_to_deliver = (TextView) v.findViewById(R.id.grid_item_id_to_deliver);
@@ -224,11 +239,11 @@ public class MyListingActivity extends AppCompatActivity
             int item_id = item_to_deliver_id.get(i);
             items.add(itemDao.getItem(item_id));
         }
-        gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, items));
+        gridView.setAdapter(new ItemToDeliverAdapter(this, items));
     }
 
     public void makeAppointment(View view){
-        mItemTransactionViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemTransactionViewModel.class);
+        mItemTransactionViewModel = ViewModelProviders.of(this).get(ItemTransactionViewModel.class);
 
         RelativeLayout v = (RelativeLayout) view.getParent().getParent();
         TextView id = (TextView) v.findViewById(R.id.grid_item_id_to_deliver);
@@ -302,8 +317,6 @@ public class MyListingActivity extends AppCompatActivity
             //TODO: CHANGE PASSWORD ACTIVITY
         } else if (id == R.id.nav_save_the_environment) {
             //TODO: SAVE THE ENVIRONMENT ACTIVITY
-            Intent convert = new Intent(this, SavetheEnvironment.class);
-            startActivity(convert);
         } else if (id == R.id.nav_give_us_feedback) {
             //TODO: GIVE US FEEDBACK ACTIVITY
             Intent feedback = new Intent(this, FeedbackForm.class);
@@ -315,3 +328,4 @@ public class MyListingActivity extends AppCompatActivity
         return true;
     }
 }
+
