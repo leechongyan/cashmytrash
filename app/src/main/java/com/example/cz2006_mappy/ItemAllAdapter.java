@@ -1,6 +1,7 @@
 package com.example.cz2006_mappy;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,10 @@ public class ItemAllAdapter extends BaseAdapter {
     private List<Item> items;
 
     public ItemAllAdapter(Context context, List<Item> items) {
+        Log.e("itemalladpter instanced", "--------------");
+
         this.context = context;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         this.items = items;
 
     }
@@ -27,6 +29,7 @@ public class ItemAllAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View gridView;
+        Log.e("runing", "--------------");
 
         if (convertView == null) {
 
