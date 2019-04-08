@@ -300,6 +300,8 @@ public class MyListingActivity extends AppCompatActivity
             startActivity(convert);
         } else if (id == R.id.nav_change_password) {
             //TODO: CHANGE PASSWORD ACTIVITY
+            Intent change_password = new Intent(this, EditProfile.class);
+            startActivity(change_password);
         } else if (id == R.id.nav_save_the_environment) {
             //TODO: SAVE THE ENVIRONMENT ACTIVITY
             Intent convert = new Intent(this, SavetheEnvironment.class);
@@ -308,6 +310,10 @@ public class MyListingActivity extends AppCompatActivity
             //TODO: GIVE US FEEDBACK ACTIVITY
             Intent feedback = new Intent(this, FeedbackForm.class);
             startActivity(feedback);
+        }else if (id == R.id.logout) {
+            //TODO: GIVE US FEEDBACK ACTIVITY
+            Intent logout = new Intent(this, Login.class);
+            startActivity(logout);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

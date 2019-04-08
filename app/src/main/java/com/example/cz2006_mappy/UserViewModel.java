@@ -18,7 +18,7 @@ public class UserViewModel extends AndroidViewModel {
         mAllUsers = mRepository.getAllUsers();
     }
 
-    public LiveData<List<User>> getmAllUsers() {return mAllUsers;}
+    public LiveData<List<User>> getAllUsers() {return mAllUsers;}
     public User getUser(String email){ return mRepository.getUser(email); }
     public List<User> getSearchedUser(String s) {return mRepository.getSearchedUser(s);}
     public int deleteUser(User user){ return mRepository.deleteUser(user);}
