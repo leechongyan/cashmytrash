@@ -41,7 +41,8 @@
             android:layout_height="match_parent"
             android:adjustViewBounds="false"
             android:cropToPadding="false"
-            android:onClick="deleteUser" />
+            android:onClick="deleteUser"
+            app:srcCompat="@drawable/ic_delete" />
     </LinearLayout>
 
 </RelativeLayout>

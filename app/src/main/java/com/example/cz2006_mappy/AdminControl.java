@@ -109,7 +109,7 @@ public class AdminControl extends AppCompatActivity
                     mItemViewModel.getAllItems().observe(AdminControl.this, new Observer<List<Item>>() {
                         @Override
                         public void onChanged(@Nullable List<Item> items) {
-                            gridView.setAdapter(new ItemAllAdapter(AdminControl.this, items));
+                            gridView.setAdapter(new ItemAdminAdaptor(AdminControl.this, items));
                         }
 
                     });
