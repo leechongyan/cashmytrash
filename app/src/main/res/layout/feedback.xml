@@ -28,14 +28,11 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp">
 
-        <ImageView
+        <Button
             android:id="@+id/grid_item_trash_all"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:adjustViewBounds="false"
-            android:cropToPadding="false"
-            android:onClick="deleteUser"
-            app:srcCompat="@drawable/ic_delete" />
+            android:layout_height="match_parent"
+            android:onClick="deleteFeedback" />
     </LinearLayout>
 
 </RelativeLayout>
