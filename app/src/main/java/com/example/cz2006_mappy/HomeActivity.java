@@ -228,6 +228,10 @@ public class HomeActivity extends AppCompatActivity
             //TODO: GIVE US FEEDBACK ACTIVITY
             Intent feedback = new Intent(this, FeedbackForm.class);
             startActivity(feedback);
+        }else if (id == R.id.logout) {
+            //TODO: GIVE US FEEDBACK ACTIVITY
+            Intent logout = new Intent(this, Login.class);
+            startActivity(logout);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

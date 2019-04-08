@@ -19,20 +19,28 @@
             android:title="My Listing" />
         <item
             android:id="@+id/nav_my_purchases"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_control_point_duplicate_black_24dp"
             android:title="My Purchases" />
         <item
             android:id="@+id/nav_convert_to_cash"
+            android:icon="@drawable/ic_monetization_on_black_24dp"
             android:title="Convert to Cash" />
         <item
             android:id="@+id/nav_change_password"
+            android:icon="@drawable/ic_track_changes_black_24dp"
             android:title="Edit Profile" />
         <item
             android:id="@+id/nav_save_the_environment"
+            android:icon="@drawable/ic_mood_bad_black_24dp"
             android:title="Save The Environment" />
         <item
             android:id="@+id/nav_give_us_feedback"
+            android:icon="@drawable/ic_feedback_black_24dp"
             android:title="Give Us Feedback" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="Logout" />
     </group>
 
 </menu>
