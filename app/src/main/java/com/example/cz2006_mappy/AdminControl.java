@@ -110,7 +110,7 @@ public class AdminControl extends AppCompatActivity
                     mFeedbackViewModel.getAllFeedbacks().observe(AdminControl.this, new Observer<List<Feedback>>() {
 //                        @Override
                         public void onChanged(@Nullable List<Feedback> feedbacks) {
-                            gridView.setAdapter(new FeedbackAdapter(AdminControl.this, feedbacks));
+                            gridView.setAdapter(new FeedbackAdapter(AdminControl.this, feedbacks, mFeedbackViewModel));
                         }
 //                    !!!!Need to implement feedbackadaptor
                     });
@@ -165,27 +165,27 @@ public class AdminControl extends AppCompatActivity
             }
         });
     }
-    public void deleteFeedback(View view) {
-        mFeedbackViewModel = ViewModelProviders.of(this).get(FeedbackViewModel.class);
-        AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
-        UserDAO userDAO = db.userDao();
-        FeedbackDao feedbackDAO = db.feedbackDao();
-        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
-        String email = channel.getString("email","");
-        User user = userDAO.getUser(email);
-
-        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
-        Button grid_trash_all = (Button) v.findViewById(R.id.grid_item_trash_all);
-        int id = Integer.parseInt(grid_trash_all.getText().toString());
-
-        mFeedbackViewModel.deleteFeedback(feedbackDAO.getFeedback(id));
-        Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
-
-        GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
-        // changed from mylistingactivity
-        // new FeedbackAdapter(AdminControl.this, feedbacks))
-        gridView.setAdapter(new FeedbackAdapter(this, mFeedbackViewModel.getAllFeedbacks().getValue()));
-    }
+//    public void deleteFeedback(View view) {
+//        mFeedbackViewModel = ViewModelProviders.of(this).get(FeedbackViewModel.class);
+//        AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
+//        UserDAO userDAO = db.userDao();
+//        FeedbackDao feedbackDAO = db.feedbackDao();
+//        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+//        String email = channel.getString("email","");
+//        User user = userDAO.getUser(email);
+//
+//        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
+//        Button grid_trash_all = (Button) v.findViewById(R.id.grid_item_trash_all);
+//        String feedbackID = (((TextView) v.findViewById(R.id.ID)).getText()).toString();
+//        int feedbackInt = Integer.parseInt(feedbackID);
+//        mFeedbackViewModel.deleteFeedback(feedbackDAO.getFeedback(feedbackInt));
+//        Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
+//
+//        GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
+//        // changed from mylistingactivity
+//        // new FeedbackAdapter(AdminControl.this, feedbacks))
+//        gridView.setAdapter(new FeedbackAdapter(this, mFeedbackViewModel.getAllFeedbacks().getValue(), mFeedbackViewModel));
+//    }
 
     public void deleteItemInAllTab(View view){
         // might have error; previously was mylistingactivity but it wasn't instantiated - no context
