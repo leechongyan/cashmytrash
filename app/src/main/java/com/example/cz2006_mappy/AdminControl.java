@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,13 +26,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminControl extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class AdminControl extends AppCompatActivity {
 
     private ItemViewModel mItemViewModel;
     private FeedbackViewModel mFeedbackViewModel;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +44,6 @@ public class AdminControl extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
         mItemViewModel = ViewModelProviders.of(AdminControl.this).get(ItemViewModel.class);
 
@@ -91,15 +86,17 @@ public class AdminControl extends AppCompatActivity
                     return;
                 }
                 if (tabNumber == 1){
+                    Log.e("tab1 selected in admin", "--------------");
+
                     mItemViewModel = ViewModelProviders.of(AdminControl.this).get(ItemViewModel.class);
 
                     final GridView gridView = (GridView) findViewById(R.id.listing_list_view);
                     mItemViewModel.getAllItems().observe(AdminControl.this, new Observer<List<Item>>() {
                         @Override
                         public void onChanged(@Nullable List<Item> items) {
+                            Log.e("onchange is runned", "--------------");
                             gridView.setAdapter(new ItemAllAdapter(AdminControl.this, items));
                         }
-
                     });
                 }
                 else if (tabNumber == 2){
@@ -165,71 +162,6 @@ public class AdminControl extends AppCompatActivity
         });
     }
 
-    public void deleteItemInAllTab(View view){
-        mItemViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemViewModel.class);
-
-        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
-        TextView grid_item_all = (TextView) v.findViewById(R.id.grid_item_id_all);
-        String id = grid_item_all.getText().toString();
-
-        AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
-        UserDAO userDAO = db.userDao();
-        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
-        String email = channel.getString("email","");
-        User user = userDAO.getUser(email);
-
-        mItemViewModel.deleteSoldItem(Integer.parseInt(id), user.getEmailaddress());
-        Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
-
-        GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
-        gridView.setAdapter(new ItemAllAdapter(MyListingActivity.this, mItemViewModel.getSoldItems(user.getEmailaddress())));
-    }
-
-    public void deleteItemInToDeliverTab(View view){
-        mItemViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemViewModel.class);
-        mItemTransactionViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemTransactionViewModel.class);
-
-        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
-        TextView grid_item_id_to_deliver = (TextView) v.findViewById(R.id.grid_item_id_to_deliver);
-        String id = grid_item_id_to_deliver.getText().toString();
-
-        AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
-        UserDAO userDAO = db.userDao();
-        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
-        String email = channel.getString("email","");
-        User user = userDAO.getUser(email);
-
-        // delete from ToDeliver: delete from Item and Transaction databases
-        mItemViewModel.deleteToDeliverItem(Integer.parseInt(id), user.getEmailaddress());
-        mItemTransactionViewModel.deleteToDeliverTransaction(Integer.parseInt(id), user.getEmailaddress());
-
-        Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
-
-        GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
-        ItemDao itemDao = db.itemDao();
-
-        // for loop
-        List<Integer> item_to_deliver_id = mItemTransactionViewModel.getItemIdToDeliver(user.getEmailaddress());
-        List<Item> items = new ArrayList<>();
-        for(int i =0; i< item_to_deliver_id.size(); i++){
-            int item_id = item_to_deliver_id.get(i);
-            items.add(itemDao.getItem(item_id));
-        }
-        gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, items));
-    }
-
-    public void makeAppointment(View view){
-        mItemTransactionViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemTransactionViewModel.class);
-
-        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
-        TextView id = (TextView) v.findViewById(R.id.grid_item_id_to_deliver);
-
-        ItemTransaction item = mItemTransactionViewModel.getItemTransaction(Integer.parseInt(id.getText().toString()));
-        String buyer_id = item.getBuyer_id();
-        Intent contactBuyer = new Intent(getApplicationContext(),MakeAppointmentActivity.class);
-        contactBuyer.putExtra("buyer_id", buyer_id);
-        startActivity(contactBuyer);
-    }
 
     @Override
     public void onBackPressed() {
@@ -261,47 +193,6 @@ public class AdminControl extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_home) {
-            //TODO: HOME ACTIVITY
-            Intent Home = new Intent(this, HomeActivity.class);
-            startActivity(Home);
-        } else if (id == R.id.nav_listing) {
-            //TODO: LISTING ACTIVITY
-            Intent Listing = new Intent(this, ListingActivity.class);
-            startActivity(Listing);
-        } else if (id == R.id.nav_my_listing) {
-            //TODO: MY LISTING ACTIVITY
-            Intent myListing = new Intent(this, MyListingActivity.class);
-            startActivity(myListing);
-        } else if (id == R.id.nav_my_purchases) {
-            //TODO: MY PURCHASES ACTIVITY
-            Intent purchases = new Intent(this.getApplicationContext(),MyPurchases.class);
-            startActivity(purchases);
-        } else if (id == R.id.nav_convert_to_cash) {
-            //TODO: CONVERT TO CASH ACTIVITY
-            Intent convert = new Intent(this, ConvertToCashNew.class);
-            startActivity(convert);
-        } else if (id == R.id.nav_change_password) {
-            //TODO: CHANGE PASSWORD ACTIVITY
-        } else if (id == R.id.nav_save_the_environment) {
-            //TODO: SAVE THE ENVIRONMENT ACTIVITY
-        } else if (id == R.id.nav_give_us_feedback) {
-            //TODO: GIVE US FEEDBACK ACTIVITY
-            Intent feedback = new Intent(this, FeedbackForm.class);
-            startActivity(feedback);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }
 
