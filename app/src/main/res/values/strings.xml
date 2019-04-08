@@ -66,4 +66,5 @@
     <string name="saveenvironment">SaveTheEnvironment</string>
     <!--Admin User page -->
     <string name="user">User Name</string>
+    <string name="email">Emailaddress</string>
 </resources>

@@ -31,6 +31,7 @@ public class AdminControl extends AppCompatActivity
     private ItemViewModel mItemViewModel;
     private ItemTransactionViewModel mItemTransactionViewModel;
     private FeedbackViewModel mFeedbackViewModel;
+    private UserViewModel mUserViewModel;
     private static final int USER = 0;
     private static final int ITEM = 1;
     private static final int FEEDBACK = 2;
@@ -89,6 +90,16 @@ public class AdminControl extends AppCompatActivity
             public void selectTab(int tabNumber){
                 if (tabNumber == USER){
                     //to implement User viewmodel and repo, link to dao
+                    mUserViewModel = ViewModelProviders.of(AdminControl.this).get(UserViewModel.class);
+
+                    final GridView gridView = (GridView) findViewById(R.id.listing_list_view);
+                    mUserViewModel.getAllUsers().observe(AdminControl.this, new Observer<List<User>>() {
+                        @Override
+                        public void onChanged(@Nullable List<User> users) {
+                            gridView.setAdapter(new UserAdaptor(AdminControl.this, users));
+                        }
+
+                    });
                     return;
                 }
                 if (tabNumber == ITEM){
@@ -102,10 +113,10 @@ public class AdminControl extends AppCompatActivity
                         }
 
                     });
+                    return;
                 }
                 else if (tabNumber == FEEDBACK){
                     mFeedbackViewModel = ViewModelProviders.of(AdminControl.this).get(FeedbackViewModel.class);
-//
                     final GridView gridView = (GridView) findViewById(R.id.listing_list_view);
                     mFeedbackViewModel.getAllFeedbacks().observe(AdminControl.this, new Observer<List<Feedback>>() {
 //                        @Override
@@ -114,6 +125,7 @@ public class AdminControl extends AppCompatActivity
                         }
 //                    !!!!Need to implement feedbackadaptor
                     });
+                    return;
                 }
             }
 
@@ -186,74 +198,34 @@ public class AdminControl extends AppCompatActivity
         // new FeedbackAdapter(AdminControl.this, feedbacks))
         gridView.setAdapter(new FeedbackAdapter(this, mFeedbackViewModel.getAllFeedbacks().getValue()));
     }
-
-    public void deleteItemInAllTab(View view){
-        // might have error; previously was mylistingactivity but it wasn't instantiated - no context
-        mItemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
-
-        RelativeLayout v = (RelativeLayout) view.getParent().getParent();
-        TextView grid_item_all = (TextView) v.findViewById(R.id.grid_item_id_all);
-        String id = grid_item_all.getText().toString();
-
+    public void deleteUser(View view){
         AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
         UserDAO userDAO = db.userDao();
-        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
-        String email = channel.getString("email","");
-        User user = userDAO.getUser(email);
-
-        mItemViewModel.deleteSoldItem(Integer.parseInt(id), user.getEmailaddress());
-        Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
-
-        GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
-        // changed from mylistingactivity
-        gridView.setAdapter(new ItemAllAdapter(this, mItemViewModel.getSoldItems(user.getEmailaddress())));
-    }
-
-    public void deleteItemInToDeliverTab(View view){
-        // per above, changed context from mylistingactivity to this
-        mItemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
-        mItemTransactionViewModel = ViewModelProviders.of(this).get(ItemTransactionViewModel.class);
-
+        mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         RelativeLayout v = (RelativeLayout) view.getParent().getParent();
-        TextView grid_item_id_to_deliver = (TextView) v.findViewById(R.id.grid_item_id_to_deliver);
-        String id = grid_item_id_to_deliver.getText().toString();
-
-        AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
-        UserDAO userDAO = db.userDao();
-        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
-        String email = channel.getString("email","");
+        TextView grid_item_email = (TextView) v.findViewById(R.id.grid_item_email);
+        String email = grid_item_email.getText().toString();
         User user = userDAO.getUser(email);
-
-        // delete from ToDeliver: delete from Item and Transaction databases
-        mItemViewModel.deleteToDeliverItem(Integer.parseInt(id), user.getEmailaddress());
-        mItemTransactionViewModel.deleteToDeliverTransaction(Integer.parseInt(id), user.getEmailaddress());
-
-        Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
-
-        GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
-        ItemDao itemDao = db.itemDao();
-
-        // for loop
-        List<Integer> item_to_deliver_id = mItemTransactionViewModel.getItemIdToDeliver(user.getEmailaddress());
-        List<Item> items = new ArrayList<>();
-        for(int i =0; i< item_to_deliver_id.size(); i++){
-            int item_id = item_to_deliver_id.get(i);
-            items.add(itemDao.getItem(item_id));
+        if (userDAO.delete(user)!=0){
+            Toast.makeText(getApplicationContext(),"User Deleted", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(getApplicationContext(),"User not deleted", Toast.LENGTH_LONG).show();
         }
-        gridView.setAdapter(new ItemToDeliverAdapter(this, items));
     }
 
-    public void makeAppointment(View view){
-        mItemTransactionViewModel = ViewModelProviders.of(this).get(ItemTransactionViewModel.class);
-
+    public void deleteItemAdmin(View view){
+        AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
+        ItemDao itemDAO = db.itemDao();
+        mItemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
         RelativeLayout v = (RelativeLayout) view.getParent().getParent();
-        TextView id = (TextView) v.findViewById(R.id.grid_item_id_to_deliver);
-
-        ItemTransaction item = mItemTransactionViewModel.getItemTransaction(Integer.parseInt(id.getText().toString()));
-        String buyer_id = item.getBuyer_id();
-        Intent contactBuyer = new Intent(getApplicationContext(),MakeAppointmentActivity.class);
-        contactBuyer.putExtra("buyer_id", buyer_id);
-        startActivity(contactBuyer);
+        TextView grid_item_id_all = (TextView) v.findViewById(R.id.grid_item_id_all);
+        String id = grid_item_id_all.getText().toString();
+        int id2 = Integer.parseInt(id);
+        if (itemDAO.delete(itemDAO.getItem(id2))!=0){
+            Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(getApplicationContext(),"Item not deleted", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
