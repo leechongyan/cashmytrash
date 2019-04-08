@@ -26,7 +26,7 @@
             android:title="Convert to Cash" />
         <item
             android:id="@+id/nav_change_password"
-            android:title="Change Password" />
+            android:title="Edit Profile" />
         <item
             android:id="@+id/nav_save_the_environment"
             android:title="Save The Environment" />

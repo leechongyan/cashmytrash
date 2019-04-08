@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditProfile">
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/changepassword3"
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/new_password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changepassword2"
+        app:met_helperText="@string/reenter_new_password"
+        app:met_helperTextAlwaysShown="true" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/changepassword2"
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/new_password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/changepassword3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changepassword"
+        app:met_helperText="@string/enter_new_password"
+        app:met_helperTextAlwaysShown="true" />
+
+    <ImageView
+        android:id="@+id/editProfilePic"
+        android:layout_width="123dp"
+        android:layout_height="154dp"
+        android:contentDescription="@string/upload_profile_picture"
+        app:layout_constraintBottom_toTopOf="@+id/uploadProfilePic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profilepic" />
+
+    <TextView
+        android:id="@+id/uploadProfilePic"
+        android:layout_width="248dp"
+        android:layout_height="37dp"
+        android:text="@string/upload_profile_picture"
+        app:layout_constraintBottom_toTopOf="@+id/changepassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editProfilePic" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/changepassword"
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/current_password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/changepassword2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uploadProfilePic"
+        app:met_helperText="@string/enter_current_password"
+        app:met_helperTextAlwaysShown="true" />
+
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changepassword3" />
+</android.support.constraint.ConstraintLayout>

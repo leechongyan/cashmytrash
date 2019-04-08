@@ -22,7 +22,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
+        <activity
+            android:name=".EditProfile"
+            android:label="@string/title_activity_edit_profile"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+=======
         <activity android:name=".AdminControl"></activity>
+>>>>>>> 284f1f2e69892fd025d3d1480d615d4794066b8d
         <activity android:name=".ContactSeller" />
         <activity
             android:name=".InsertToken"
@@ -40,6 +47,7 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
+        <!-- for API -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
