@@ -39,7 +39,6 @@ public class ItemToDeliverAdapter extends BaseAdapter {
             TextView itemName = (TextView) gridView.findViewById(R.id.grid_item_name_to_deliver);
             TextView itemPrice = (TextView) gridView.findViewById(R.id.grid_item_price_to_deliver);
             TextView itemUsername = (TextView) gridView.findViewById(R.id.grid_item_username_to_deliver);
-            TextView itemToken = (TextView) gridView.findViewById(R.id.grid_item_token_to_deliver);
             TextView itemDescription = (TextView) gridView.findViewById(R.id.grid_item_description_to_deliver);
 
             ImageView imageView_trash = (ImageView) gridView
@@ -51,6 +50,8 @@ public class ItemToDeliverAdapter extends BaseAdapter {
                     .findViewById(R.id.grid_item_message_to_deliver);
 
             imageView_message.setImageResource(R.drawable.ic_message);
+
+            TextView itemToken = (TextView) gridView.findViewById(R.id.token_textview);
 
             int id = items.get(position).getItem_id();
             String name = items.get(position).getItem_name();

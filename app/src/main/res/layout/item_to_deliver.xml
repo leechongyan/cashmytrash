@@ -44,20 +44,26 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/grid_item_token_to_deliver"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="10sp"
-            android:text="@string/itemDetailToken"
-            android:textAllCaps="false"
-            android:textSize="18sp" />
-
-        <TextView
             android:id="@+id/grid_item_description_to_deliver"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/itemDetailDescription"
             android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="10dp">
+        <TextView
+            android:id="@+id/token_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/itemDetailToken"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false" />
     </LinearLayout>
 
     <LinearLayout
