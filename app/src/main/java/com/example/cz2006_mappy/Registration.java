@@ -82,7 +82,7 @@ public class Registration extends AppCompatActivity {
                         e5.setError("Phone no is invalid");
                         flag=0;
                     }
-                    if(s2.length()<8&&!isValidPassword(s2)){
+                    if(!isValidPassword(s2)){
                         e2.setError("Password must contain minimum 8 characters at least 1 Alphabet, 1 Number and 1 Special Character");
                         flag=0;
                     }
@@ -130,7 +130,7 @@ public class Registration extends AppCompatActivity {
     public static boolean isValidPassword(final String password) {
         Pattern pattern;
         Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
+        final String PASSWORD_PATTERN = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+])[A-Za-z\\d!@#$%^&*()_+]{8,20}";
         pattern = Pattern.compile(PASSWORD_PATTERN);
         matcher = pattern.matcher(password);
         return matcher.matches();
