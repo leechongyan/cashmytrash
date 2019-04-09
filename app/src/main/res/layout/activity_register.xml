@@ -151,7 +151,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/phone"
-                    app:met_helperText="Password must be alphanumeric and be between 8 - 20 characters"
+                    app:met_helperText="Password must contain minimum 8 characters at least 1 Alphabet, 1 Number and 1 Special Character"
                     app:met_helperTextAlwaysShown="true" />
 
                 <Button
