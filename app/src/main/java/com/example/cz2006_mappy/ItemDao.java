@@ -20,7 +20,7 @@ public interface ItemDao {
     @Query("SELECT * FROM ITEM WHERE available = 1")
     LiveData<List<Item>> getAllItems();
 
-    @Query("SELECT * FROM ITEM WHERE item_name LIKE '%'  ||:s || '%'")
+    @Query("SELECT * FROM ITEM WHERE item_name LIKE '%'  ||:s || '%' AND available = 1")
     List<Item> getSearchedItems(String s);
 
     @Query("SELECT * FROM ITEM WHERE seller_id = :seller_email AND available = 1")
