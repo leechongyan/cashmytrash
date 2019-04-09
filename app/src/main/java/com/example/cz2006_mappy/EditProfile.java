@@ -73,6 +73,11 @@ public class EditProfile extends AppCompatActivity implements NavigationView.OnN
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.header_name);
+        TextView navEmail = (TextView) headerView.findViewById(R.id.header_email);
+        navUsername.setText(channel.getString("username", ""));
+        navEmail.setText(channel.getString("email", ""));
 
         // confirmation button
         conf.setOnClickListener(new View.OnClickListener() {

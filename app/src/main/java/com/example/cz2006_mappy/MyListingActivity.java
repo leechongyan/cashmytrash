@@ -45,6 +45,19 @@ public class MyListingActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
+        UserDAO userDAO = db.userDao();
+        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+        String email = channel.getString("email","");
+        User user = userDAO.getUser(email);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.header_name);
+        TextView navEmail = (TextView) headerView.findViewById(R.id.header_email);
+
+        navUsername.setText(user.getUsername());
+        navEmail.setText(email);
+
+
         mItemViewModel = ViewModelProviders.of(MyListingActivity.this).get(ItemViewModel.class);
 
         //Show item in gridview

@@ -43,6 +43,8 @@ public class AdminControl extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         // Navigation Panel
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,6 +54,13 @@ public class AdminControl extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.header_name);
+        TextView navEmail = (TextView) headerView.findViewById(R.id.header_email);
+
+        navUsername.setText("admin");
+        navEmail.setText("admin@admin.cz2006.com");
 
         mItemViewModel = ViewModelProviders.of(AdminControl.this).get(ItemViewModel.class);
 
@@ -288,34 +297,10 @@ public class AdminControl extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
+        if (id == R.id.logout) {
             //TODO: HOME ACTIVITY
-            Intent Home = new Intent(this, HomeActivity.class);
-            startActivity(Home);
-        } else if (id == R.id.nav_listing) {
-            //TODO: LISTING ACTIVITY
-            Intent Listing = new Intent(this, ListingActivity.class);
-            startActivity(Listing);
-        } else if (id == R.id.nav_my_listing) {
-            //TODO: MY LISTING ACTIVITY
-            Intent myListing = new Intent(this, MyListingActivity.class);
-            startActivity(myListing);
-        } else if (id == R.id.nav_my_purchases) {
-            //TODO: MY PURCHASES ACTIVITY
-            Intent purchases = new Intent(this.getApplicationContext(),MyPurchases.class);
-            startActivity(purchases);
-        } else if (id == R.id.nav_convert_to_cash) {
-            //TODO: CONVERT TO CASH ACTIVITY
-            Intent convert = new Intent(this, ConvertToCashNew.class);
-            startActivity(convert);
-        } else if (id == R.id.nav_change_password) {
-            //TODO: CHANGE PASSWORD ACTIVITY
-        } else if (id == R.id.nav_save_the_environment) {
-            //TODO: SAVE THE ENVIRONMENT ACTIVITY
-        } else if (id == R.id.nav_give_us_feedback) {
-            //TODO: GIVE US FEEDBACK ACTIVITY
-            Intent feedback = new Intent(this, FeedbackForm.class);
-            startActivity(feedback);
+            Intent logout = new Intent(this, Login.class);
+            startActivity(logout);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

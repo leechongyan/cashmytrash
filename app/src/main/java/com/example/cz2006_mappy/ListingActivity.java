@@ -3,6 +3,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -129,6 +130,14 @@ public class ListingActivity extends AppCompatActivity implements NavigationView
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.header_name);
+        TextView navEmail = (TextView) headerView.findViewById(R.id.header_email);
+        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+        navUsername.setText(channel.getString("username", ""));
+        navEmail.setText(channel.getString("email", ""));
     }
 
     @Override

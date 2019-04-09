@@ -45,6 +45,15 @@ public class MyPurchases extends AppCompatActivity implements NavigationView.OnN
 
         pref = getSharedPreferences("user_details", MODE_PRIVATE);
         String username = pref.getString("username","Anon");
+
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.header_name);
+        TextView navEmail = (TextView) headerView.findViewById(R.id.header_email);
+        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+        navUsername.setText(channel.getString("username", ""));
+        navEmail.setText(channel.getString("email", ""));
+
         mItemViewModel = ViewModelProviders.of(MyPurchases.this).get(ItemViewModel.class);
         mItemTransactionViewModel = ViewModelProviders.of(this).get(ItemTransactionViewModel.class);
         final GridView gridView = (GridView) findViewById(R.id.grid_my_purchases_view);

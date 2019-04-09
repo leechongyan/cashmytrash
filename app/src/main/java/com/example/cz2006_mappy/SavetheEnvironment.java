@@ -1,6 +1,7 @@
 package com.example.cz2006_mappy;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
@@ -49,7 +51,12 @@ public class SavetheEnvironment extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.header_name);
+        TextView navEmail = (TextView) headerView.findViewById(R.id.header_email);
+        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+        navUsername.setText(channel.getString("username", ""));
+        navEmail.setText(channel.getString("email", ""));
         String url = "https://api.data.gov.sg/v1/environment/pm25";
 
         overall25 = (TextView) findViewById(R.id.overall25);
