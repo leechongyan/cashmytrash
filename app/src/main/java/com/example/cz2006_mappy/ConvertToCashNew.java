@@ -2,6 +2,7 @@ package com.example.cz2006_mappy;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -68,6 +69,14 @@ public class ConvertToCashNew extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.header_name);
+        TextView navEmail = (TextView) headerView.findViewById(R.id.header_email);
+        SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
+        navUsername.setText(channel.getString("username", ""));
+        navEmail.setText(channel.getString("email", ""));
+
 
         requestLocationPermission();
         Places.initialize(getApplicationContext(),String.valueOf(R.string.google_maps_key));

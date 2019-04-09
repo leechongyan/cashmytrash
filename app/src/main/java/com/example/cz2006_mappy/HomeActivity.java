@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,11 +15,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +53,7 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
         AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
         UserDAO userDAO = db.userDao();
         SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
@@ -60,6 +65,21 @@ public class HomeActivity extends AppCompatActivity
 
         TextView savingsTextView = (TextView) findViewById(R.id.savingsTextView);
         savingsTextView.setText(Double.toString(user.getSavings()));
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.header_name);
+        TextView navEmail = (TextView) headerView.findViewById(R.id.header_email);
+
+        navUsername.setText(channel.getString("username", ""));
+        navEmail.setText(channel.getString("email", ""));
+
+//        if (channel.getString("profile", "").length() > 15 )
+//        {
+//            ImageView imageView = headerView.findViewById(R.id.header_image);
+//            imageView.setImageBitmap(BitmapFactory.decodeFile(channel.getString("profile", "")));
+//
+//        }
+
 
         if(getIntent().hasExtra("com.example.cz2006.mappy.displayTarget")){
             Double toDisplay = getIntent().getExtras().getDouble("com.example.cz2006.mappy.displayTarget");

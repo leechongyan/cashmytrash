@@ -39,6 +39,7 @@ public class Login extends AppCompatActivity {
             userDAO.insert(fake);
         }
 
+
         pref = getSharedPreferences("user_details", MODE_PRIVATE);
         t1 = (TextView) findViewById(R.id.createaccount);
         t2 = (TextView) findViewById(R.id.passwordforget);
@@ -82,6 +83,7 @@ public class Login extends AppCompatActivity {
                             editor.putInt("phone", user.getPhone());
                             editor.putString("target", Double.toString(user.getTarget()));
                             editor.putString("savings", Double.toString(user.getSavings()));
+                            editor.putString("profile", user.getImagePath());
                             editor.commit();
                             Intent i2 = new Intent(Login.this, HomeActivity.class);
                             startActivity(i2);

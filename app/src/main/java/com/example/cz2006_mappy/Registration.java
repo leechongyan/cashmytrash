@@ -5,6 +5,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
@@ -122,7 +123,7 @@ public class Registration extends AppCompatActivity {
             Uri selectedImage = data.getData();
             imageUploaded.setImageURI(selectedImage);
             profilepic.setText("Upload Success");
-            String profilePath = selectedImage.toString();
+            profilePath = selectedImage.toString();
 
         }
     }
