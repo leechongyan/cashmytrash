@@ -102,11 +102,8 @@ public class EditProfile extends AppCompatActivity implements NavigationView.OnN
                     if (!(curP.equals(user.getPassword()))) {
                         curPass.setError("Please make sure you have entered your current password correctly!");
                     }
-                    if (newP.length() < 8 && !isValidPassword(newP)) {
+                    if (!isValidPassword(newP)) {
                         newPass.setError("Password must contain minimum 8 characters, at least 1 Alphabet, 1 Number and 1 Special Character");
-                    }
-                    if (newP.length() < 8 && !isValidPassword(newP)) {
-                        newerPass.setError("Password must contain minimum 8 characters, at least 1 Alphabet, 1 Number and 1 Special Character");
                     }
                     else if (!(newP.equals(newerP))) {
                         Toast.makeText(getApplicationContext(), "Please ensure that your new passwords match!", Toast.LENGTH_SHORT).show();
@@ -140,7 +137,7 @@ public class EditProfile extends AppCompatActivity implements NavigationView.OnN
     public static boolean isValidPassword(final String password) {
         Pattern pattern;
         Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        final String PASSWORD_PATTERN = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+])[A-Za-z\\d!@#$%^&*()_+]{8,20}";
         pattern = Pattern.compile(PASSWORD_PATTERN);
         matcher = pattern.matcher(password);
         return matcher.matches();
