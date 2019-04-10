@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyListingActivity extends AppCompatActivity
@@ -27,6 +26,8 @@ public class MyListingActivity extends AppCompatActivity
 
     private ItemViewModel mItemViewModel;
     private ItemTransactionViewModel mItemTransactionViewModel;
+
+    private SellingManager selling_manager = new SellingManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +46,11 @@ public class MyListingActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
-        UserDAO userDAO = db.userDao();
         SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
         String email = channel.getString("email","");
-        User user = userDAO.getUser(email);
+
+        User user = selling_manager.getUserListing(email);
+
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername = (TextView) headerView.findViewById(R.id.header_name);
         TextView navEmail = (TextView) headerView.findViewById(R.id.header_email);
@@ -97,11 +98,9 @@ public class MyListingActivity extends AppCompatActivity
                     //Show item in gridview
                     final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
 
-                    AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
-                    UserDAO userDAO = db.userDao();
                     SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
                     String email = channel.getString("email","");
-                    User user = userDAO.getUser(email);
+                    User user = selling_manager.getUserListing(email);
 
                     gridView.setAdapter(new ItemAllAdapter(MyListingActivity.this, mItemViewModel.getSoldItems(user.getEmailaddress())));
 
@@ -119,20 +118,13 @@ public class MyListingActivity extends AppCompatActivity
                     //Show item in gridview
                     final GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
 
-                    AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
-                    UserDAO userDAO = db.userDao();
-                    ItemDao itemDao = db.itemDao();
                     SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
                     String email = channel.getString("email","");
-                    User user = userDAO.getUser(email);
+                    User user = selling_manager.getUserListing(email);
 
                     // for loop
                     List<Integer> item_to_deliver_id = mItemTransactionViewModel.getItemIdToDeliver(user.getEmailaddress());
-                    List<Item> items = new ArrayList<>();
-                    for(int i =0; i< item_to_deliver_id.size(); i++){
-                        int item_id = item_to_deliver_id.get(i);
-                        items.add(itemDao.getItem(item_id));
-                    }
+                    List<Item> items = selling_manager.getItemsToDeliver(item_to_deliver_id);
                     gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, items));
 
                 }
@@ -194,11 +186,9 @@ public class MyListingActivity extends AppCompatActivity
         TextView grid_item_all = (TextView) v.findViewById(R.id.grid_item_id_all);
         String id = grid_item_all.getText().toString();
 
-        AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
-        UserDAO userDAO = db.userDao();
         SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
         String email = channel.getString("email","");
-        User user = userDAO.getUser(email);
+        User user = selling_manager.getUserListing(email);
 
         mItemViewModel.deleteSoldItem(Integer.parseInt(id), user.getEmailaddress());
         Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
@@ -215,11 +205,9 @@ public class MyListingActivity extends AppCompatActivity
         TextView grid_item_id_to_deliver = (TextView) v.findViewById(R.id.grid_item_id_to_deliver);
         String id = grid_item_id_to_deliver.getText().toString();
 
-        AndroidRoomDatabase db = AndroidRoomDatabase.getDatabase(getApplication());
-        UserDAO userDAO = db.userDao();
         SharedPreferences channel = getSharedPreferences("user_details", MODE_PRIVATE);
         String email = channel.getString("email","");
-        User user = userDAO.getUser(email);
+        User user = selling_manager.getUserListing(email);
 
         // delete from ToDeliver: delete from Item and Transaction databases
         mItemViewModel.deleteToDeliverItem(Integer.parseInt(id), user.getEmailaddress());
@@ -228,15 +216,11 @@ public class MyListingActivity extends AppCompatActivity
         Toast.makeText(getApplicationContext(),"Item Deleted", Toast.LENGTH_LONG).show();
 
         GridView gridView = (GridView) findViewById(R.id.listing_grid_view_my_listing);
-        ItemDao itemDao = db.itemDao();
 
         // for loop
         List<Integer> item_to_deliver_id = mItemTransactionViewModel.getItemIdToDeliver(user.getEmailaddress());
-        List<Item> items = new ArrayList<>();
-        for(int i =0; i< item_to_deliver_id.size(); i++){
-            int item_id = item_to_deliver_id.get(i);
-            items.add(itemDao.getItem(item_id));
-        }
+        List<Item> items = selling_manager.getItemsToDeliver(item_to_deliver_id);
+
         gridView.setAdapter(new ItemToDeliverAdapter(MyListingActivity.this, items));
     }
 

@@ -95,26 +95,33 @@ public class EditProfile extends AppCompatActivity implements NavigationView.OnN
                     startActivity(intent);
                 }
                 else {
+                    int flag = 1;
                     if (curP.equals("") || newP.equals("") || newerP.equals("")) {
                         Toast.makeText(getApplicationContext(), "Please enter all the fields to change your password!", Toast.LENGTH_SHORT).show();
+                        flag=0;
                     }
                     // all fields are filled
                     if (!(curP.equals(user.getPassword()))) {
                         curPass.setError("Please make sure you have entered your current password correctly!");
+                        flag=0;
                     }
                     if (!isValidPassword(newP)) {
                         newPass.setError("Password must contain minimum 8 characters, at least 1 Alphabet, 1 Number and 1 Special Character");
+                        flag=0;
                     }
                     else if (!(newP.equals(newerP))) {
                         Toast.makeText(getApplicationContext(), "Please ensure that your new passwords match!", Toast.LENGTH_SHORT).show();
+                        flag=0;
                     }
                     else {
                         // TODO: persistence (user password not updating
-                        user.setPassword(newP);
-                        userDAO.update(user);
-                        Toast.makeText(getApplicationContext(), "Profile Updated!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(EditProfile.this, HomeActivity.class);
-                        startActivity(intent);
+                        if(flag==1) {
+                            user.setPassword(newP);
+                            userDAO.update(user);
+                            Toast.makeText(getApplicationContext(), "Profile Updated!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(EditProfile.this, HomeActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 }
             }

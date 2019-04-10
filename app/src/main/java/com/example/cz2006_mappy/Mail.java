@@ -44,10 +44,10 @@ public class Mail extends javax.mail.Authenticator {
         _sport = "587"; // default socketfactory port
 
         _user = "cashmytrashmanager"; // username
-        _pass = "64422795"; // password
+        _pass = "abc123%%%"; // password
         _from = "CashMyTrash"; // email sent from
         _subject = "Resetting Password"; // email subject
-        _body = "Your new password is 1234. Please reset upon logging in!"; // email body
+        _body = "Dear user, \n\nYour new password is 1234.\n\nPlease reset upon logging in!\n\nBest regards, CashMyTrash Team"; // email body
 
         _debuggable = false; // debug mode on or off - default off
         _auth = true; // smtp authentication - default on
@@ -80,7 +80,7 @@ public class Mail extends javax.mail.Authenticator {
 
             Session session = Session.getInstance(props, new javax.mail.Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication("cashmytrashmanager@gmail","abc123%%%");
+                    return new PasswordAuthentication("cashmytrashmanager","abc123%%%");
                 }
             });
             SMTPAuthenticator authentication = new SMTPAuthenticator();
