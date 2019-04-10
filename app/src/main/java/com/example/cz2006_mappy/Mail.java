@@ -47,7 +47,7 @@ public class Mail extends javax.mail.Authenticator {
         _pass = "abc123%%%"; // password
         _from = "CashMyTrash"; // email sent from
         _subject = "Resetting Password"; // email subject
-        _body = "Your new password is 1234. Please reset upon logging in!"; // email body
+        _body = "Dear user, \n\nYour new password is 1234.\n\nPlease reset upon logging in!\n\nBest regards, CashMyTrash Team"; // email body
 
         _debuggable = false; // debug mode on or off - default off
         _auth = true; // smtp authentication - default on
