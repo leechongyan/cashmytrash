@@ -23,12 +23,10 @@ public class ContactSeller extends AppCompatActivity {
         TextView sellerUsername = (TextView) findViewById(R.id.sellerUsername);
         TextView sellerPhone = (TextView) findViewById(R.id.sellerPhone);
         TextView sellerEmail = (TextView) findViewById(R.id.sellerEmail);
-        ImageView sellerPhoto = (ImageView) findViewById(R.id.sellerPhoto);
 
         sellerUsername.setText(seller_username);
         sellerEmail.setText(user_id);
         sellerPhone.setText(Integer.toString(seller_phone));
-        sellerPhoto.setImageDrawable(getResources().getDrawable(R.drawable.profilepic));
         //TODO: set seller profile picture
 
         FloatingActionButton contactBackButton = (FloatingActionButton) findViewById(R.id.contactBackButton);

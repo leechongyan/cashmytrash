@@ -5,8 +5,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,13 +13,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +66,8 @@ public class HomeActivity extends AppCompatActivity
         TextView navUsername = (TextView) headerView.findViewById(R.id.header_name);
         TextView navEmail = (TextView) headerView.findViewById(R.id.header_email);
 
+        TextView listingTextView = (TextView) findViewById(R.id.listingsSoldTextView);
+
         navUsername.setText(channel.getString("username", ""));
         navEmail.setText(channel.getString("email", ""));
 
@@ -84,6 +82,11 @@ public class HomeActivity extends AppCompatActivity
         if(getIntent().hasExtra("com.example.cz2006.mappy.displayTarget")){
             Double toDisplay = getIntent().getExtras().getDouble("com.example.cz2006.mappy.displayTarget");
             targetTextView.setText(Double.toString(toDisplay));
+
+            listingsSold=0.0;
+            savingsTextView.setText(Double.toString(0.00));
+            listingTextView.setText(Double.toString(listingsSold));
+
         }
         if(getIntent().hasExtra("com.example.cz2006.mappy.displaySavings")){
             String toDisplay = getIntent().getExtras().getString("com.example.cz2006.mappy.displaySavings");
@@ -137,6 +140,13 @@ public class HomeActivity extends AppCompatActivity
                                 TextView savingsTextView = (TextView) findViewById(R.id.savingsTextView);
                                 savingsTextView.setText(Double.toString(user.getSavings()));
                                 Toast.makeText(getApplicationContext(),"Added to savings", Toast.LENGTH_LONG).show();
+
+                                TextView totalTextView = (TextView) findViewById(R.id.totalTextView);
+                                TextView listingTextView = (TextView) findViewById(R.id.listingsSoldTextView);
+                                double savings = Double.parseDouble(savingsTextView.getText().toString());
+                                double listing = Double.parseDouble(listingTextView.getText().toString());
+                                totalTextView.setText(Double.toString(savings+listing));
+
                             }
                         });
                         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -161,6 +171,7 @@ public class HomeActivity extends AppCompatActivity
         mItemTransactionViewModel = ViewModelProviders.of(HomeActivity.this).get(ItemTransactionViewModel.class);
         Integer numDelivered = mItemTransactionViewModel.countDelivered(user_id);
 
+
         if(numDelivered > 0){
             List<Integer> item_delivered_id = mItemTransactionViewModel.getItemsDelivered(user_id);
 
@@ -171,10 +182,15 @@ public class HomeActivity extends AppCompatActivity
 
             TextView listingsSoldTextView = (TextView) findViewById(R.id.listingsSoldTextView);
             listingsSoldTextView.setText(Double.toString(listingsSold));
+
+            TextView totalTextView = (TextView) findViewById(R.id.totalTextView);
+            double savings = Double.parseDouble(savingsTextView.getText().toString());
+            double listing = Double.parseDouble(listingTextView.getText().toString());
+            totalTextView.setText(Double.toString(savings+listing));
         }
         else{
             TextView listingsSoldTextView = (TextView) findViewById(R.id.listingsSoldTextView);
-            listingsSoldTextView.setText("0.00");
+            listingsSoldTextView.setText("0.0");
         }
     }
 

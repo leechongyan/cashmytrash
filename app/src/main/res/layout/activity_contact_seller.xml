@@ -26,7 +26,7 @@
         android:id="@+id/usernameS"
         android:layout_width="250dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="100dp"
         android:text="Seller Username:"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -34,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.298"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sellerPhoto" />
+        app:layout_constraintTop_toBottomOf="@id/contactBackButton" />
 
     <TextView
         android:id="@+id/sellerUsername"
@@ -100,14 +100,4 @@
         app:layout_constraintTop_toBottomOf="@+id/PhoneS"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/sellerPhoto"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
 </android.support.constraint.ConstraintLayout>
